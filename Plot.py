@@ -4,6 +4,8 @@ import sys
 from PlotInfo import PlotInfo
 from PlotLayout import *
 
+from Utils import getGoldenRatioDimensions
+
 class Plot:
     """
     Represents a single plot, usually consisting of a single X and Y axis.
@@ -32,6 +34,23 @@ class Plot:
         self.lineColors = None
 
         self.title = None
+
+        self.width = None
+        self.height = None
+        
+        self.plotParams = None
+
+    def getDimensions(self):
+        if self.width is None:
+            (self.width, self.height) = getGoldenRatioDimensions(8.0)
+        elif self.height is None:
+            (goldWidth, goldHeight) = getGoldenRatioDimensions(self.width)
+            self.height = goldHeight
+        return (self.width, self.height)
+
+    def setDimensions(self, width=None, height=None):
+        self.width = width
+        self.height = height
 
     def add(self, plottableObject):
         """
@@ -142,20 +161,52 @@ class Plot:
 
         return cmp(self.title, other.title)
 
+    def __setupLayout(self):
+        layout = PlotLayout()
+        (width, height) = self.getDimensions()
+        
+        layout.setPlotDimensions(width, height)
+
+        if self.plotParams is not None:
+            layout.setPlotParameters(**self.plotParams)
+
+        layout.addPlot(self)
+        return layout
+
     def plot(self):
         """
         Draw this plot to a matplotlib canvas.
         """
-        layout = PlotLayout()
-        layout.addPlot(self)
+        layout = self.__setupLayout()
         layout.plot()
+
+    def setPlotParameters(self, **kwdict):
+        self.plotParams = dict(kwdict)
+
+        if "left" not in self.plotParams:
+            self.plotParams["left"] = 0.12
+
+        if "bottom" not in self.plotParams:
+            self.plotParams["bottom"] = 0.10
+
+        if "right" not in self.plotParams:
+            self.plotParams["right"] = 0.90
+
+        if "top" not in self.plotParams:
+            self.plotParams["top"] = 0.90
+
+        if "wspace" not in self.plotParams:
+            self.plotParams["wspace"] = 0.20
+
+        if "hspace" not in self.plotParams:
+            self.plotParams["hspace"] = 0.20
+
 
     def save(self, filename):
         """
         Save this plot to a file.
         """
-        layout = PlotLayout()
-        layout.addPlot(self)
+        layout = self.__setupLayout()
         layout.save(filename)
 
     def subplot(self, row, column, position):

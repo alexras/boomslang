@@ -8,6 +8,7 @@ class Line(PlotInfo):
         
         self.marker = None
         self.markerSize = 8.0
+        # TODO Change to width
         self.lineWidth = 1
         self.color = 'black'
         self.lineStyle = '-'
