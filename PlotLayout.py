@@ -15,11 +15,9 @@ class PlotLayout:
 
         self.dimensions = None
         self.figdimensions = None
-        self.figTitle = None
 
         self.figLegendLoc = None
         self.figLegendCols = None
-        self.figLegendNumPlots = -1
 
         self.rcParams = None
 
@@ -48,18 +46,12 @@ class PlotLayout:
     def setLegendLabelSize(self, size):
         self.__setRCParam("legend.fontsize", size)
 
-    def setFigureTitle(self, title):
-        self.figTitle = title
-
     def setWidth(self, width):
         self.width = int(width)
 
-    def hasFigLegend(self, loc="best", numcols=1, firstPlots=-1):
+    def hasFigLegend(self, loc="best", numcols=1):
         self.figLegendLoc = loc
         self.figLegendCols = numcols
-
-        if firstPlots >= 0:
-            self.figLegendNumPlots = firstPlots
 
     def addPlot(self, plot, grouping=None):
         if grouping == None:
