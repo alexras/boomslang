@@ -39,6 +39,13 @@ class Plot:
         self.height = None
         
         self.plotParams = None
+        self.logx = False
+        self.logy = False
+        self.loglog = False
+        self.grid = False
+
+        self.figLegend = False
+
 
     def getDimensions(self):
         if self.width is None:
@@ -144,6 +151,11 @@ class Plot:
         """
         self.ylim = (minY, maxY)
 
+    def hasFigLegend(self, columns=1, location="best"):
+        self.figLegend = True
+        self.legendCols = columns
+        self.legendLoc = location
+
     def hasLegend(self, columns=1, location="best"):
         """
         Declare that the plot has a legend with a given number of columns and
@@ -214,7 +226,15 @@ class Plot:
         Used by PlotLayout to plot the graph at a given location in the layout.
         """
         ax = pylab.subplot(row, column, position)
-        
+
+        if self.grid:
+            ax.grid()
+
+        if self.loglog or self.logx:
+            ax.set_xscale('log')
+        if self.loglog or self.logy:
+            ax.set_yscale('log')
+
         if self.twinxIndex > 0:
             ax2 = ax.twinx()
             ax2.set_ylabel(self.twinxLabel)
@@ -274,5 +294,8 @@ class Plot:
         if self.legend:
             pylab.legend(plotHandles, plotLabels, loc=self.legendLoc, 
                          ncol=self.legendCols)
+        if self.figLegend:
+            pylab.figlegend(plotHandles, plotLabels, loc=self.legendLoc, 
+                            ncol=self.legendCols)
 
         return (plotHandles, plotLabels)

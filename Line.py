@@ -13,12 +13,15 @@ class Line(PlotInfo):
         self.color = 'black'
         self.lineStyle = '-'
         self.dates = False
+        self.loglog = False
 
     def draw(self, axis):
         PlotInfo.draw(self, axis)
         
         if self.dates:
             plotFunc = axis.plot_date
+        elif self.loglog:
+            plotFunc = axis.loglog
         else:
             plotFunc = axis.plot
 

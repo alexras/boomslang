@@ -12,9 +12,15 @@ class ShadedRegion(PlotInfo):
         PlotInfo.draw(self, axis)
 
         argsDict = {}
-        argsDict["color"] = self.color
+        argsDict["facecolor"] = self.color
+        argsDict["edgecolor"] = self.color
+        argsDict["alpha"] = 0.5
         
-        poly = matplotlib.patches.Polygon(zip(self.xValues, self.yValues), 
+        lowerLeft = (min(self.xValues), min(self.yValues))
+        height = max(self.yValues) - min(self.yValues)
+        width = max(self.xValues) - min(self.xValues)
+        
+        poly = matplotlib.patches.Rectangle(lowerLeft, width, height,
                                           **argsDict)
         
         return [[axis.add_patch(poly)], [self.label]]
