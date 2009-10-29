@@ -23,4 +23,5 @@ plot.setXLabel("Shared X Axis")
 plot.setYLabel("First Plot's Y Axis")
 plot.setTwinX("Second Plot's Y Axis", 1)
 plot.hasLegend()
-plot.plot()
+
+plot.save("twinx.png")

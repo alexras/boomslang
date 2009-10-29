@@ -52,4 +52,4 @@ layout.addPlot(scatterPlot)
 # Set values similar to those given in the "Configure subplots" sliders in the 
 # interactive figure
 layout.setPlotParameters(hspace=0.48)
-layout.plot()
+layout.save("layout.png")

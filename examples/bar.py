@@ -12,4 +12,4 @@ plot.add(bar)
 plot.setXLabel("Widget ID")
 plot.setYLabel("# Widgets Sold")
 
-plot.plot()
+plot.save("bar.png")

@@ -13,4 +13,4 @@ plot.setXLabel("X Label")
 plot.setYLabel("Y Label")
 plot.setYLimits(0, 60)
 
-plot.plot()
+plot.save("simpleline.png")

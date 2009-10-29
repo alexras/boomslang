@@ -32,4 +32,4 @@ plot = Plot()
 plot.add(clusteredBars)
 plot.hasLegend()
 
-plot.plot()
+plot.save("clusteredbars.png")

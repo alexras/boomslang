@@ -12,4 +12,4 @@ for i in range(100):
 plot = Plot()
 plot.hasLegend()
 plot.add(scatter)
-plot.plot()
+plot.save("scatter.png")
