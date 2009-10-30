@@ -1,4 +1,5 @@
 import pylab
+import matplotlib
 from matplotlib import pyplot
 import sys
 
@@ -218,9 +219,19 @@ class PlotLayout:
                 ungroupedPlotsRemaining -= 1
 
         if self.figLegendLoc is not None:
+            figLegendKeywords = {}
+
+            if self.figLegendCols is not None:
+                (superMajor, major, minor) = [int(x) for x in matplotlib.__version__.split('.')]
+
+                if superMajor == 0 and major < 98:
+                    print >>sys.stderr, "Number of columns support not available in versions of matplotlib prior to 0.98"
+                else:
+                    figLegendKeywords["ncol"] = self.figLegendCols
+            
             pylab.figlegend(plotHandles, plotLabels, 
                             self.figLegendLoc, 
-                            ncol=self.figLegendCols)
+                            **figLegendKeywords)
 
         if self.plotParams is not None:
             pylab.subplots_adjust(left=self.plotParams["left"],

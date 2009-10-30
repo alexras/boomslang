@@ -395,11 +395,22 @@ class Plot:
         if self.yLabel is not None:
             ax.set_ylabel(self.yLabel)
 
+        legendKeywords = {}
+        
+        if self.legendCols > 0:
+            (superMajor, major, minor) = [int(x) for x in matplotlib.__version__.split('.')]
+
+            if superMajor == 0 and major < 98:
+                print >>sys.stderr, "Number of columns support not available in versions of matplotlib prior to 0.98"
+            else:
+                legendKeywords["ncol"] = self.legendCols
+
+        
         if self.legend:
             pylab.legend(plotHandles, plotLabels, loc=self.legendLoc, 
-                         ncol=self.legendCols)
+                         **legendKeywords)
         if self.figLegend:
             pylab.figlegend(plotHandles, plotLabels, loc=self.legendLoc, 
-                            ncol=self.legendCols)
+                            **legendKeywords)
                 
         return (plotHandles, plotLabels)
