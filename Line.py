@@ -14,6 +14,16 @@ class Line(PlotInfo):
         self.lineStyle = '-'
         self.dates = False
         self.loglog = False
+        self.steps = None
+
+    def stepFunction(self, stepType="pre"):
+        validStepTypes = ["pre", "mid", "post"]
+        
+        if stepType not in validStepTypes:
+            print >>sys.stderr, "%s is not a valid step type. Valid step types are %s" % (stepType, ", ".join(validStepTypes))
+            sys.exit(1)
+        
+        self.steps = stepType
 
     def draw(self, axis):
         PlotInfo.draw(self, axis)
@@ -30,7 +40,10 @@ class Line(PlotInfo):
         kwdict["color"] = self.color
         kwdict["label"] = self.label
         kwdict["linewidth"] = self.lineWidth
-
+        
+        if self.steps is not None:
+            kwdict["drawstyle"] = "steps-%s" % (self.steps)
+        
         if self.marker is not None:
             kwdict["marker"] = self.marker
             kwdict["markersize"] = self.markerSize

@@ -103,8 +103,6 @@ class PlotLayout:
 
         groupedPlotLengths = [len(plots) for plots in self.groupedPlots.values()]
 
-        self.plots.sort()
-
         if len(groupedPlotLengths) == 0:
             maxRowLength = self.width
         else:
@@ -137,7 +135,10 @@ class PlotLayout:
             fig = pyplot.figure(figsize=(self.dimensions[0] * maxRowLength, 
                                          self.dimensions[1] * numRows))
         else:
-            fig = pyplot.figure(figsize=getGoldenRatioDimensions(8.0))
+            (figWidth, figHeight) = getGoldenRatioDimensions(8.0)
+            figWidth *= maxRowLength
+            figHeight *= numRows
+            fig = pyplot.figure(figsize=(figWidth, figHeight))
             # figWidth = fig.get_figwidth()
             # print figWidth
             # print fig.get_figheight()
@@ -190,6 +191,7 @@ class PlotLayout:
                 myRows = numRows
                 myCols = numColumns
                 myPos = (currentRow * numColumns) + currentColumn
+
                 (currPlotHandles, currPlotLabels) = plot.subplot(
                     myRows, myCols, myPos)
                 for i in xrange(len(currPlotHandles)):
