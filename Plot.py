@@ -3,6 +3,7 @@ from matplotlib import pyplot
 import sys
 from PlotInfo import PlotInfo
 from PlotLayout import *
+import mpl_toolkits.axes_grid.inset_locator
 
 from Utils import getGoldenRatioDimensions
 
@@ -45,8 +46,11 @@ class Plot:
         self.grid = False
 
         self.figLegend = False
-
-
+        
+        self.insets = []
+        
+        self.hideTicks = False
+        
     def getDimensions(self):
         if self.width is None:
             (self.width, self.height) = getGoldenRatioDimensions(8.0)
@@ -54,6 +58,9 @@ class Plot:
             (goldWidth, goldHeight) = getGoldenRatioDimensions(self.width)
             self.height = goldHeight
         return (self.width, self.height)
+
+    def hideTickLabels(self):
+        self.hideTicks = True
 
     def setDimensions(self, width=None, height=None):
         self.width = width
@@ -69,6 +76,19 @@ class Plot:
             print >>sys.stderr, "All objects added to a Plot must be a subclass of PlotInfo"
             sys.exit(1)
         self.plots.append(plottableObject)
+
+    def addInset(self, inset, width=0.3, height=0.3, location="upper right", 
+                 padding=0.05):
+        if not isinstance(inset, Plot):
+            print >>sys.stderr, "Can only add Plots as insets"
+            sys.exit(1)
+
+        if not isinstance(width, float) or not isinstance(height, float):
+            print >>sys.stderr, \
+                "Width and height of inset must be numbers in range [0.0, 1.0)"
+            sys.exit(1)
+        
+        self.insets.append((inset, width, height, location, padding))
 
     def addLineStyle(self, style):
         """
@@ -221,12 +241,79 @@ class Plot:
         layout = self.__setupLayout()
         layout.save(filename)
 
+    def plotInset(self, parentAxes, width, height, location, padding):
+        locationMap = {"best" : 0, 
+                       "upper right" : 1,
+                       "upper left" : 2, 
+                       "lower left" : 3,
+                       "lower right" : 4, 
+                       "right" : 5, 
+                       "center left" : 6, 
+                       "center right" : 7,
+                       "lower center" : 8, 
+                       "upper center" : 9, 
+                       "center" : 10}
+
+        if location not in locationMap:
+            print >>sys.stderr, "Location '%s' isn't valid. Valid locations are: %s" % (location, ', '.join(locationMap))
+
+        ax = mpl_toolkits.axes_grid.inset_locator.inset_axes(parentAxes, width="%.2f%%" % (width * 100.0), height="%.2f%%" % (height * 100.0), loc=locationMap[location])
+        return self.drawPlot(ax)
+
+    # def plotInset(self, parentAxes, width, height, hPos, vPos, padding):
+    #     print parentAxes
+    #     insetWidth = width
+    #     insetHeight = height
+        
+    #     parentBBox = parentAxes.get_position().get_points()
+
+    #     (parentLeft, parentBottom) = parentBBox[0]
+    #     (parentWidth, parentHeight) = parentBBox[1]
+
+    #     insetLeft = parentLeft
+    #     insetBottom = parentBottom
+    #     width = width * parentWidth
+    #     height = height * parentHeight
+
+    #     if vPos == "lower":
+    #         insetBottom += padding
+    #     elif vPos == "upper":
+    #         insetBottom += parentHeight - (padding + height)
+
+    #     if hPos == "left":
+    #         insetLeft += padding
+    #     elif hPos == "center":
+    #         insetLeft += parentWidth - (width / 2.0)
+    #     elif hPos == "right":
+    #         insetLeft += parentWidth - (padding + width)
+        
+    #     print insetLeft, insetBottom, width, height
+        
+    #     ax = pylab.axes([insetLeft, insetBottom, width, height])
+    #     return self.drawPlot(ax)
+
     def subplot(self, row, column, position):
+        ax = pylab.subplot(row, column, position)
+        return self.drawPlot(ax)
+        
+    def drawPlot(self, ax):
         """
         Used by PlotLayout to plot the graph at a given location in the layout.
         """
-        ax = pylab.subplot(row, column, position)
+        for insetInfo in self.insets:
+            insetInfo[0].plotInset(ax, *(insetInfo[1:]))
+        
+        if self.hideTicks == True:
+            for xtl in ax.get_xticklabels():
+                xtl.set_visible(False)
+            for xtick in ax.get_xticklines():
+                xtick.set_visible(False)
+            for ytl in ax.get_yticklabels():
+                ytl.set_visible(False)
+            for ytick in ax.get_yticklines():
+                ytick.set_visible(False)
 
+        
         if self.grid:
             ax.grid()
 
@@ -297,5 +384,5 @@ class Plot:
         if self.figLegend:
             pylab.figlegend(plotHandles, plotLabels, loc=self.legendLoc, 
                             ncol=self.legendCols)
-
+                
         return (plotHandles, plotLabels)
