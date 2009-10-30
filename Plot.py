@@ -51,6 +51,8 @@ class Plot:
         
         self.hideTicks = False
         
+        self.latex = False
+        
     def getDimensions(self):
         if self.width is None:
             (self.width, self.height) = getGoldenRatioDimensions(8.0)
@@ -202,8 +204,14 @@ class Plot:
         if self.plotParams is not None:
             layout.setPlotParameters(**self.plotParams)
 
+        if self.latex == True:
+            layout.useLatexLabels()
+
         layout.addPlot(self)
         return layout
+
+    def useLatexLabels(self):
+        self.latex = True
 
     def plot(self):
         """

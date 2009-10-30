@@ -20,12 +20,16 @@ class PlotLayout:
         self.figLegendCols = None
 
         self.rcParams = None
-
+        
     def __setRCParam(self, param, value):
         if self.rcParams is None:
             self.rcParams = {}
 
         self.rcParams[param] = value
+
+    def useLatexLabels(self):
+        print >>sys.stderr, "WARNING: Using LaTeX labels requires dvipng and ghostscript"
+        self.__setRCParam("text.usetex", True)
 
     def useStandardFont(self):
         self.__setRCParam("font.family", "serif")
