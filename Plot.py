@@ -3,7 +3,12 @@ from matplotlib import pyplot
 import sys
 from PlotInfo import PlotInfo
 from PlotLayout import *
-import mpl_toolkits.axes_grid.inset_locator
+
+try:
+    import mpl_toolkits.axes_grid.inset_locator
+    insetLocatorLoaded = True
+except ImportError:
+    insetLocatorLoaded = False
 
 from Utils import getGoldenRatioDimensions
 
@@ -250,6 +255,10 @@ class Plot:
         layout.save(filename)
 
     def plotInset(self, parentAxes, width, height, location, padding):
+        if not insetLocatorLoaded:
+            print sys.stderr, "Plotting insets requires mpl_toolkits.axes_grid.inset_locatoor, which your version of matplotlib doesn't appear to have."
+            sys.exit(1)
+
         locationMap = {"best" : 0, 
                        "upper right" : 1,
                        "upper left" : 2, 
