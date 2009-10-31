@@ -1,5 +1,6 @@
 import os
 import sys
+import copy
 
 class PlotInfo:
     def __init__(self, plotType):
@@ -13,12 +14,31 @@ class PlotInfo:
         self.xTickLabelPoints = None
         self.yTickLabelPoints = None
         self.label = None
-        self.plotType = None
 
         self.yMins = None
         self.yMaxes = None
         self.yErrors = None
 
+    def split(self, pieces):
+        elements = []
+
+        numXVals = len(self.xValues)
+
+        valChunkSize = numXVals / pieces
+        valChunkRemainder = numXVals % pieces
+
+        for i in xrange(pieces):
+            element = copy.deepcopy(self)
+
+            if i < pieces - 1 or valChunkRemainder == 0:
+                element.xValues = self.xValues[i * valChunkSize:(i+1) * valChunkSize]
+                element.yValues = self.yValues[i * valChunkSize:(i+1) * valChunkSize]
+            else:
+                element.xValues = self.xValues[i * valChunkSize:]
+                element.yValues = self.yValues[i * valChunkSize:]
+            elements.append(element)
+        return elements
+        
     def draw(self, axis):
         if self.xTickLabels is not None:
             if self.xTickLabelPoints is None:

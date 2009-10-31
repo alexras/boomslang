@@ -3,6 +3,7 @@ from matplotlib import pyplot
 import sys
 from PlotInfo import PlotInfo
 from PlotLayout import *
+import copy
 
 try:
     import mpl_toolkits.axes_grid.inset_locator
@@ -57,7 +58,20 @@ class Plot:
         self.hideTicks = False
         
         self.latex = False
-        
+    
+    def split(self, pieces):
+       splitPlots = [copy.deepcopy(self) for i in xrange(pieces)]
+       
+       for plot in splitPlots:
+           plot.plots = []
+       
+       for plot in self.plots:
+           elements = plot.split(pieces)
+           for i in xrange(pieces):
+               splitPlots[i].add(elements[i])
+               splitPlots[i].setXLimits(min(elements[i].xValues), max(elements[i].xValues))
+       return splitPlots
+       
     def getDimensions(self):
         if self.width is None:
             (self.width, self.height) = getGoldenRatioDimensions(8.0)
