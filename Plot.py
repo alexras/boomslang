@@ -412,7 +412,9 @@ class Plot:
         legendKeywords = {}
         
         if self.legendCols > 0:
-            (superMajor, major, minor) = [int(x) for x in matplotlib.__version__.split('.')]
+            versionParts = [int(x) for x in matplotlib.__version__.split('.')]
+            
+            (superMajor, major, minor) = versionParts[0:3]
 
             if superMajor == 0 and major < 98:
                 print >>sys.stderr, "Number of columns support not available in versions of matplotlib prior to 0.98"

@@ -222,8 +222,10 @@ class PlotLayout:
             figLegendKeywords = {}
 
             if self.figLegendCols is not None:
-                (superMajor, major, minor) = [int(x) for x in matplotlib.__version__.split('.')]
-
+                versionPieces = [int(x) for x in matplotlib.__version__.split('.')]
+                
+                (superMajor, major, minor) = versionPieces[0:3]
+                
                 if superMajor == 0 and major < 98:
                     print >>sys.stderr, "Number of columns support not available in versions of matplotlib prior to 0.98"
                 else:
