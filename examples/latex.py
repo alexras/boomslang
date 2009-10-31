@@ -18,4 +18,4 @@ layout.addPlot(plot)
 
 layout.setAxesLabelSize(18)
 layout.setPlotParameters(top=0.84)
-layout.save("latex.pdf")
+layout.save("latex.png")

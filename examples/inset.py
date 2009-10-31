@@ -27,4 +27,4 @@ inset.addInset(insideInset, width=0.4, height=0.3, location="upper left")
 
 plot.addInset(inset, width=0.4, height=0.4, location="lower right")
 
-plot.plot()
+plot.save("inset.png")
