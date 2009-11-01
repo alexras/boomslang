@@ -24,9 +24,9 @@ midPlot = generatePlot("mid")
 postPlot = generatePlot("post")
 
 layout = PlotLayout()
-layout.width = 1
+layout.width = 3
 layout.addPlot(prePlot)
 layout.addPlot(midPlot)
 layout.addPlot(postPlot)
-layout.setPlotParameters(top=0.96, bottom=0.04)
+layout.setPlotParameters(right=0.96, left=0.04)
 layout.save("steps.png")

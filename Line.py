@@ -47,5 +47,7 @@ class Line(PlotInfo):
         if self.marker is not None:
             kwdict["marker"] = self.marker
             kwdict["markersize"] = self.markerSize
-
+        else:
+            kwdict["marker"] = "None"
+        
         return [[plotFunc(self.xValues, self.yValues, **kwdict)], [self.label]]
