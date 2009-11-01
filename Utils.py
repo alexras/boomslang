@@ -28,7 +28,8 @@ def getXYValsFromFile(filename, regex, postFunction=None):
             
             if postFunction is not None:
                 matchGroups = postFunction(matchGroups)
-            
+            else:
+                matchGroups = [float(x) for x in matchGroups]
             matches.append(matchGroups)
     fp.close()
     
