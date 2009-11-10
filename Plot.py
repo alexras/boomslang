@@ -49,6 +49,7 @@ class Plot:
         self.logx = False
         self.logy = False
         self.loglog = False
+        self.logbase = 10
         self.grid = False
 
         self.figLegend = False
@@ -58,6 +59,23 @@ class Plot:
         self.hideTicks = False
         
         self.latex = False
+        
+        self.axesLabelSize = None
+        self.xTickLabelSize = None
+        self.yTickLabelSize = None
+        self.legendLabelSize = None
+    
+    def setAxesLabelSize(self, size):
+        self.axesLabelSize = size
+    
+    def setXTickLabelSize(self, size):
+        self.xTickLabelSize = size
+    
+    def setYTickLabelSize(self, size):
+        self.yTickLabelSize = size
+    
+    def setLegendLabelSize(self, size):
+        self.legendLabelSize = size
     
     def split(self, pieces):
        splitPlots = [copy.deepcopy(self) for i in xrange(pieces)]
@@ -226,6 +244,18 @@ class Plot:
         if self.latex == True:
             layout.useLatexLabels()
 
+        if self.axesLabelSize is not None:
+            layout.setAxesLabelSize(self.axesLabelSize)
+        
+        if self.xTickLabelSize is not None:
+            layout.setXTickLabelSize(self.xTickLabelSize)
+        
+        if self.yTickLabelSize is not None:
+            layout.setYTickLabelSize(self.yTickLabelSize)
+        
+        if self.legendLabelSize is not None:
+            layout.setLegendLabelSize(self.legendLabelSize)
+        
         layout.addPlot(self)
         return layout
 
@@ -349,9 +379,9 @@ class Plot:
             ax.grid()
 
         if self.loglog or self.logx:
-            ax.set_xscale('log')
+            ax.set_xscale('log', basex=self.logbase)
         if self.loglog or self.logy:
-            ax.set_yscale('log')
+            ax.set_yscale('log', basey=self.logbase)
 
         if self.twinxIndex > 0:
             ax2 = ax.twinx()

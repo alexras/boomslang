@@ -31,6 +31,7 @@ class Line(PlotInfo):
         if self.dates:
             plotFunc = axis.plot_date
         elif self.loglog:
+            print >>sys.stderr, "Setting loglog in Lines will be deprecated soon. Set this in Plot instead."
             plotFunc = axis.loglog
         else:
             plotFunc = axis.plot

@@ -32,12 +32,12 @@ class PlotLayout:
         print >>sys.stderr, "WARNING: Using LaTeX labels requires dvipng and ghostscript"
         self.__setRCParam("text.usetex", True)
 
-    def useStandardFont(self):
-        self.__setRCParam("font.family", "serif")
-        self.__setRCParam("font.style", "normal")
-        self.__setRCParam("font.variant", "normal")
-        self.__setRCParam("font.weight", "normal")
-        self.__setRCParam("font.stretch", "normal")
+    # def useStandardFont(self):
+    #     self.__setRCParam("font.family", "serif")
+    #     self.__setRCParam("font.style", "normal")
+    #     self.__setRCParam("font.variant", "normal")
+    #     self.__setRCParam("font.weight", "normal")
+    #     self.__setRCParam("font.stretch", "normal")
 
     def setAxesLabelSize(self, size):
         self.__setRCParam("axes.labelsize", size)
