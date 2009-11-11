@@ -40,6 +40,10 @@ class PlotInfo:
         return elements
         
     def draw(self, axis):
+        zipped = zip(self.xValues, self.yValues)
+        zipped.sort()
+        self.xValues, self.yValues = zip(*zipped)
+
         if self.xTickLabels is not None:
             if self.xTickLabelPoints is None:
                 axis.set_xticks(range(len(self.xTickLabels)))
