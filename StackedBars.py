@@ -33,10 +33,9 @@ class StackedBars(PlotInfo):
 
     def draw(self, axis):
         self.xTickLabelPoints = self.getXLabelLocations()
-        axis.set_xticks(self.xTickLabelPoints)
-        if self.xTickLabels is not None:
-            axis.set_xticklabels(self.xTickLabels)
-            
+        
+        PlotInfo.draw(self, axis)
+        
         plotHandles = []
         plotLabels = []
 

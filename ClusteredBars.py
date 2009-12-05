@@ -43,10 +43,9 @@ class ClusteredBars(PlotInfo):
                 print >>sys.stderr, "Labels: %s" % (self.xTickLabels)
                 print >>sys.stderr, "Points: %s" % (self.xTickLabelPoints)
                 sys.exit(1)
-
-            axis.set_xticks(self.xTickLabelPoints)
-            axis.set_xticklabels(self.xTickLabels)
-
+        
+        PlotInfo.draw(self, axis)
+        
         numBars = len(self.bars)
         
         plotHandles = []

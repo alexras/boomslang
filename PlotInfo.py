@@ -13,20 +13,44 @@ class PlotInfo:
         self.yTickLabels = None
         self.xTickLabelPoints = None
         self.yTickLabelPoints = None
+        self.xTickLabelProperties = {}
+        self.yTickLabelProperties = {}
+        
         self.label = None
 
         self.yMins = None
         self.yMaxes = None
         self.yErrors = None
-
+    
+    def setXTickLabelProperties(self, **propList):
+        self._setTickLabelProperties(self.xTickLabelProperties, propList)
+        
+    def setYTickLabelProperties(self, **propList):
+        self._setTickLabelProperties(self.yTickLabelProperties, propList)
+    
+    def _setTickLabelProperties(self, tickPropsDict, propList):
+        # Going to restrict the set of properties that can be modified so they
+        # don't mess with the rest of the system
+        
+        validProperties = ["alpha", "backgroundColor", "color", \
+            "horizontalalignment", "linespacing", "multialignment", \
+            "rotation", "stretch", "style", 
+            "verticalalignment", "weight"]
+        
+        for (key, val) in propList.items():
+            if key not in validProperties:
+                print >>sys.stderr, "Tick label property '%s' is not currently supported" % (key)
+            else:
+                tickPropsDict[key] = val
+        
     def split(self, pieces):
         elements = []
-
+        
         numXVals = len(self.xValues)
-
+        
         valChunkSize = numXVals / pieces
         valChunkRemainder = numXVals % pieces
-
+        
         for i in xrange(pieces):
             element = copy.deepcopy(self)
 
@@ -40,23 +64,26 @@ class PlotInfo:
         return elements
         
     def draw(self, axis):
-        zipped = zip(self.xValues, self.yValues)
-        zipped.sort()
-        self.xValues, self.yValues = zip(*zipped)
-
+        if len(self.xValues) > 0:
+            zipped = zip(self.xValues, self.yValues)
+            zipped.sort()
+            self.xValues, self.yValues = zip(*zipped)
+        
         if self.xTickLabels is not None:
             if self.xTickLabelPoints is None:
                 axis.set_xticks(range(len(self.xTickLabels)))
             else:
                 axis.set_xticks(self.xTickLabelPoints)
-            axis.set_xticklabels(self.xTickLabels)
+            
+            axis.set_xticklabels(self.xTickLabels, **self.xTickLabelProperties)
         
         if self.yTickLabels is not None:
             if self.yTickLabelPoints is None:
                 axis.set_yticks(range(len(self.yTickLabels)))
             else:
                 axis.set_yticks(self.yTickLabelPoints)
-            axis.set_yticklabels(self.yTickLabels)
+            
+            axis.set_yticklabels(self.yTickLabels, **self.yTickLabelProperties)
 
         errorBarKeywords = {}
         if hasattr(self, "color"):
