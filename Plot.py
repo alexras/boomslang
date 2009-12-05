@@ -50,6 +50,9 @@ class Plot:
         self.logy = False
         self.loglog = False
         self.logbase = 10
+        self.logbasex = None
+        self.logbasey = None
+        
         self.grid = False
 
         self.figLegend = False
@@ -379,9 +382,23 @@ class Plot:
             ax.grid()
 
         if self.loglog or self.logx:
-            ax.set_xscale('log', basex=self.logbase)
+            myBase = None
+            
+            if self.logbasex is not None:
+                myBase = self.logbasex
+            else:
+                myBase = self.logbase
+            
+            ax.set_xscale('log', basex=myBase)
         if self.loglog or self.logy:
-            ax.set_yscale('log', basey=self.logbase)
+            myBase = None
+            
+            if self.logbasey is not None:
+                myBase = self.logbasey
+            else:
+                myBase = self.logbase
+            
+            ax.set_yscale('log', basey=myBase)
 
         if self.twinxIndex > 0:
             ax2 = ax.twinx()
