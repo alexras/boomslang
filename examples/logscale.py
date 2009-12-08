@@ -30,4 +30,4 @@ layout.addPlot(plotBase10)
 layout.addPlot(plotBase2)
 
 layout.width = 2
-layout.plot()
+layout.save("logscale.png")
