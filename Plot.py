@@ -438,9 +438,14 @@ class Plot:
                 plotInfo.lineStyle = myLineStyle
 
             (currPlotHandles, currPlotLabels) = plotInfo.draw(myAxis)
-            plotHandles.extend(currPlotHandles)
-            plotLabels.extend(currPlotLabels)
 
+            labelIndices = [x for x in range(len(currPlotLabels)) \
+                                if currPlotLabels[x] is not None]
+            
+            if len(labelIndices) > 0:
+                plotHandles.extend([currPlotHandles[x] for x in labelIndices])
+                plotLabels.extend([currPlotLabels[x] for x in labelIndices])
+            
             i += 1
 
         if self.xlim is not None:
