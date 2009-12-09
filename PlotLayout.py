@@ -245,7 +245,10 @@ class PlotLayout:
 
     def plot(self):
         self.__doPlot()
-        pylab.show()
+        if not pylab.isinteractive():
+            pylab.show()
+        else:
+            pylab.draw()
 
     def save(self, filename):
         print "Saving %s ..." % filename
