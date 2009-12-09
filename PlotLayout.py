@@ -2,6 +2,7 @@ import pylab
 import matplotlib
 from matplotlib import pyplot
 import sys
+import os
 
 from Utils import getGoldenRatioDimensions
 
@@ -252,6 +253,16 @@ class PlotLayout:
 
     def save(self, filename):
         print "Saving %s ..." % filename
+        
+        tempDisplayHack = False
+        
+        if "DISPLAY" not in os.environ:
+            tempDisplayHack = True
+            os.environ["DISPLAY"] = ":0.0"
+        
         self.__doPlot()
         pylab.savefig(filename)
         pylab.clf()
+        
+        if tempDisplayHack == True:
+            del os.environ["DISPLAY"]
