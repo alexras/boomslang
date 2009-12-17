@@ -21,6 +21,9 @@ class PlotInfo:
         self.yMins = None
         self.yMaxes = None
         self.yErrors = None
+
+    def __str__(self):
+        return str(self.__dict__)
     
     def setXTickLabelProperties(self, **propList):
         self._setTickLabelProperties(self.xTickLabelProperties, propList)

@@ -67,6 +67,9 @@ class Plot:
         self.xTickLabelSize = None
         self.yTickLabelSize = None
         self.legendLabelSize = None
+
+    def __str__(self):
+        return str(self.__dict__)
     
     def setAxesLabelSize(self, size):
         self.axesLabelSize = size
