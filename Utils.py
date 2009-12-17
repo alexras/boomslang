@@ -75,3 +75,16 @@ def getBarsFromFile(filename, regex, postFunction=None):
         bar.yValues = yValues[i][:]
         bars.append(bar)
     return bars
+
+def getCDF(values):
+    line = Line()
+    cdfValues = values[:]
+    cdfValues.sort()
+    
+    count = float(len(cdfValues))
+
+    line.xValues = cdfValues
+    line.yValues = [float(x) / count for x in xrange(1, int(count) + 1)]
+    assert(count == len(line.yValues))
+    
+    return line
