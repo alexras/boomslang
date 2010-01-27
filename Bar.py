@@ -15,6 +15,13 @@ class Bar(PlotInfo):
         self.hatch=None
     
     def draw(self, axis):
+        if self.xTickLabelPoints is None:
+            self.xTickLabelPoints = \
+                [x + (self.width / 2.0) for x in self.xValues]
+            
+            if self.xTickLabels is None:
+                self.xTickLabels = self.xValues
+
         PlotInfo.draw(self, axis)
         
         kwdict = self.getAttributes()
