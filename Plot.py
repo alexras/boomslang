@@ -31,6 +31,7 @@ class Plot:
         self.ylim = None
 
         self.legendCols = 0
+        self.scatterPoints=3
         self.legendLoc = None
 
         self.twinxLabel = None
@@ -216,10 +217,11 @@ class Plot:
         """
         self.ylim = (minY, maxY)
 
-    def hasFigLegend(self, columns=1, location="best"):
+    def hasFigLegend(self, columns=1, location="best", scatterPoints=3):
         self.figLegend = True
         self.legendCols = columns
         self.legendLoc = location
+        self.scatterPoints = scatterPoints
 
     def hasLegend(self, columns=1, location="best"):
         """
@@ -475,6 +477,7 @@ class Plot:
                 print >>sys.stderr, "Number of columns support not available in versions of matplotlib prior to 0.98"
             else:
                 legendKeywords["ncol"] = self.legendCols
+                legendKeywords["scatterpoints"] = self.scatterPoints
 
         
         if self.legend:
