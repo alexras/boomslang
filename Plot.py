@@ -425,25 +425,41 @@ class Plot:
 
         i = 0
         myAxis = ax
+        
+        
+        numLineStyles = None
+        numColors = None
+        
+        if self.lineStyles is not None:
+            numLineStyles = len(self.lineStyles)
+
+        if self.lineColors is not None:
+            numColors = len(self.lineColors)
+        
         for plotInfo in self.plots:
             if self.twinxIndex >= 0 and i == self.twinxIndex:
                 myAxis = ax2
 
-            if self.lineStyles is not None:
-                numLineStyles = len(self.lineStyles)
-
+            myLineStyle = None
+            myColor = None
+            
+            if numLineStyles is not None:
                 myLineStyle = self.lineStyles[i % numLineStyles]
-                myColor = "black"
 
-                if self.lineColors is not None:
-                    numColors = len(self.lineColors)
-                    myColor = self.lineColors[(i / numLineStyles) % numColors]
-                
-                plotInfo.color = myColor
+            if numColors is not None:
+                if numLineStyles is None:
+                    myColor = self.lineColors[i % numColors]
+                else:
+                    myColor =  self.lineColors[(i / numLineStyles) % numColors]
+
+            if myLineStyle is not None:
                 plotInfo.lineStyle = myLineStyle
-
+            
+            if myColor is not None:
+                plotInfo.color = myColor
+            
             (currPlotHandles, currPlotLabels) = plotInfo.draw(myAxis)
-
+            
             labelIndices = [x for x in range(len(currPlotLabels)) \
                                 if currPlotLabels[x] is not None]
             
