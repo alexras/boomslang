@@ -21,7 +21,9 @@ class PlotInfo:
         self.yMins = None
         self.yMaxes = None
         self.yErrors = None
-
+        
+        self.autosort = True
+        
     def __str__(self):
         return str(self.__dict__)
     
@@ -67,7 +69,7 @@ class PlotInfo:
         return elements
         
     def draw(self, axis):
-        if len(self.xValues) > 0:
+        if len(self.xValues) > 0 and self.autosort:
             zipped = zip(self.xValues, self.yValues)
             zipped.sort()
             self.xValues, self.yValues = zip(*zipped)
