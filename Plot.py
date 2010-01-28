@@ -223,7 +223,7 @@ class Plot:
         self.legendLoc = location
         self.scatterPoints = scatterPoints
 
-    def hasLegend(self, columns=1, location="best"):
+    def hasLegend(self, columns=1, location="best", scatterPoints=3):
         """
         Declare that the plot has a legend with a given number of columns and
         location.
@@ -231,6 +231,7 @@ class Plot:
         self.legend = True
         self.legendCols = columns
         self.legendLoc = location
+        self.scatterPoints = scatterPoints
 
     def setTitle(self, title):
         self.title = title
