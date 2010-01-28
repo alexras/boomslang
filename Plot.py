@@ -260,10 +260,7 @@ class Plot:
         
         if self.yTickLabelSize is not None:
             layout.setYTickLabelSize(self.yTickLabelSize)
-        
-        if self.legendLabelSize is not None:
-            layout.setLegendLabelSize(self.legendLabelSize)
-        
+                
         layout.addPlot(self)
         return layout
 
@@ -494,9 +491,15 @@ class Plot:
             else:
                 legendKeywords["ncol"] = self.legendCols
                 legendKeywords["scatterpoints"] = self.scatterPoints
-
-        
+                
+                if self.legendLabelSize is not None:
+                    legendKeywords["prop"] = {"size" : self.legendLabelSize}
+ 
         if self.legend:
+            if len(plotHandles) == 0:
+                print >>sys.stderr, "ERROR: Plot wanted to draw a legend, but none of its elements have labels"
+                sys.exit(1)
+
             pylab.legend(plotHandles, plotLabels, loc=self.legendLoc, 
                          **legendKeywords)
         if self.figLegend:
