@@ -41,8 +41,6 @@ class Plot:
         self.lineStyles = None
         self.lineColors = None
 
-        self.title = None
-
         self.width = None
         self.height = None
         
