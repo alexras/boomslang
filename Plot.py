@@ -66,6 +66,26 @@ class Plot:
         self.xTickLabelSize = None
         self.yTickLabelSize = None
         self.legendLabelSize = None
+        
+        self.titleProperties = {}
+        
+    def setTitleProperties(self, **propList):
+        self.__setProperties(self.titleProperties, propList)
+
+    def __setProperties(self, propsDict, propList):
+        # Going to restrict the set of properties that can be modified so they
+        # don't mess with the rest of the system
+        
+        validProperties = ["alpha", "backgroundColor", "color", 
+                           "horizontalalignment", "linespacing", 
+                           "multialignment", "rotation", "stretch", "style", 
+                           "verticalalignment", "weight"]
+        
+        for (key, val) in propList.items():
+            if key not in validProperties:
+                print >>sys.stderr, "Property '%s' is not currently supported" % (key)
+            else:
+                propsDict[key] = val
 
     def __str__(self):
         return str(self.__dict__)
@@ -417,7 +437,7 @@ class Plot:
             ax.yaxis.set_major_formatter(self.yFormatter)
 
         if self.title is not None:
-            ax.set_title(self.title)
+            ax.set_title(self.title, **self.titleProperties)
 
         i = 0
         myAxis = ax

@@ -13,6 +13,8 @@ line.yTickLabelPoints = [10, 20, 30, 40, 50, 60]
 line.setXTickLabelProperties(color="blue", weight="bold", rotation="45")
 line.setYTickLabelProperties(style="italic", alpha=0.5, color="red")
 plot.add(line)
+plot.setTitle("Craaazy Title")
+plot.setTitleProperties(style="italic", weight="bold", rotation="5", color="orange")
 plot.setXLabel("X Label")
 plot.setYLabel("Y Label")
 plot.setYLimits(0, 60)
