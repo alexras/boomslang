@@ -455,13 +455,13 @@ class Plot:
         for plotInfo in self.plots:
             if self.twinxIndex >= 0 and i == self.twinxIndex:
                 myAxis = ax2
-
+        
             myLineStyle = None
             myColor = None
             
             if numLineStyles is not None:
                 myLineStyle = self.lineStyles[i % numLineStyles]
-
+        
             if numColors is not None:
                 if numLineStyles is None:
                     myColor = self.lineColors[i % numColors]
@@ -483,15 +483,23 @@ class Plot:
                 plotHandles.extend([currPlotHandles[x] for x in labelIndices])
                 plotLabels.extend([currPlotLabels[x] for x in labelIndices])
             
+            if plotInfo.xLimits is not None:
+                if self.xlim is None:
+                    self.xlim = plotInfo.xLimits
+                else:
+                    (myXMin, myXMax) = plotInfo.xLimits
+                    self.xlim = (min(self.xlim[0], myXMin), 
+                                 max(self.xlim[1], myXMax))
+            
             i += 1
-
+        
         if self.xlim is not None:
             pylab.xlim(xmin=self.xlim[0], xmax=self.xlim[1])
-
+        
         if self.ylim is not None:
             pylab.ylim(ymin=self.ylim[0], ymax=self.ylim[1])
 
-
+        
         if self.xLabel is not None:
             ax.set_xlabel(self.xLabel)
 

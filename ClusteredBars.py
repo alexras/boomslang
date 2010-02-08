@@ -50,18 +50,32 @@ class ClusteredBars(PlotInfo):
         
         plotHandles = []
         plotLabels = []
-
+        
+        xMin = None
+        xMax = None
+        
         for i in xrange(numBars):
             bar = self.bars[i]
             
             xVals = [(x * (self.width * numBars + self.spacing)) \
                 + (i * self.width) for x in bar.xValues]
             
+            if xMin is None:
+                xMin = min(xVals)
+            else:
+                xMin = min(xMin, min(xVals))
+            
+            if xMax is None:
+                xMax = max(xVals) + self.width
+            else:
+                xMax = max(xMax, max(xVals) + self.width)
+            
             attrs = bar.getAttributes()
-
+            
             currHandle = axis.bar(xVals, bar.yValues, **attrs)
             # Only give handle to first rectangle in bar
             plotHandles.append(currHandle[0])
             plotLabels.append(bar.label)
 
+        self.xLimits = (xMin, xMax)
         return [plotHandles, plotLabels]

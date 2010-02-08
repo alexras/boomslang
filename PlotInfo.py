@@ -17,12 +17,14 @@ class PlotInfo:
         self.yTickLabelProperties = {}
         
         self.label = None
-
+        
         self.yMins = None
         self.yMaxes = None
         self.yErrors = None
         
         self.autosort = True
+
+        self.xLimits = None
         
     def __str__(self):
         return str(self.__dict__)
