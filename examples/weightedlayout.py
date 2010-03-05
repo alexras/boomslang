@@ -50,9 +50,5 @@ layout.addPlot(scatterPlot)
 
 # Set values similar to those given in the "Configure subplots" sliders in the 
 # interactive figure
-layout.setFigureDimensions(8,4.9)
-layout.setAxesLabelSize(10)
-layout.setXTickLabelSize(10)
-layout.setYTickLabelSize(10)
-layout.setPlotParameters(wspace=0.1)
+layout.setPlotParameters(hspace=0.48)
 layout.save("weightedlayout.png")

@@ -6,7 +6,7 @@ import os
 
 from Utils import getGoldenRatioDimensions
 
-class PlotLayout:
+class PlotLayout(object):
     def __init__(self):
         self.groupedPlots = {}
         self.plots = []
@@ -99,7 +99,7 @@ class PlotLayout:
             self.plotParams["hspace"] = 0.20
             
 
-    def __doPlot(self):
+    def _doPlot(self):
         if len(self.groupedPlots) + len(self.plots) == 0:
             print "PlotLayout.plot(): No data to plot!"
             return
@@ -245,13 +245,14 @@ class PlotLayout:
                                   hspace=self.plotParams["hspace"])
 
     def plot(self):
-        self.__doPlot()
+        self._doPlot()
         if not pylab.isinteractive():
             pylab.show()
         else:
             pylab.draw()
 
     def save(self, filename):
+        print self.__class__
         print "Saving %s ..." % filename
         
         tempDisplayHack = False
@@ -259,8 +260,7 @@ class PlotLayout:
         if "DISPLAY" not in os.environ:
             tempDisplayHack = True
             os.environ["DISPLAY"] = ":0.0"
-        
-        self.__doPlot()
+        self._doPlot()
         pylab.savefig(filename)
         pylab.clf()
         

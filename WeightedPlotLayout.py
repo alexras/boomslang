@@ -9,12 +9,12 @@ from Utils import getGoldenRatioDimensions
 
 class WeightedPlotLayout(PlotLayout):
     def __init__(self):
-        PlotLayout.__init__(self)
+        super(WeightedPlotLayout,self).__init__()
         self.groupedWeights = {}
         self.weights = []
 
     def addPlot(self, plot, grouping=None, weight=1):
-        PlotLayout.addPlot(self, plot, grouping=grouping)
+        super(WeightedPlotLayout,self).addPlot(plot, grouping=grouping)
 
         if grouping == None:
             self.weights.append(weight)
@@ -23,9 +23,9 @@ class WeightedPlotLayout(PlotLayout):
                 self.groupedWeights[grouping] = []
             self.groupedWeights[grouping].append(weight)
 
-    def __doPlot(self):
+    def _doPlot(self):
         if len(self.groupedPlots) + len(self.plots) == 0:
-            print "PlotLayout.plot(): No data to plot!"
+            print "WeightedPlotLayout.plot(): No data to plot!"
             return
 
         if self.rcParams is not None:
@@ -68,11 +68,13 @@ class WeightedPlotLayout(PlotLayout):
         figTop = self.plotParams["top"]
         figLeft = self.plotParams["left"]
 
-        hgap = self.plotParams["hspace"] / (numRows - 1)
         wspace = self.plotParams["wspace"]
+        hspace = self.plotParams["hspace"]
 
         height = figTop - self.plotParams["bottom"]
-        rowHeight = (height - self.plotParams["hspace"]) / numRows
+        rowHeight = height / (numRows + (numRows - 1) * hspace)
+        hgap = self.plotParams["hspace"] * rowHeight
+
         rowWidth = self.plotParams["right"] - figLeft
 
         # To contain a list of plots and rects, so we can do the
@@ -88,7 +90,11 @@ class WeightedPlotLayout(PlotLayout):
             totalWeight = 1.0 * sum(weights)
             numPlots = len(plots)
 
-            availableWidth = rowWidth - wspace
+            # hspace, wspace behavior defined in matplotlib/axes.py
+            # in the class SubplotBase
+            unitWidth = rowWidth / (numPlots + (numPlots-1) * wspace)
+            availableWidth = unitWidth * numPlots
+            wgap = unitWidth * wspace
 
             bottom = figTop - rowHeight - (rowHeight + hgap) * currentRow
             left = figLeft
@@ -100,7 +106,7 @@ class WeightedPlotLayout(PlotLayout):
 
                 plotInfo.append((plot, [left, bottom, myWidth, rowHeight]))
 
-                left += myWidth + wspace / (numPlots - 1)
+                left += myWidth + wgap
 
             currentRow += 1
 
@@ -145,28 +151,3 @@ class WeightedPlotLayout(PlotLayout):
             pylab.figlegend(plotHandles, plotLabels,
                             self.figLegendLoc,
                             **figLegendKeywords)
-
-    # For some reason the wrong __doPlot gets called unless these are
-    # here?
-    def plot(self):
-        self.__doPlot()
-        if not pylab.isinteractive():
-            pylab.show()
-        else:
-            pylab.draw()
-
-    def save(self, filename):
-        print "Saving %s ..." % filename
-        
-        tempDisplayHack = False
-        
-        if "DISPLAY" not in os.environ:
-            tempDisplayHack = True
-            os.environ["DISPLAY"] = ":0.0"
-        
-        self.__doPlot()
-        pylab.savefig(filename)
-        pylab.clf()
-        
-        if tempDisplayHack == True:
-            del os.environ["DISPLAY"]
