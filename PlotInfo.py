@@ -18,9 +18,9 @@ class PlotInfo:
         
         self.label = None
         
-        self.yMins = None
-        self.yMaxes = None
-        self.yErrors = None
+        self.yMins = []
+        self.yMaxes = []
+        self.yErrors = []
         
         self.autosort = True
 
@@ -103,8 +103,8 @@ class PlotInfo:
             errorBarKeywords["linestyle"] = self.lineStyle
 
         errorBarKeywords["fmt"] = None
-
-        if self.yMins is not None and self.yMaxes is not None:
+        
+        if len(self.yMins) > 0 and len(self.yMaxes) > 0:
             numYVals = len(self.yValues)
             yMin = [self.yValues[i] - self.yMins[i] for i in xrange(numYVals)]
             yMax = [self.yMaxes[i] - self.yValues[i] for i in xrange(numYVals)]
@@ -113,6 +113,6 @@ class PlotInfo:
             errorBarKeywords["yerr"] = [yMin, yMax]
 
             axis.errorbar(self.xValues, self.yValues, **errorBarKeywords) 
-        elif self.yErrors is not None:
+        elif len(self.yErrors) > 0:
             errorBarKeywords["yerr"] = self.yErrors
             axis.errorbar(self.xValues, self.yValues, **errorBarKeywords)
