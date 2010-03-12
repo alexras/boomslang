@@ -89,11 +89,19 @@ class PlotInfo:
                 axis.set_yticks(range(len(self.yTickLabels)))
             else:
                 axis.set_yticks(self.yTickLabelPoints)
-            
+
             axis.set_yticklabels(self.yTickLabels, **self.yTickLabelProperties)
 
+        self.drawErrorBars(axis)
+
+    def drawErrorBars(self, axis, xValues=None):
+        if xValues is None:
+            xValues = self.xValues
+
         errorBarKeywords = {}
-        if hasattr(self, "color"):
+        if hasattr(self, "ecolor"):
+            errorBarKeywords["ecolor"] = self.ecolor
+        elif hasattr(self, "color"):
             errorBarKeywords["ecolor"] = self.color
 
         if hasattr(self, "lineWidth"):
@@ -112,7 +120,7 @@ class PlotInfo:
 
             errorBarKeywords["yerr"] = [yMin, yMax]
 
-            axis.errorbar(self.xValues, self.yValues, **errorBarKeywords) 
+            axis.errorbar(xValues, self.yValues, **errorBarKeywords) 
         elif self.yErrors is not None:
             errorBarKeywords["yerr"] = self.yErrors
-            axis.errorbar(self.xValues, self.yValues, **errorBarKeywords)
+            axis.errorbar(xValues, self.yValues, **errorBarKeywords)

@@ -13,6 +13,7 @@ class Bar(PlotInfo):
         self.color="black"
         self.edgeColor=None
         self.hatch=None
+        self.align="center"
     
     def draw(self, axis):
         if self.xTickLabelPoints is None:
@@ -34,7 +35,8 @@ class Bar(PlotInfo):
         kwdict["color"] = self.color
         kwdict["label"] = self.label
         kwdict["width"] = self.width
-        
+        kwdict["align"] = self.align
+
         if self.hatch is not None:
             kwdict["hatch"] = self.hatch
             print >>sys.stderr, "WARNING: Setting hash for bar charts only seems to work when exporting to svg or png"
