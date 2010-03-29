@@ -61,9 +61,9 @@ class ClusteredBars(PlotInfo):
                 + (i * self.width) for x in bar.xValues]
             
             if xMin is None:
-                xMin = min(xVals)
+                xMin = min(xVals) - self.width
             else:
-                xMin = min(xMin, min(xVals))
+                xMin = min(xMin, min(xVals) - self.width)
             
             if xMax is None:
                 xMax = max(xVals) + self.width
@@ -73,6 +73,7 @@ class ClusteredBars(PlotInfo):
             attrs = bar.getAttributes()
             
             currHandle = axis.bar(xVals, bar.yValues, **attrs)
+            bar.drawErrorBars(axis, xVals)
             # Only give handle to first rectangle in bar
             plotHandles.append(currHandle[0])
             plotLabels.append(bar.label)
