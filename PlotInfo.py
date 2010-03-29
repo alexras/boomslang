@@ -78,7 +78,7 @@ class PlotInfo:
         
         if self.xTickLabels is not None:
             if self.xTickLabelPoints is None:
-                axis.set_xticks(range(len(self.xTickLabels)))
+                axis.set_xticks(self.xValues[0:len(self.xTickLabels)])
             else:
                 axis.set_xticks(self.xTickLabelPoints)
             
@@ -86,7 +86,7 @@ class PlotInfo:
         
         if self.yTickLabels is not None:
             if self.yTickLabelPoints is None:
-                axis.set_yticks(range(len(self.yTickLabels)))
+                axis.set_yticks(self.yValues[0:len(self.yTickLabels)])
             else:
                 axis.set_yticks(self.yTickLabelPoints)
             
