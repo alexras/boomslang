@@ -31,7 +31,7 @@ class ClusteredBars(PlotInfo):
         clusterMiddle = float(numBars * self.width) / 2.0
         
         for i in xrange(len(self.bars[0].xValues)):
-            labelLocations.append(clusterWidth * i + clusterMiddle) 
+            labelLocations.append(clusterWidth * i + clusterMiddle)
 
         return labelLocations
     
@@ -61,9 +61,9 @@ class ClusteredBars(PlotInfo):
                 + (i * self.width) for x in bar.xValues]
             
             if xMin is None:
-                xMin = min(xVals) - self.width
+                xMin = min(xVals)
             else:
-                xMin = min(xMin, min(xVals) - self.width)
+                xMin = min(xMin, min(xVals))
             
             if xMax is None:
                 xMax = max(xVals) + self.width
@@ -71,7 +71,7 @@ class ClusteredBars(PlotInfo):
                 xMax = max(xMax, max(xVals) + self.width)
             
             attrs = bar.getAttributes()
-            
+
             currHandle = axis.bar(xVals, bar.yValues, **attrs)
             bar.drawErrorBars(axis, xVals)
             # Only give handle to first rectangle in bar

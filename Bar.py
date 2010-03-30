@@ -13,7 +13,7 @@ class Bar(PlotInfo):
         self.color="black"
         self.edgeColor=None
         self.hatch=None
-        self.align="center"
+        self.align="edge"
     
     def draw(self, axis):
         if self.xTickLabelPoints is None:
@@ -29,7 +29,14 @@ class Bar(PlotInfo):
         
         return [[axis.bar(self.xValues, self.yValues, **kwdict)[0]], 
                 [self.label]]
-        
+
+    def drawErrorBars(self, axis, xValues=None):
+        if xValues is None:
+            xValues = self.xValues
+
+        PlotInfo.drawErrorBars(self, axis,
+                               xValues=[x + (self.width/2.0) for x in xValues])
+
     def getAttributes(self):
         kwdict = {}
         kwdict["color"] = self.color
