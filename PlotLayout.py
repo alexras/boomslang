@@ -134,7 +134,6 @@ class PlotLayout(object):
 
         currentRow = 0
 
-        print self.figdimensions, self.dimensions
         if self.figdimensions is not None:
             fig = pyplot.figure(figsize=(self.figdimensions[0], 
                                          self.figdimensions[1]))

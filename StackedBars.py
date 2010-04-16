@@ -23,7 +23,9 @@ class StackedBars(PlotInfo):
             sys.exit(1)
         
         if len(self.bars) == 0:
+            # Fake having xValues
             self.xValues = bar.xValues
+            self.yValues = bar.yValues
 
         self.bars.append(bar)
 
@@ -71,4 +73,7 @@ class StackedBars(PlotInfo):
             
             plotHandles.append(currHandle[0])
             plotLabels.append(bar.label)
-        return [reversed(plotHandles), reversed(plotLabels)]
+
+        plotHandles.reverse()
+        plotLabels.reverse()
+        return [plotHandles, plotLabels]

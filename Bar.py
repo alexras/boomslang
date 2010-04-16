@@ -22,9 +22,9 @@ class Bar(PlotInfo):
             if self.xTickLabels is None:
                 self.xTickLabels = self.xValues
 
-        PlotInfo.draw(self, axis, transform)
+        PlotInfo.draw(self, axis)
 
-        return self._draw(self, transform)
+        return self._draw(axis, transform)
 
     def _draw(self, axis, transform=None):
         kwdict = self.getAttributes()
