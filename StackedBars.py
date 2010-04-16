@@ -57,11 +57,12 @@ class StackedBars(PlotInfo):
         xVals = [i + i * self.spacing \
                      for i in xrange(len(self.bars[0].xValues))]
 
+        if transform:
+            xVals = [transform.transform((x,0))[0] for x in xVals]
+
         for bar in self.bars:
             attrs = bar.getAttributes()
             attrs['width'] = self.width
-            if transform:
-                attrs['transform'] = transform + axis.transData
 
             currHandle = axis.bar(xVals, bar.yValues, bottom=bottoms, **attrs)
             

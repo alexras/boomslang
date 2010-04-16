@@ -27,11 +27,10 @@ class ClusteredBars(PlotInfo):
     
     def getXLabelLocations(self):
         labelLocations = []
-        numBars = len(self.bars)
         clusterWidth = sum([bar.width for bar in self.bars])
 
-        for i in xrange(len(self.bars[0].xValues)):
-            labelLocations.append((clusterWidth + self.spacing) * i +\
+        for x in self.bars[0].xValues:
+            labelLocations.append((clusterWidth + self.spacing) * x +\
                                    clusterWidth / 2.0)
 
         return labelLocations
@@ -61,24 +60,18 @@ class ClusteredBars(PlotInfo):
 
         clusterWidth = sum([bar.width for bar in self.bars])
 
-        scale_xform = Affine2D.identity().scale(clusterWidth + self.spacing,
-                                                1.0)
-
-        if not transform:
-            transform = IdentityTransform()
-
         for i in xrange(numBars):
             bar = self.bars[i]
 
             pre_width = sum([self.bars[j].width for j in xrange(i)])
 
-            bar_xform = Affine2D.identity().translate(pre_width, 0)
+            bar_xform = Affine2D().scale(clusterWidth + self.spacing, 1)\
+                                  .translate(pre_width, 0)
 
-            # temporarily store width while we scale it
-            tWidth = bar.width
-            bar.width = bar.width / (clusterWidth + self.spacing)
-
-            xform = scale_xform + bar_xform + transform
+            if transform:
+                xform = bar_xform + transform
+            else:
+                xform = bar_xform
 
             [handles, labels] = bar._draw(axis, transform=xform)
             bar.drawErrorBars(axis, transform=xform)
@@ -93,8 +86,7 @@ class ClusteredBars(PlotInfo):
                     plotHandles.extend(handles)
                     plotLabels.extend(labels)
 
-            # Restore width
-            bar.width = tWidth
+        scale_xform = Affine2D().scale(clusterWidth + self.spacing, 1)
 
         xMin = scale_xform.transform((self.bars[0].xValues[0], 0))[0] - \
                     self.bars[0].width / 2.0

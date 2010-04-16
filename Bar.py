@@ -17,8 +17,7 @@ class Bar(PlotInfo):
     
     def draw(self, axis, transform=None):
         if self.xTickLabelPoints is None:
-            self.xTickLabelPoints = \
-                [x + (self.width / 2.0) for x in self.xValues]
+            self.xTickLabelPoints = self.xValues
             
             if self.xTickLabels is None:
                 self.xTickLabels = self.xValues
@@ -28,13 +27,14 @@ class Bar(PlotInfo):
         return self._draw(self, transform)
 
     def _draw(self, axis, transform=None):
-        
         kwdict = self.getAttributes()
 
         if transform:
-            kwdict['transform'] = transform + axis.transData
-        
-        return [[axis.bar(self.xValues, self.yValues, **kwdict)[0]], 
+            xValues = [transform.transform((x,0))[0] for x in self.xValues]
+        else:
+            xValues = self.xValues
+
+        return [[axis.bar(xValues, self.yValues, **kwdict)[0]],
                 [self.label]]
 
     def getAttributes(self):
