@@ -94,10 +94,7 @@ class PlotInfo:
 
         self.drawErrorBars(axis)
 
-    def drawErrorBars(self, axis, xValues=None):
-        if xValues is None:
-            xValues = self.xValues
-
+    def drawErrorBars(self, axis, transform=None):
         errorBarKeywords = {}
         if hasattr(self, "ecolor"):
             errorBarKeywords["ecolor"] = self.ecolor
@@ -110,6 +107,9 @@ class PlotInfo:
         if hasattr(self, "lineStyle"):
             errorBarKeywords["linestyle"] = self.lineStyle
 
+        if transform:
+            errorBarKeywords['transform'] = transform + axis.transData
+
         errorBarKeywords["fmt"] = None
         
         if len(self.yMins) > 0 and len(self.yMaxes) > 0:
@@ -120,7 +120,7 @@ class PlotInfo:
 
             errorBarKeywords["yerr"] = [yMin, yMax]
 
-            axis.errorbar(xValues, self.yValues, **errorBarKeywords) 
+            axis.errorbar(self.xValues, self.yValues, **errorBarKeywords) 
         elif len(self.yErrors) > 0:
             errorBarKeywords["yerr"] = self.yErrors
-            axis.errorbar(xValues, self.yValues, **errorBarKeywords)
+            axis.errorbar(self.xValues, self.yValues, **errorBarKeywords)

@@ -22,6 +22,9 @@ class StackedBars(PlotInfo):
             print >>sys.stderr, "Can only add Bars to a StackedBars"
             sys.exit(1)
         
+        if len(self.bars) == 0:
+            self.xValues = bar.xValues
+
         self.bars.append(bar)
 
     def getXLabelLocations(self):
@@ -31,11 +34,16 @@ class StackedBars(PlotInfo):
             numBarVals = len(self.bars[0].xValues)
             return [i + self.width / 2.0 for i in xrange(numBarVals)]
 
-    def draw(self, axis):
+    def draw(self, axis, transform=None):
         self.xTickLabelPoints = self.getXLabelLocations()
         
         PlotInfo.draw(self, axis)
-        
+
+        return self._draw(axis, transform)
+
+    def _draw(self, axis, transform=None):
+        self.xTickLabelPoints = self.getXLabelLocations()
+
         plotHandles = []
         plotLabels = []
 
@@ -51,6 +59,10 @@ class StackedBars(PlotInfo):
 
         for bar in self.bars:
             attrs = bar.getAttributes()
+            attrs['width'] = self.width
+            if transform:
+                attrs['transform'] = transform + axis.transData
+
             currHandle = axis.bar(xVals, bar.yValues, bottom=bottoms, **attrs)
             
             bottoms = [bar.yValues[i] + bottoms[i] \
@@ -58,4 +70,4 @@ class StackedBars(PlotInfo):
             
             plotHandles.append(currHandle[0])
             plotLabels.append(bar.label)
-        return [plotHandles, plotLabels]
+        return [reversed(plotHandles), reversed(plotLabels)]

@@ -13,9 +13,9 @@ class Bar(PlotInfo):
         self.color="black"
         self.edgeColor=None
         self.hatch=None
-        self.align="edge"
+        self.align="center"
     
-    def draw(self, axis):
+    def draw(self, axis, transform=None):
         if self.xTickLabelPoints is None:
             self.xTickLabelPoints = \
                 [x + (self.width / 2.0) for x in self.xValues]
@@ -23,19 +23,19 @@ class Bar(PlotInfo):
             if self.xTickLabels is None:
                 self.xTickLabels = self.xValues
 
-        PlotInfo.draw(self, axis)
+        PlotInfo.draw(self, axis, transform)
+
+        return self._draw(self, transform)
+
+    def _draw(self, axis, transform=None):
         
         kwdict = self.getAttributes()
+
+        if transform:
+            kwdict['transform'] = transform + axis.transData
         
         return [[axis.bar(self.xValues, self.yValues, **kwdict)[0]], 
                 [self.label]]
-
-    def drawErrorBars(self, axis, xValues=None):
-        if xValues is None:
-            xValues = self.xValues
-
-        PlotInfo.drawErrorBars(self, axis,
-                               xValues=[x + (self.width/2.0) for x in xValues])
 
     def getAttributes(self):
         kwdict = {}
