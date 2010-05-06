@@ -12,6 +12,7 @@ class WeightedPlotLayout(PlotLayout):
         super(WeightedPlotLayout,self).__init__()
         self.groupedWeights = {}
         self.weights = []
+        self.figTitle = None
 
     def addPlot(self, plot, grouping=None, weight=1):
         super(WeightedPlotLayout,self).addPlot(plot, grouping=grouping)
@@ -22,6 +23,9 @@ class WeightedPlotLayout(PlotLayout):
             if grouping not in self.groupedWeights:
                 self.groupedWeights[grouping] = []
             self.groupedWeights[grouping].append(weight)
+
+    def setFigTitle(self, title=None):
+        self.figTitle = title
 
     def _doPlot(self):
         if len(self.groupedPlots) + len(self.plots) == 0:
@@ -151,3 +155,6 @@ class WeightedPlotLayout(PlotLayout):
             pylab.figlegend(plotHandles, plotLabels,
                             self.figLegendLoc,
                             **figLegendKeywords)
+
+        if self.figTitle is not None:
+            fig.suptitle(self.figTitle)
