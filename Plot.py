@@ -235,13 +235,16 @@ class Plot:
         """
         self.ylim = (minY, maxY)
 
-    def hasFigLegend(self, columns=1, location="best", scatterPoints=3):
+    def hasFigLegend(self, columns=1, location="best", scatterPoints=3, 
+                     draw_frame=True):
         self.figLegend = True
         self.legendCols = columns
         self.legendLoc = location
         self.scatterPoints = scatterPoints
+        self.legendDrawFrame = draw_frame
 
-    def hasLegend(self, columns=1, location="best", scatterPoints=3):
+    def hasLegend(self, columns=1, location="best", scatterPoints=3,
+                  draw_frame=True):
         """
         Declare that the plot has a legend with a given number of columns and
         location.
@@ -250,6 +253,7 @@ class Plot:
         self.legendCols = columns
         self.legendLoc = location
         self.scatterPoints = scatterPoints
+        self.legendDrawFrame = draw_frame
 
     def setTitle(self, title):
         self.title = title
@@ -507,7 +511,7 @@ class Plot:
             ax.set_ylabel(self.yLabel)
 
         legendKeywords = {}
-        
+
         if self.legendCols > 0:
             versionParts = [int(x) for x in matplotlib.__version__.split('.')]
             
@@ -521,16 +525,21 @@ class Plot:
                 
                 if self.legendLabelSize is not None:
                     legendKeywords["prop"] = {"size" : self.legendLabelSize}
- 
+
+        legend = None # So we can disable the box if we want
+
         if self.legend:
             if len(plotHandles) == 0:
                 print >>sys.stderr, "ERROR: Plot wanted to draw a legend, but none of its elements have labels"
                 sys.exit(1)
 
-            pylab.legend(plotHandles, plotLabels, loc=self.legendLoc, 
-                         **legendKeywords)
+            legend = pylab.legend(plotHandles, plotLabels,
+                                  loc=self.legendLoc, **legendKeywords)
         if self.figLegend:
-            pylab.figlegend(plotHandles, plotLabels, loc=self.legendLoc, 
-                            **legendKeywords)
-                
+            legend = pylab.figlegend(plotHandles, plotLabels,
+                                     loc=self.legendLoc, **legendKeywords)
+
+        if legend:
+            legend.draw_frame(self.legendDrawFrame)
+ 
         return (plotHandles, plotLabels)
