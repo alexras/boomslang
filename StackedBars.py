@@ -26,7 +26,7 @@ class StackedBars(PlotInfo):
             # Fake having xValues
             self.xValues = bar.xValues
             self.yValues = bar.yValues
-
+        bar.width = self.width
         self.bars.append(bar)
 
     def getXLabelLocations(self):
@@ -34,7 +34,7 @@ class StackedBars(PlotInfo):
             return []
         else:
             numBarVals = len(self.bars[0].xValues)
-            return [i + self.width / 2.0 for i in xrange(numBarVals)]
+            return range(numBarVals)
 
     def draw(self, axis, transform=None):
         self.xTickLabelPoints = self.getXLabelLocations()
