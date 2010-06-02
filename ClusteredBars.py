@@ -16,23 +16,21 @@ class ClusteredBars(PlotInfo):
         
         self.bars = []
         self.spacing = 0
-        self.width = 0.8
+        self.width = 1
         
     def add(self, bar):
         if not isinstance(bar, Bar) and not isinstance(bar, StackedBars):
             print >>sys.stderr, "Can only add Bars to a ClusteredBars"
             sys.exit(1)
-        
+        bar.width = self.width
         self.bars.append(bar)
     
     def getXLabelLocations(self):
         labelLocations = []
         clusterWidth = sum([bar.width for bar in self.bars])
-
         for x in self.bars[0].xValues:
-            labelLocations.append((clusterWidth + self.spacing) * x +\
-                                   clusterWidth / 2.0)
-
+            labelLocations.append((clusterWidth + self.spacing) * float(x) - (self.width / 2.0) + clusterWidth / 2.0)
+            
         return labelLocations
     
     def draw(self, axis, transform=None):
