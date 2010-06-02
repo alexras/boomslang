@@ -16,12 +16,6 @@ class Bar(PlotInfo):
         self.align="center"
     
     def draw(self, axis, transform=None):
-        if self.xTickLabelPoints is None:
-            self.xTickLabelPoints = self.xValues
-            
-            if self.xTickLabels is None:
-                self.xTickLabels = self.xValues
-
         PlotInfo.draw(self, axis)
 
         return self._draw(axis, transform)
