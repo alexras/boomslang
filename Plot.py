@@ -68,6 +68,8 @@ class Plot:
         self.legendLabelSize = None
         
         self.titleProperties = {}
+
+        self.tight = False
         
     def setTitleProperties(self, **propList):
         self.__setProperties(self.titleProperties, propList)
@@ -389,6 +391,10 @@ class Plot:
         """
         Used by PlotLayout to plot the graph at a given location in the layout.
         """
+
+        if self.tight:
+            ax.autoscale_view(tight=True)
+            
         for insetInfo in self.insets:
             insetInfo[0].plotInset(ax, *(insetInfo[1:]))
         
