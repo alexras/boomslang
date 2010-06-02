@@ -135,16 +135,16 @@ class PlotLayout(object):
         currentRow = 0
 
         if self.figdimensions is not None:
-            fig = pyplot.figure(figsize=(self.figdimensions[0], 
+            fig = pyplot.figure(1, figsize=(self.figdimensions[0], 
                                          self.figdimensions[1]))
         elif self.dimensions is not None:
-            fig = pyplot.figure(figsize=(self.dimensions[0] * maxRowLength, 
+            fig = pyplot.figure(1, figsize=(self.dimensions[0] * maxRowLength, 
                                          self.dimensions[1] * numRows))
         else:
             (figWidth, figHeight) = getGoldenRatioDimensions(8.0)
             figWidth *= maxRowLength
             figHeight *= numRows
-            fig = pyplot.figure(figsize=(figWidth, figHeight))
+            fig = pyplot.figure(1, figsize=(figWidth, figHeight))
             # figWidth = fig.get_figwidth()
             # print figWidth
             # print fig.get_figheight()
