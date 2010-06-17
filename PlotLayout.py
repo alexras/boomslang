@@ -31,6 +31,11 @@ class PlotLayout(object):
 
     def useLatexLabels(self):
         print >>sys.stderr, "WARNING: Using LaTeX labels requires dvipng and ghostscript"
+        self.__setRCParam("font.family", "serif")
+        self.__setRCParam("font.serif", "Times, Palatino, New Century Schoolbook, Bookman, Computer Modern Roman")
+        self.__setRCParam("font.sans-serif", "Helvetica, Avant Garde, Computer Modern Sans serif")
+        self.__setRCParam("font.cursive", "Zapf Chancery")
+        self.__setRCParam("font.monospace", "Courier, Computer Modern Typewriter")
         self.__setRCParam("text.usetex", True)
 
     # def useStandardFont(self):
@@ -39,7 +44,7 @@ class PlotLayout(object):
     #     self.__setRCParam("font.variant", "normal")
     #     self.__setRCParam("font.weight", "normal")
     #     self.__setRCParam("font.stretch", "normal")
-
+        
     def setAxesLabelSize(self, size):
         self.__setRCParam("axes.labelsize", size)
 
