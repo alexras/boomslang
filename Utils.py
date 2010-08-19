@@ -13,7 +13,8 @@ def getXYValsFromFile(filename, regex, postFunction=None):
     regex = re.compile(regex)
     
     matches = []
-    
+
+    i = 0
     for line in fp:
         line = line.strip()
         
@@ -21,16 +22,17 @@ def getXYValsFromFile(filename, regex, postFunction=None):
         
         if match is not None:
             matchGroups = match.groups()
-            
-            if len(matchGroups) < 2:
-                print >>sys.stderr, "Need at least two matching groups to construct a line"
-                sys.exit(1)
-            
+                        
             if postFunction is not None:
                 matchGroups = postFunction(matchGroups)
             else:
                 matchGroups = [float(x) for x in matchGroups]
+            
+            if len(matchGroups) < 2:
+                matchGroups.insert(0, i)
+
             matches.append(matchGroups)
+            i += 1
     fp.close()
     
     matches.sort()
