@@ -14,5 +14,7 @@ for i in xrange(6):
 plot.addLineColor("red")
 plot.addLineColor("blue")
 plot.addLineColor("green")
+plot.addMarker('')
+plot.addMarker('x')
 plot.hasLegend(columns=2)
 plot.save("linestyles.png")

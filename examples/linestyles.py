@@ -4,7 +4,7 @@ from boomslang import Line, Plot
 
 plot = Plot()
 
-for i in xrange(6):
+for i in xrange(24):
     line = Line()
     line.xValues = xrange(5)
     line.yValues = [(i+1) * x for x in line.xValues]
@@ -16,5 +16,9 @@ plot.addLineColor("blue")
 plot.addLineStyle("-")
 plot.addLineStyle("--")
 plot.addLineStyle(":")
+plot.addMarker('')
+plot.addMarker('x')
+plot.addMarker('o')
 plot.hasLegend(columns=2)
+plot.setLegendLabelSize(8)
 plot.save("linestyles.png")
