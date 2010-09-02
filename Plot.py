@@ -40,6 +40,7 @@ class Plot:
 
         self.lineStyles = None
         self.lineColors = None
+        self.markers = None
 
         self.width = None
         self.height = None
@@ -182,6 +183,11 @@ class Plot:
         if self.lineColors is None:
             self.lineColors = []
         self.lineColors.append(color)
+
+    def addMarker(self, marker):
+        if self.markers is None:
+            self.markers = []
+        self.markers.append(marker)
 
     def getNumPlots(self):
         """
@@ -452,34 +458,55 @@ class Plot:
         i = 0
         myAxis = ax
         
+        hasLineStyles = self.lineStyles is not None
+        hasColors = self.lineColors is not None
+        hasMarkers = self.markers is not None
         
-        numLineStyles = None
-        numColors = None
-        
-        if self.lineStyles is not None:
+        numLineStyles = 1
+        numColors = 1
+        numMarkers = 1
+                
+        if hasLineStyles:
             numLineStyles = len(self.lineStyles)
-
-        if self.lineColors is not None:
+            
+        if hasColors:
             numColors = len(self.lineColors)
+
+        if hasMarkers:
+            numMarkers = len(self.markers)
+
+        plotIndex = 0
         
         for plotInfo in self.plots:
             if self.twinxIndex >= 0 and i == self.twinxIndex:
                 myAxis = ax2
-        
+                
             myLineStyle = None
             myColor = None
+            myMarker = None
             
-            if numLineStyles is not None:
-                myLineStyle = self.lineStyles[i % numLineStyles]
-        
-            if numColors is not None:
-                if numLineStyles is None:
-                    myColor = self.lineColors[i % numColors]
-                else:
-                    myColor =  self.lineColors[(i / numLineStyles) % numColors]
+            # cycle through styles first, then markers, then colors
+            colorIndex = (plotIndex / (numMarkers * numLineStyles)) % numColors
+            markerIndex = (plotIndex / numLineStyles) % numMarkers
+            lineStyleIndex = plotIndex % numLineStyles
 
+            if hasLineStyles:
+                myLineStyle = self.lineStyles[lineStyleIndex]
+            
+            if hasColors:
+                myColor =  self.lineColors[colorIndex]
+            
+            if hasMarkers:
+                myMarker = self.markers[markerIndex]
+
+                                
+            plotIndex += 1
+                
             if myLineStyle is not None:
                 plotInfo.lineStyle = myLineStyle
+
+            if myMarker is not None:
+                plotInfo.marker = myMarker
             
             if myColor is not None:
                 plotInfo.color = myColor
