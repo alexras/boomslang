@@ -7,7 +7,8 @@ def getGoldenRatioDimensions(width):
     goldenRatio = (math.sqrt(5) - 1.0) / 2.0
     return (width, goldenRatio * width)
 
-def getXYValsFromFile(filename, regex, postFunction=None):
+def getXYValsFromFile(filename, regex, postFunction=None, 
+                      autofillXValues=False):
     fp = open(filename)
     
     regex = re.compile(regex)
@@ -28,7 +29,7 @@ def getXYValsFromFile(filename, regex, postFunction=None):
             else:
                 matchGroups = [float(x) for x in matchGroups]
             
-            if len(matchGroups) < 2:
+            if len(matchGroups) < 2 or autofillXValues:
                 matchGroups.insert(0, i)
 
             matches.append(matchGroups)
@@ -54,8 +55,9 @@ def getXYValsFromFile(filename, regex, postFunction=None):
     
     return [xValues, yValues]
 
-def getLinesFromFile(filename, regex, postFunction=None):
-    (xValues, yValues) = getXYValsFromFile(filename, regex, postFunction)
+def getLinesFromFile(filename, regex, postFunction=None, autofillXValues=False):
+    (xValues, yValues) = getXYValsFromFile(filename, regex, postFunction, 
+                                           autofillXValues)
     
     lines = []
     
@@ -66,8 +68,9 @@ def getLinesFromFile(filename, regex, postFunction=None):
         lines.append(line)
     return lines
     
-def getBarsFromFile(filename, regex, postFunction=None):
-    (xValues, yValues) = getXYValsFromFile(filename, regex, postFunction)
+def getBarsFromFile(filename, regex, postFunction=None, autofillXValues=False):
+    (xValues, yValues) = getXYValsFromFile(filename, regex, postFunction, 
+                                           autofillXValues)
     
     bars = []
     
