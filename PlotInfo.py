@@ -72,9 +72,32 @@ class PlotInfo:
         
     def draw(self, axis):
         if len(self.xValues) > 0 and self.autosort:
-            zipped = zip(self.xValues, self.yValues)
-            zipped.sort()
-            self.xValues, self.yValues = zip(*zipped)
+            # This is a total kludge --AR
+            
+            sortAsymmetricErrorBars = len(self.yMins) > 0 or \
+                len(self.yMaxes) > 0
+            sortSymmetricErrorBars = len(self.yErrors) > 0
+
+            if sortAsymmetricErrorBars:
+                if len(self.yMins) != len(self.yValues):
+                    print >>sys.stderr, "You don't have an error bar for every point, some points will be truncated"
+
+                zipped = zip(self.xValues, self.yValues, self.yMins, 
+                             self.yMaxes)
+                zipped.sort()
+                self.xValues, self.yValues, self.yMins, self.yMaxes \
+                    = zip(*zipped)
+            elif sortSymmetricErrorBars:
+                if len(self.yErrors) != len(self.yValues):
+                    print >>sys.stderr, "You don't have an error bar for every point, some points will be truncated"
+
+                zipped = zip(self.xValues, self.yValues, self.yErrors)
+                zipped.sort()
+                self.xValues, self.yValues, self.yErrors = zip(*zipped)
+            else:
+                zipped = zip(self.xValues, self.yValues)
+                zipped.sort()
+                self.xValues, self.yValues = zip(*zipped)
         
         if self.xTickLabels is not None:
             if self.xTickLabelPoints is None:
