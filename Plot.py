@@ -217,7 +217,7 @@ class Plot:
         """
         Set the x-axis formatter used by this plot to the given function.
         """
-        self.xFormatter = formatter
+        self.xFormatter = pylab.FuncFormatter(formatter)
 
     def setXLabel(self, xLabel):
         """
