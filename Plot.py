@@ -416,7 +416,10 @@ class Plot:
 
         
         if self.grid:
-            ax.grid()
+            #TODO: color and linestyle for gridlines should be configurable
+            ax.grid(color="#dddddd", linestyle="-")
+            # Gridlines should be below plots
+            ax.set_axisbelow(True)
 
         if self.loglog or self.logx:
             myBase = None
