@@ -568,7 +568,6 @@ class Plot:
             if len(plotHandles) == 0:
                 print >>sys.stderr, "ERROR: Plot wanted to draw a legend, but none of its elements have labels"
                 sys.exit(1)
-
             legend = pylab.legend(plotHandles, plotLabels,
                                   loc=self.legendLoc, **legendKeywords)
         if self.figLegend:
