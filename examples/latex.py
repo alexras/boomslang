@@ -14,6 +14,7 @@ plot.setTitle(r"LaTeX is Number $\sum_{n=1}^{\infty}\frac{-e^{i\pi}}{2^n}$")
 plot.add(line)
 
 layout = PlotLayout()
+layout.useLatexLabels()
 layout.addPlot(plot)
 
 layout.setAxesLabelSize(18)
