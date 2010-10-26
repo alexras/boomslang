@@ -32,6 +32,7 @@ class Label(PlotInfo):
         kwdict["textcoords"] = "data"
         kwdict["arrowprops"] = self.arrow
         kwdict["horizontalalignment"] = "center"
+        kwdict["rotation"] = self.rotation
 
         handles = []
         labels = []
