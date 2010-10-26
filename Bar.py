@@ -40,7 +40,7 @@ class Bar(PlotInfo):
 
         if self.hatch is not None:
             kwdict["hatch"] = self.hatch
-            print >>sys.stderr, "WARNING: Setting hash for bar charts only seems to work when exporting to svg or png"
+            print >>sys.stderr, "WARNING: Setting hash for bar charts only seems to work when exporting to svg, png, or pdf"
 
         if self.edgeColor is not None:
             kwdict["edgecolor"] = self.edgeColor
