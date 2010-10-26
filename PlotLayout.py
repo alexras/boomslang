@@ -256,7 +256,7 @@ class PlotLayout(object):
         else:
             pylab.draw()
 
-    def save(self, filename):
+    def save(self, filename, **kwargs):
         print "Saving %s ..." % filename
         
         tempDisplayHack = False
@@ -265,7 +265,7 @@ class PlotLayout(object):
             tempDisplayHack = True
             os.environ["DISPLAY"] = ":0.0"
         self._doPlot()
-        pylab.savefig(filename)
+        pylab.savefig(filename,**kwargs)
         pylab.clf()
         
         if tempDisplayHack == True:

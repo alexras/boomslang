@@ -327,12 +327,12 @@ class Plot:
             self.plotParams["hspace"] = 0.20
 
 
-    def save(self, filename):
+    def save(self, filename, **kwargs):
         """
         Save this plot to a file.
         """
         layout = self.__setupLayout()
-        layout.save(filename)
+        layout.save(filename,**kwargs)
 
     def plotInset(self, parentAxes, width, height, location, padding):
         if not insetLocatorLoaded:
