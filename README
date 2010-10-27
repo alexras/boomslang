@@ -1,0 +1,45 @@
+boomslang:
+A thin layer over matplotlib that simplifies creation of common plots
+
+
+About Boomslang
+---------------
+I created Boomslang to decrease the amount of boilerplate code I had to write
+when producing graphs for research papers. Boomslang treats data and plots
+separately and encapsulates them both in objects, giving the programmer the
+ability to author modular, re-usable graphing code.
+
+
+Downloading Boomslang
+---------------------
+The current stable version of Boomslang is 0.4 beta:
+http://boomslang.googlecode.com/files/boomslang-0.4b.tar.gz. For a list of new
+features and bug fixes in this version, check the change log.
+
+Boomslang requires matplotlib. You can get it here:
+http://sourceforge.net/projects/matplotlib/files/matplotlib/matplotlib-0.99.1/
+or install it through your favorite package management utility
+
+Since the rate of churn of Boomslang's feature set is still quite high, I
+recommend that people use Boomslang by checking out the Mercurial repository:
+
+hg clone https://boomslang.googlecode.com/hg boomslang
+
+
+Getting Started
+---------------
+To get started, check out the GettingStarted wiki page. To see some examples of
+Boomslang in action, check out Examples.
+
+
+Staying Up-To-Date
+------------------
+Users of Boomslang are encouraged to subscribe to the boomslang-users mailing
+list (http://groups.google.com/group/boomslang-users). Feature suggestions and
+bugs can be filed using the Issues tab above.
+
+
+Troubleshooting
+---------------
+First, check the FAQ; if a question gets asked more than about twice, I'll put
+it there. Then, ask the mailing list or ask me.
