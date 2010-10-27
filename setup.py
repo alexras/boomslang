@@ -10,7 +10,7 @@ setup(name='boomslang',
 code I had to write when producing graphs for research papers. Boomslang
 treats data and plots separately and encapsulates them both in objects,
 giving the programmer the ability to author modular, re-usable graphing
-code.'''
+code.''',
       author='Alex C. Rasmussen',
       author_email='alexras@acm.org',
       url='http://code.google.com/p/boomslang/',
