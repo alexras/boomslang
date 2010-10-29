@@ -2,7 +2,7 @@ import os
 import sys
 import copy
 
-class PlotInfo:
+class PlotInfo(object):
     def __init__(self, plotType):
         self.plotType = plotType
 
