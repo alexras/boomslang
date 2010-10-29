@@ -147,3 +147,5 @@ class PlotInfo(object):
         elif len(self.yErrors) > 0:
             errorBarKeywords["yerr"] = self.yErrors
             axis.errorbar(self.xValues, self.yValues, **errorBarKeywords)
+
+# EOF
