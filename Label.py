@@ -13,6 +13,7 @@ class Label(PlotInfo):
         self.textY = y
         self.arrow = None
         self.marker = None
+        self.rotation = None
 
     def setTextOffset(self, x, y):
         self.textX = self.x + x
