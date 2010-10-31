@@ -4,7 +4,7 @@ from PlotInfo import *
 
 class Scatter(PlotInfo):
     def __init__(self):
-        PlotInfo.__init__(self, "scatter")
+        super(Scatter,self).__init__("scatter")
         self.marker = 'o'
         self.markerSize = 20
         self.color = "black"

@@ -4,7 +4,7 @@ from PlotInfo import PlotInfo
 
 class Line(PlotInfo):
     def __init__(self):
-        PlotInfo.__init__(self, "line")
+        super(Line,self).__init__("line")
         
         self.marker = None
         self.markerSize = 8.0

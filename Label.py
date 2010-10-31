@@ -4,7 +4,7 @@ from PlotInfo import PlotInfo
 
 class Label(PlotInfo):
     def __init__(self, x, y, text=None):
-        PlotInfo.__init__(self, "label")
+        super(Label,self).__init__("label")
         
         self.x = x
         self.y = y

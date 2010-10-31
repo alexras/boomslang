@@ -8,7 +8,7 @@ class Bar(PlotInfo):
     """
 
     def __init__(self):
-        PlotInfo.__init__(self, "bar")
+        super(Bar,self).__init__("bar")
         self.width=0.8
         self.color="black"
         self.edgeColor=None

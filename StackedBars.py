@@ -11,7 +11,7 @@ class StackedBars(PlotInfo):
     """
     
     def __init__(self):
-        PlotInfo.__init__(self, "stacked bar")
+        super(StackedBars,self).__init__("stacked bar")
         
         self.bars = []
         self.spacing = 0
