@@ -1,5 +1,5 @@
 __all__ = ["Bar", "Plot", "PlotLayout", "WeightedPlotLayout",
-           "Scatter", "ClusteredBars", "PlotInfo", "Line", "Utils", 
+           "Scatter", "ClusteredBars", "PlotInfo", "Line", "VLine", "Utils",
            "StackedBars", "Label", "StackedLines"]
 
 for __mySrcDir__ in __all__:
