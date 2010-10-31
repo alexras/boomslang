@@ -19,11 +19,20 @@ randomLabel = Label(2, -1.7, "A Point!")
 randomLabel.setTextOffset(0, 0.2)
 randomLabel.marker = 'o'
 
+styledLabel = Label(1.25, 1.2, "A FancyPoint!",
+                    bbox={'edgecolor':'red',
+                          'facecolor':'white',
+                          'ls':'dashed',
+                          'lw':'2'})
+styledLabel.setTextOffset(0, 0.2)
+styledLabel.marker = 'o'
+
 plot = Plot()
 plot.add(line)
 plot.add(minLabel)
 plot.add(maxLabel)
 plot.add(randomLabel)
+plot.add(styledLabel)
 plot.setYLimits(-3, 3)
 plot.setXLabel("X")
 plot.setYLabel("cos(x)")

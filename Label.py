@@ -3,8 +3,8 @@ from matplotlib import pyplot
 from PlotInfo import PlotInfo
 
 class Label(PlotInfo):
-    def __init__(self, x, y, text=None):
-        super(Label,self).__init__("label")
+    def __init__(self, x, y, text=None, bbox=None):
+        PlotInfo.__init__(self, "label")
         
         self.x = x
         self.y = y
@@ -14,6 +14,9 @@ class Label(PlotInfo):
         self.arrow = None
         self.marker = None
         self.rotation = None
+
+        if bbox: self.bbox = dict(bbox)
+        else: self.bbox = None
 
     def setTextOffset(self, x, y):
         self.textX = self.x + x
@@ -34,6 +37,10 @@ class Label(PlotInfo):
         kwdict["arrowprops"] = self.arrow
         kwdict["horizontalalignment"] = "center"
         kwdict["rotation"] = self.rotation
+
+        # For props, see
+        # http://matplotlib.sourceforge.net/api/artist_api.html#matplotlib.patches.Rectangle
+        if self.bbox: kwdict["bbox"] = self.bbox
 
         handles = []
         labels = []
