@@ -16,7 +16,7 @@ class Bar(PlotInfo):
         self.align="center"
     
     def draw(self, axis, transform=None):
-        PlotInfo.draw(self, axis)
+        super(Bar,self).draw(axis)
 
         return self._draw(axis, transform)
 

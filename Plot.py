@@ -13,7 +13,7 @@ except ImportError:
 
 from Utils import getGoldenRatioDimensions
 
-class Plot:
+class Plot(object):
     """
     Represents a single plot, usually consisting of a single X and Y axis.
     """

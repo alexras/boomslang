@@ -38,8 +38,8 @@ class StackedBars(PlotInfo):
 
     def draw(self, axis, transform=None):
         self.xTickLabelPoints = self.getXLabelLocations()
-        
-        PlotInfo.draw(self, axis)
+
+        super(StackedBars, self).draw(axis)
 
         return self._draw(axis, transform)
 

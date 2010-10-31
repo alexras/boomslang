@@ -26,7 +26,7 @@ class Line(PlotInfo):
         self.steps = stepType
 
     def draw(self, axis):
-        PlotInfo.draw(self, axis)
+        super(Line, self).draw(axis)
         
         if self.dates:
             plotFunc = axis.plot_date

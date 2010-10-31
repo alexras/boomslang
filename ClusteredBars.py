@@ -42,7 +42,7 @@ class ClusteredBars(PlotInfo):
                 print >>sys.stderr, "Points: %s" % (self.xTickLabelPoints)
                 sys.exit(1)
 
-        PlotInfo.draw(self, axis)
+        super(ClusteredBars,self).draw(axis)
 
         return self._draw(axis, transform)
         
