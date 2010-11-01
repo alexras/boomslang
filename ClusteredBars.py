@@ -17,6 +17,7 @@ class ClusteredBars(PlotInfo):
         self.bars = []
         self.spacing = 0
         self.width = 1
+        self.background_color = "white"
         
     def add(self, bar):
         if not isinstance(bar, Bar) and not isinstance(bar, StackedBars):
@@ -41,9 +42,12 @@ class ClusteredBars(PlotInfo):
                 print >>sys.stderr, "Labels: %s" % (self.xTickLabels)
                 print >>sys.stderr, "Points: %s" % (self.xTickLabelPoints)
                 sys.exit(1)
-
+                
         super(ClusteredBars,self).draw(axis)
-
+        
+        rect = axis.patch
+        rect.set_facecolor(self.background_color)
+        
         return self._draw(axis, transform)
         
 
