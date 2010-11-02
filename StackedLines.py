@@ -11,7 +11,7 @@ class StackedLines(PlotInfo):
     """
 
     def __init__(self):
-        PlotInfo.__init__(self, "stacked lines")
+        super(StackedLines,self).__init__("stacked lines")
 
         self.lines = []
         self.colors = []
@@ -21,7 +21,7 @@ class StackedLines(PlotInfo):
         self.colors.append(color)
 
     def draw(self, axis, transform=None):
-        PlotInfo.draw(self, axis)
+        super(StackedLines, self).draw(axis)
         
         plotHandles = []
         plotLabels = []

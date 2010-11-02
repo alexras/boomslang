@@ -257,7 +257,7 @@ class PlotLayout(object):
             pylab.draw()
 
     def save(self, filename, **kwargs):
-        print "Saving %s ..." % filename
+        print >>sys.stderr, "Saving %s ..." % filename
         
         tempDisplayHack = False
         

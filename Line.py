@@ -4,7 +4,7 @@ from PlotInfo import PlotInfo
 
 class Line(PlotInfo):
     def __init__(self):
-        PlotInfo.__init__(self, "line")
+        super(Line,self).__init__("line")
         
         self.marker = None
         self.markerSize = 8.0
@@ -26,7 +26,7 @@ class Line(PlotInfo):
         self.steps = stepType
 
     def draw(self, axis):
-        PlotInfo.draw(self, axis)
+        super(Line, self).draw(axis)
         
         if self.dates:
             plotFunc = axis.plot_date

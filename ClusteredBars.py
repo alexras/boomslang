@@ -12,11 +12,12 @@ class ClusteredBars(PlotInfo):
     with the same X axis values.
     """
     def __init__(self):
-        PlotInfo.__init__(self, "clustered bar")
+        super(ClusteredBars,self).__init__("clustered bar")
         
         self.bars = []
         self.spacing = 0
         self.width = 1
+        self.background_color = "white"
         
     def add(self, bar):
         if not isinstance(bar, Bar) and not isinstance(bar, StackedBars):
@@ -41,9 +42,12 @@ class ClusteredBars(PlotInfo):
                 print >>sys.stderr, "Labels: %s" % (self.xTickLabels)
                 print >>sys.stderr, "Points: %s" % (self.xTickLabelPoints)
                 sys.exit(1)
-
-        PlotInfo.draw(self, axis)
-
+                
+        super(ClusteredBars,self).draw(axis)
+        
+        rect = axis.patch
+        rect.set_facecolor(self.background_color)
+        
         return self._draw(axis, transform)
         
 

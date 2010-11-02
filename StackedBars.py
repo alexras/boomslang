@@ -11,7 +11,7 @@ class StackedBars(PlotInfo):
     """
     
     def __init__(self):
-        PlotInfo.__init__(self, "stacked bar")
+        super(StackedBars,self).__init__("stacked bar")
         
         self.bars = []
         self.spacing = 0
@@ -38,8 +38,8 @@ class StackedBars(PlotInfo):
 
     def draw(self, axis, transform=None):
         self.xTickLabelPoints = self.getXLabelLocations()
-        
-        PlotInfo.draw(self, axis)
+
+        super(StackedBars, self).draw(axis)
 
         return self._draw(axis, transform)
 

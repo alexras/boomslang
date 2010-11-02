@@ -8,7 +8,7 @@ class Bar(PlotInfo):
     """
 
     def __init__(self):
-        PlotInfo.__init__(self, "bar")
+        super(Bar,self).__init__("bar")
         self.width=0.8
         self.color="black"
         self.edgeColor=None
@@ -16,7 +16,7 @@ class Bar(PlotInfo):
         self.align="center"
     
     def draw(self, axis, transform=None):
-        PlotInfo.draw(self, axis)
+        super(Bar,self).draw(axis)
 
         return self._draw(axis, transform)
 
