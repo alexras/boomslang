@@ -14,36 +14,38 @@ class StackedBars(PlotInfo):
         super(StackedBars,self).__init__("stacked bar")
         
         self.bars = []
+        self.spacing = 0
         self.width = 0.8
         
     def add(self, bar):
         if not isinstance(bar, Bar):
             print >>sys.stderr, "Can only add Bars to a StackedBars"
             sys.exit(1)
-        #
-        # If this is the first bar added, then use its settings.
-        # FIXME: What if the first bar doesn't have these set?
-        #
+        
         if len(self.bars) == 0:
-            if bar.xTickLabels:
-                self.xTickLabels = bar.xTickLabels
-            if bar.xTickLabelPoints:
-                self.xTickLabelPoints = bar.xTickLabelPoints
-            if bar.xTickLabelProperties:
-                self.xTickLabelProperties = bar.xTickLabelProperties
+            # Fake having xValues
             self.xValues = bar.xValues
             self.yValues = bar.yValues
-        #
-        # Each bar should have the same width.
-        #
         bar.width = self.width
         self.bars.append(bar)
 
+    def getXLabelLocations(self):
+        if len(self.bars) == 0:
+            return []
+        else:
+            numBarVals = len(self.bars[0].xValues)
+            return range(numBarVals)
+
     def draw(self, axis, transform=None):
+        self.xTickLabelPoints = self.getXLabelLocations()
+
         super(StackedBars, self).draw(axis)
+
         return self._draw(axis, transform)
 
     def _draw(self, axis, transform=None):
+        self.xTickLabelPoints = self.getXLabelLocations()
+
         plotHandles = []
         plotLabels = []
 
@@ -52,22 +54,22 @@ class StackedBars(PlotInfo):
 
         numBars = len(self.bars)
         
-        bottoms = [0 for i in xrange(len(self.xValues))]
-       
-        #
-        # What does this do?
-        #
-        #if transform:
-        #    xVals = [transform.transform((x,0))[0] for x in xVals]
+        bottoms = [0 for i in xrange(len(self.xTickLabelPoints))]
+        
+        xVals = [i + i * self.spacing \
+                     for i in xrange(len(self.bars[0].xValues))]
+
+        if transform:
+            xVals = [transform.transform((x,0))[0] for x in xVals]
 
         for bar in self.bars:
             attrs = bar.getAttributes()
             attrs['width'] = self.width
 
-            currHandle = axis.bar(bar.xValues, bar.yValues, bottom=bottoms, **attrs)
+            currHandle = axis.bar(xVals, bar.yValues, bottom=bottoms, **attrs)
             
             bottoms = [bar.yValues[i] + bottoms[i] \
-                           for i in xrange(len(self.xValues))]
+                           for i in xrange(len(self.xTickLabelPoints))]
             
             plotHandles.append(currHandle[0])
             plotLabels.append(bar.label)

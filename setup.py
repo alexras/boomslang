@@ -3,8 +3,8 @@
 from distutils.core import setup
 
 setup(name='boomslang',
-      version='0.5.2b',
-      download_url='http://boomslang.googlecode.com/files/boomslang-0.5.2.tar.gz',
+      version='0.5.1',
+      download_url='http://boomslang.googlecode.com/files/boomslang-0.5.1.tar.gz',
       description='A thin layer over matplotlib that simplifies creation of common plots',
       long_description='''I created Boomslang to decrease the amount of boilerplate
 code I had to write when producing graphs for research papers. Boomslang
