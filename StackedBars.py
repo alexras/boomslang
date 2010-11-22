@@ -3,6 +3,7 @@ from matplotlib import pylab
 from PlotInfo import *
 from Bar import *
 import sys
+import traceback
 
 class StackedBars(PlotInfo):
     """
@@ -15,57 +16,80 @@ class StackedBars(PlotInfo):
         
         self.bars = []
         self.spacing = None
-        self.width = 0.8
+        self.barWidth = None
         
+    def _getWidth(self):
+        numBars = len(self.bars)
+        if self.barWidth is None or numBars == 0:
+            return None
+        else:
+            return self.barWidth
+    
+    def _setWidth(self, width):
+        print >>sys.stderr, ("The 'width' property of StackedBars is "
+                             "deprecated. Set barWidth instead")
+        self.barWidth = width
+
+    width = property(_getWidth, _setWidth)
+    
     def add(self, bar):
         if not isinstance(bar, Bar):
             print >>sys.stderr, "Can only add Bars to a StackedBars"
             sys.exit(1)
-        #
-        # Force all added bars to be the same width.
-        #
-        bar.width = self.width
+            
         self.bars.append(bar)
-
-    def draw(self, axis, transform=None):
+    
+    def preDraw(self):
         if len(self.bars) == 0:
-            return [[], []]
-        #
+            return
+        
+        # Pre-draw all bars in the stack before pre-drawing me
+        for bar in self.bars:
+            bar.preDraw()
+            
+        if self.barWidth is None:
+            self.barWidth = self.bars[0].width
+            
+        # All bars should have the same width
+        for bar in self.bars:
+            bar.width = self.barWidth
+            
         # If spacing is set, then ignore the individual bars' xValues.
-        #
+        # Otherwise, treat each bar as a normal bar.
         if self.spacing:
             self.xValues = [i + i * self.spacing for i in 
                             xrange(len(self.bars[0].xValues))]
-            if transform:
-                self.xValues = [transform.transform((x,0))[0] for x in self.xValues]
-            self.yValues = self.bars[0].yValues
-        #
-        # Otherwise, treat each bar as a normal bar.
-        #
         else:
             self.xValues = self.bars[0].xValues
-            self.yValues = self.bars[0].yValues
-
+        self.yValues = xrange(len(self.xValues))
+        
+        self.xLimits = (min(self.xValues) - self.barWidth / 2.0, 
+                        max(self.xValues) + self.barWidth / 2.0)
+        
         if not self.xTickLabels:
             self.xTickLabels = self.bars[0].xTickLabels
         if not self.xTickLabelPoints:
             self.xTickLabelPoints = self.bars[0].xTickLabelPoints
         if len(self.xTickLabelProperties) == 0:
             self.xTickLabelProperties = self.bars[0].xTickLabelProperties
-        #
-        # Call the super class draw() function and then the private _draw()
-        # function.
-        #
+        
+    def draw(self, axis, transform=None):
+        if len(self.bars) == 0:
+            return [[], []]
+        
         super(StackedBars, self).draw(axis)
         return self._draw(axis, transform)
     
     def _draw(self, axis, transform=None):
+        if transform:
+            self.xValues = [transform.transform((x,0))[0] for x in self.xValues]
+            
         plotHandles = []
         plotLabels = []
         bottoms = [0 for i in xrange(len(self.xValues))]
         for bar in self.bars:
             attrs = bar.getAttributes()
-            attrs['width'] = self.width
+            attrs['width'] = self.barWidth
             currHandle = axis.bar(
                 self.xValues, bar.yValues, bottom=bottoms, **attrs)
             bottoms = [bar.yValues[i] + bottoms[i] 
