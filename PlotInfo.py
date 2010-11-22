@@ -29,6 +29,14 @@ class PlotInfo(object):
     def __str__(self):
         return str(self.__dict__)
     
+    def preDraw(self):
+        """
+        The preDraw function is called on all plot elements before drawing
+        occurs. This allows various fields to be set in a structured way 
+        prior to actual drawing.
+        """
+        pass
+    
     def setXTickLabelProperties(self, **propList):
         self._setTickLabelProperties(self.xTickLabelProperties, propList)
         
@@ -77,7 +85,7 @@ class PlotInfo(object):
             sortAsymmetricErrorBars = len(self.yMins) > 0 or \
                 len(self.yMaxes) > 0
             sortSymmetricErrorBars = len(self.yErrors) > 0
-
+            
             if sortAsymmetricErrorBars:
                 if len(self.yMins) != len(self.yValues):
                     print >>sys.stderr, "You don't have an error bar for every point, some points will be truncated"
