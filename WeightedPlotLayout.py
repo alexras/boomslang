@@ -42,7 +42,7 @@ class WeightedPlotLayout(PlotLayout):
         if self.groupOrder is not None:
             keyList = self.groupOrder
         else:
-            keyList = self.groupedPlots.keys()
+            keyList = sorted(self.groupedPlots.keys())
 
         if self.figdimensions is not None:
             fig = pyplot.figure(figsize=(self.figdimensions[0],
