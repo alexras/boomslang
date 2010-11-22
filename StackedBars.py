@@ -45,12 +45,13 @@ class StackedBars(PlotInfo):
         else:
             self.xValues = self.bars[0].xValues
             self.yValues = self.bars[0].yValues
-            if not self.xTickLabels:
-                self.xTickLabels = self.bars[0].xTickLabels
-            if not self.xTickLabelPoints:
-                self.xTickLabelPoints = self.bars[0].xTickLabelPoints
-            if len(self.xTickLabelProperties) == 0:
-                self.xTickLabelProperties = self.bars[0].xTickLabelProperties
+
+        if not self.xTickLabels:
+            self.xTickLabels = self.bars[0].xTickLabels
+        if not self.xTickLabelPoints:
+            self.xTickLabelPoints = self.bars[0].xTickLabelPoints
+        if len(self.xTickLabelProperties) == 0:
+            self.xTickLabelProperties = self.bars[0].xTickLabelProperties
         #
         # Call the super class draw() function and then the private _draw()
         # function.
