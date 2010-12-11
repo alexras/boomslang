@@ -8,15 +8,31 @@ class Bar(PlotInfo):
     A bar chart consisting of a single series of bars.
     """
 
-    def __init__(self):
+    def __init__(self,
+                 xValues=None,
+                 yValues=None,
+                 label=None,
+                 labelBars=False,
+                 width=0.8,
+                 color="black",
+                 edgeColor=None,
+                 hatch=None,
+                 align="center",
+                ):
         super(Bar,self).__init__("bar")
-        self.width=0.8
-        self.color="black"
-        self.edgeColor=None
-        self.hatch=None
-        self.align="center"
-        self.labelBars = False
-    
+
+        self.xValues = xValues
+        self.yValues = yValues
+
+        self.label = label
+        self.labelBars = labelBars
+
+        self.width = width
+        self.color = color
+        self.edgeColor = edgeColor
+        self.hatch = hatch
+        self.align = align
+
     def draw(self, axis, transform=None):
         super(Bar,self).draw(axis)
         
