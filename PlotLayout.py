@@ -70,7 +70,7 @@ class PlotLayout(object):
             warnings.warn("numcols deprecated for hasFigLegend", Warning)
 
         self.figLegendLoc = loc
-        self.figLegendCols = numcols
+        self.figLegendCols = columns
 
     def addPlot(self, plot, grouping=None):
         if grouping == None:
