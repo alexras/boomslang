@@ -82,7 +82,7 @@ class Plot(object):
         validProperties = ["alpha", "backgroundColor", "color", 
                            "horizontalalignment", "linespacing", 
                            "multialignment", "rotation", "stretch", "style", 
-                           "verticalalignment", "weight"]
+                           "verticalalignment", "weight", "fontsize"]
         
         for (key, val) in propList.items():
             if key not in validProperties:
