@@ -41,6 +41,11 @@ class ClusteredBars(PlotInfo):
             sys.exit(1)
             
         self.bars.append(bar)
+
+    def _labelTransform(self, x):
+        return (x + 1) * (self.width / 2.0) + \
+                x * (self.width / 2.0 + self.spacing) - \
+                (self.barWidth / 2.0)
     
     def preDraw(self):
         if len(self.bars) == 0:
@@ -58,9 +63,7 @@ class ClusteredBars(PlotInfo):
                 bar.width = self.barWidth
             
         if self.xTickLabels is not None:
-            self.xTickLabelPoints = [(x + 1) * (self.width / 2.0) + 
-                                     x * (self.width / 2.0 + self.spacing) - 
-                                     (self.barWidth / 2.0)
+            self.xTickLabelPoints = [self._labelTransform(x)
                                      for x in self.bars[0].xValues]
             
             if len(self.xTickLabelPoints) != len(self.xTickLabels):
@@ -112,9 +115,13 @@ class ClusteredBars(PlotInfo):
                     plotHandles.extend(handles)
                     plotLabels.extend(labels)
                     
-        xMin = self.xTickLabelPoints[0] - clusterWidth / 2.0
-        xMax = self.xTickLabelPoints[-1] + clusterWidth / 2.0
+        if self.xTickLabels is not None:
+            xMin = self.xTickLabelPoints[0]
+            xMax = self.xTickLabelPoints[-1]
+        else:
+            xMin = self._labelTransform(self.bars[0].xValues[0])
+            xMax = self._labelTransform(self.bars[0].xValues[-1])
 
-        self.xLimits = (xMin, xMax)
+        self.xLimits = (xMin - clusterWidth / 2.0, xMax + clusterWidth / 2.0)
 
         return [plotHandles, plotLabels]
