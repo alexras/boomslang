@@ -17,12 +17,9 @@ class WeightedPlotLayout(PlotLayout):
     def addPlot(self, plot, grouping=None, weight=1):
         super(WeightedPlotLayout,self).addPlot(plot, grouping=grouping)
 
-        if grouping == None:
-            self.weights.append(weight)
-        else:
-            if grouping not in self.groupedWeights:
-                self.groupedWeights[grouping] = []
-            self.groupedWeights[grouping].append(weight)
+        if grouping not in self.groupedWeights:
+            self.groupedWeights[grouping] = []
+        self.groupedWeights[grouping].append(weight)
 
     def setFigTitle(self, title=None):
         self.figTitle = title
