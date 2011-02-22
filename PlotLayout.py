@@ -3,6 +3,7 @@ import matplotlib
 from matplotlib import pyplot
 import sys
 import os
+import warnings
 
 from Utils import getGoldenRatioDimensions
 
@@ -60,7 +61,14 @@ class PlotLayout(object):
     def setWidth(self, width):
         self.width = int(width)
 
-    def hasFigLegend(self, loc="best", numcols=1):
+    def hasFigLegend(self, loc="best", columns=1, numcols=None):
+        if numcols is not None:
+            # hasLegend uses columns, rather than numcols.
+            # trying to make this consistent.
+            # this should catch named parameter usage
+            columns = numcols
+            warnings.warn("numcols deprecated for hasFigLegend", Warning)
+
         self.figLegendLoc = loc
         self.figLegendCols = numcols
 
