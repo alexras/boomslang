@@ -3,18 +3,33 @@ from matplotlib import pyplot
 from PlotInfo import PlotInfo
 
 class Line(PlotInfo):
-    def __init__(self):
-        super(Line,self).__init__("line")
-        
-        self.marker = None
-        self.markerSize = 8.0
+    def __init__(self,
+                 color='black',
+                 width=1,
+                 lineStyle='-',
+                 marker=None,
+                 markerSize=8.0,
+                 dates=False,
+                 loglog=False,
+                 steps=False,
+                 alpha=None,
+                 antialiased=False,
+                 **kwargs
+                ):
+        super(Line,self).__init__("line", **kwargs)
+
+        self.marker = marker
+        self.markerSize = markerSize
         # TODO Change to width
-        self.lineWidth = 1
-        self.color = 'black'
-        self.lineStyle = '-'
-        self.dates = False
-        self.loglog = False
-        self.steps = None
+        self.lineWidth = width
+        self.color = color
+        self.lineStyle = lineStyle
+        self.dates = dates
+        self.loglog = loglog
+        self.steps = steps
+
+        self.alpha = alpha
+        self.antialiased = antialiased
 
     def stepFunction(self, stepType="pre"):
         validStepTypes = ["pre", "mid", "post"]
@@ -50,5 +65,10 @@ class Line(PlotInfo):
             kwdict["markersize"] = self.markerSize
         else:
             kwdict["marker"] = "None"
+
+        if self.antialiased:
+            kwdict["antialiased"] = self.antialiased
+        if self.alpha is not None:
+            kwdict["alpha"] = self.alpha
         
         return [[plotFunc(self.xValues, self.yValues, **kwdict)], [self.label]]

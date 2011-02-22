@@ -2,6 +2,7 @@ import pylab
 from matplotlib import pyplot
 from PlotInfo import *
 from boomslang.Label import Label
+import warnings
 
 class Bar(PlotInfo):
     """
@@ -9,25 +10,22 @@ class Bar(PlotInfo):
     """
 
     def __init__(self,
-                 xValues=None,
-                 yValues=None,
                  label=None,
                  labelBars=False,
                  width=0.8,
+                 linewidth=1.0,
                  color="black",
                  edgeColor=None,
                  hatch=None,
                  align="center",
                 ):
-        super(Bar,self).__init__("bar")
-
-        self.xValues = xValues
-        self.yValues = yValues
+        super(Bar,self).__init__("bar", **kwargs)
 
         self.label = label
         self.labelBars = labelBars
 
         self.width = width
+        self.linewidth = linewidth
         self.color = color
         self.edgeColor = edgeColor
         self.hatch = hatch
@@ -71,11 +69,12 @@ class Bar(PlotInfo):
         kwdict["color"] = self.color
         kwdict["label"] = self.label
         kwdict["width"] = self.width
+        kwdict["linewidth"] = self.linewidth
         kwdict["align"] = self.align
 
         if self.hatch is not None:
             kwdict["hatch"] = self.hatch
-            print >>sys.stderr, "WARNING: Setting hash for bar charts only seems to work when exporting to svg, png, or pdf"
+            warnings.warn("Setting tach for bar charts only seems to work when exporting to svg, png, or pdf", Warning)
 
         if self.edgeColor is not None:
             kwdict["edgecolor"] = self.edgeColor

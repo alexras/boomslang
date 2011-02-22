@@ -3,28 +3,44 @@ import sys
 import copy
 
 class PlotInfo(object):
-    def __init__(self, plotType):
+    def __init__(self,
+                 plotType,
+                 xValues = [],
+                 yValues = [],
+                 xTickLabels = None,
+                 yTickLabels = None,
+                 xTickLabelPoints = None,
+                 yTickLabelPoints = None,
+                 xTickLabelProperties = {},
+                 yTickLabelProperties = {},
+                 label = None,
+                 yMins = [],
+                 yMaxes = [],
+                 yErrors = [],
+                 autosort = True,
+                 xLimits = None):
+
         self.plotType = plotType
 
-        self.xValues = []
-        self.yValues = []
+        self.xValues = xValues
+        self.yValues = yValues
 
-        self.xTickLabels = None
-        self.yTickLabels = None
-        self.xTickLabelPoints = None
-        self.yTickLabelPoints = None
-        self.xTickLabelProperties = {}
-        self.yTickLabelProperties = {}
+        self.xTickLabels = xTickLabels
+        self.yTickLabels = yTickLabels
+        self.xTickLabelPoints = xTickLabelPoints
+        self.yTickLabelPoints = yTickLabelPoints
+        self.xTickLabelProperties = xTickLabelProperties
+        self.yTickLabelProperties = yTickLabelProperties
         
-        self.label = None
+        self.label = label
         
-        self.yMins = []
-        self.yMaxes = []
-        self.yErrors = []
+        self.yMins = yMins
+        self.yMaxes = yMaxes
+        self.yErrors = yErrors
         
-        self.autosort = True
+        self.autosort = autosort
 
-        self.xLimits = None
+        self.xLimits = xLimits
         
     def __str__(self):
         return str(self.__dict__)
@@ -49,7 +65,7 @@ class PlotInfo(object):
         
         validProperties = ["alpha", "backgroundColor", "color", \
             "horizontalalignment", "linespacing", "multialignment", \
-            "rotation", "stretch", "style", 
+            "rotation", "rotation_mode", "stretch", "style", 
             "verticalalignment", "weight"]
         
         for (key, val) in propList.items():

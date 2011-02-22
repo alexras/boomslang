@@ -3,11 +3,14 @@ from matplotlib import pyplot
 from PlotInfo import *
 
 class Scatter(PlotInfo):
-    def __init__(self):
-        super(Scatter,self).__init__("scatter")
-        self.marker = 'o'
-        self.markerSize = 20
-        self.color = "black"
+    def __init__(self,
+                 marker='o',
+                 markerSize=20,
+                 color="black"):
+        super(Scatter,self).__init__("scatter", **kwargs)
+        self.marker = marker
+        self.markerSize = markerSize
+        self.color = color
             
     def draw(self, axis):
         kwdict = {}
