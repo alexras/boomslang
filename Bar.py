@@ -74,7 +74,7 @@ class Bar(PlotInfo):
 
         if self.hatch is not None:
             kwdict["hatch"] = self.hatch
-            warnings.warn("Setting tach for bar charts only seems to work when exporting to svg, png, or pdf", Warning)
+            warnings.warn("Setting hatch for bar charts only seems to work when exporting to svg, png, or pdf", Warning)
 
         if self.edgeColor is not None:
             kwdict["edgecolor"] = self.edgeColor
