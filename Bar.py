@@ -18,6 +18,7 @@ class Bar(PlotInfo):
                  edgeColor=None,
                  hatch=None,
                  align="center",
+                 **kwargs
                 ):
         super(Bar,self).__init__("bar", **kwargs)
 
