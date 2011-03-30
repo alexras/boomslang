@@ -4,3 +4,4 @@ syntax: glob
 build
 dist
 MANIFEST
+.DS_Store
