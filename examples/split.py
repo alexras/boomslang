@@ -1,25 +1,38 @@
 #!/usr/bin/env python
 
 from boomslang import Plot, Line, PlotLayout
+from ImageComparisonTestCase import ImageComparisonTestCase
 import numpy
 
-line = Line()
-line.xValues = numpy.arange(0, 150, 0.01)
-line.yValues = numpy.cos(.02 * numpy.pi * line.xValues)
+class SplitTest(ImageComparisonTestCase):
+    def __init__(self):
+        super(SplitTest, self).__init__("split.png")
 
-plot = Plot()
-plot.add(line)
-plot.setXLimits(0, 150)
-plot.setYLimits(-1, 1)
-plot.setXLabel("X")
-plot.setYLabel("cos(X)")
-splitPlots = plot.split(2)
+    def constructImage(self):
+        line = Line()
+        line.xValues = numpy.arange(0, 150, 0.01)
+        line.yValues = numpy.cos(.02 * numpy.pi * line.xValues)
 
-layout = PlotLayout()
-layout.width = 2
-layout.addPlot(plot, grouping="unsplit")
+        plot = Plot()
+        plot.add(line)
+        plot.setXLimits(0, 150)
+        plot.setYLimits(-1, 1)
+        plot.setXLabel("X")
+        plot.setYLabel("cos(X)")
+        splitPlots = plot.split(2)
 
-for s in splitPlots:
-    layout.addPlot(s, grouping="splits")
+        layout = PlotLayout()
+        layout.width = 2
+        layout.addPlot(plot, grouping="unsplit")
 
-layout.save("split.png")
+        for s in splitPlots:
+            layout.addPlot(s, grouping="splits")
+
+        layout.save(self.imageName)
+
+ImageComparisonTestCase.register(SplitTest)
+
+if __name__ == "__main__":
+    test = SplitTest()
+
+    test.constructImage()

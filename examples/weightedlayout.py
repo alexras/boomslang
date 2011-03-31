@@ -1,54 +1,68 @@
 #!/usr/bin/env python
 
 from boomslang import Bar, Line, Scatter, Plot, WeightedPlotLayout
+from ImageComparisonTestCase import ImageComparisonTestCase
 
-line = Line()
-line.xValues = range(5)
-line.yValues = [2, 4, 6, 8, 10]
+class WeightedLayoutTest(ImageComparisonTestCase):
+    def __init__(self):
+        super(WeightedLayoutTest, self).__init__("weightedlayout.png")
 
-linePlot = Plot()
-linePlot.add(line)
-linePlot.setXLabel("X Data")
-linePlot.setYLabel("Y Data")
-linePlot.setTitle("Data as Line")
+    def constructImage(self):
 
-bar = Bar()
-bar.xValues = range(5)
-bar.yValues = [2, 4, 6, 8, 10]
+        line = Line()
+        line.xValues = range(5)
+        line.yValues = [2, 4, 6, 8, 10]
 
-barPlot = Plot()
+        linePlot = Plot()
+        linePlot.add(line)
+        linePlot.setXLabel("X Data")
+        linePlot.setYLabel("Y Data")
+        linePlot.setTitle("Data as Line")
 
-barPlot.add(bar)
-barPlot.setXLabel("X Data")
-barPlot.setYLabel("Y Data")
-barPlot.setTitle("Data as Bars")
+        bar = Bar()
+        bar.xValues = range(5)
+        bar.yValues = [2, 4, 6, 8, 10]
 
-scatter = Scatter()
-scatter.xValues = range(5)
-scatter.yValues = [2, 4, 6, 8, 10]
+        barPlot = Plot()
 
-scatterPlot = Plot()
-scatterPlot.add(scatter)
-scatterPlot.setXLabel("X Data")
-scatterPlot.setYLabel("Y Data")
-scatterPlot.setTitle("Data as Points")
+        barPlot.add(bar)
+        barPlot.setXLabel("X Data")
+        barPlot.setYLabel("Y Data")
+        barPlot.setTitle("Data as Bars")
 
-layout = WeightedPlotLayout()
-# Plots in the same grouping are placed together on the same line
-layout.addPlot(linePlot, grouping="topRow", weight=2)
-layout.addPlot(barPlot, grouping="topRow")
+        scatter = Scatter()
+        scatter.xValues = range(5)
+        scatter.yValues = [2, 4, 6, 8, 10]
 
-# Plots without a grouping are arranged as follows: 
+        scatterPlot = Plot()
+        scatterPlot.add(scatter)
+        scatterPlot.setXLabel("X Data")
+        scatterPlot.setYLabel("Y Data")
+        scatterPlot.setTitle("Data as Points")
 
-# * While you can make a row of N plots, where N is the size of the plot
-# grouping with the largest size, do so.
+        layout = WeightedPlotLayout()
+        # Plots in the same grouping are placed together on the same line
+        layout.addPlot(linePlot, grouping="topRow", weight=2)
+        layout.addPlot(barPlot, grouping="topRow")
 
-# * If you can't make a row of N plots, make the plots stretch across a
-# single row.  
+        # Plots without a grouping are arranged as follows:
 
-layout.addPlot(scatterPlot)
+        # * While you can make a row of N plots, where N is the size of the plot
+        # grouping with the largest size, do so.
 
-# Set values similar to those given in the "Configure subplots" sliders in the 
-# interactive figure
-layout.setPlotParameters(hspace=0.48)
-layout.save("weightedlayout.png")
+        # * If you can't make a row of N plots, make the plots stretch across a
+        # single row.
+
+        layout.addPlot(scatterPlot)
+
+        # Set values similar to those given in the "Configure subplots" sliders
+        # in the interactive figure
+        layout.setPlotParameters(hspace=0.48)
+        layout.save(self.imageName)
+
+ImageComparisonTestCase.register(WeightedLayoutTest)
+
+if __name__ == "__main__":
+    test = WeightedLayoutTest()
+
+    test.constructImage()

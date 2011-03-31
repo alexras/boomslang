@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from boomslang import Line, Plot, PlotLayout
+from ImageComparisonTestCase import ImageComparisonTestCase
 
 class LegendLabelSizesTest(ImageComparisonTestCase):
     def __init__(self):
