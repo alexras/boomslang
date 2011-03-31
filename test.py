@@ -1,31 +1,26 @@
 import unittest
-import os
-from PIL import Image
-from PIL import ImageChops
 
-class TestExamples(unittest.TestCase):        
-    def assert_images_same(self, im1_path, im2_path):
-        im1 = Image.open(im1_path)
-        im2 = Image.open(im2_path)
+# FIXME: once Python 2.7 becomes more widely adopted, use unittest's test
+# discovery feature
 
-        diff = ImageChops.difference(im2,im1).getbbox()
-        
-        self.assertTrue(diff == None, "Images differ; bounding box of "
-                        "difference is %s" % (diff,))
+from examples.boxandwhisker import BoxAndWhiskerTest
+from examples.bar import BarTest
+from examples.clusteredbars import ClusteredBarsTest
+from examples.errorbars import ErrorBarsTest
+from examples.hatchedbars import HatchedBarsTest
+from examples.inset import InsetTest
+from examples.latex import LatexTest
+from examples.layout import LayoutTest
 
-    def test_vs_reference(self):
-        for example in filter(lambda x: x.endswith('py'), 
-                              os.listdir('examples')):
-            example_no_py = example[:-3]
-            full_path = os.path.join('examples', example)
-            result_path = example_no_py + ".png"
-            reference_path = os.path.join('examples', 'reference', 
-                                          result_path)
-            
-            res = os.system("python %s" % (full_path))
-            self.assertTrue(res == 0)
-            self.assert_images_same(result_path, reference_path)
-            os.unlink(result_path)
+testSuite = unittest.TestSuite()
+testSuite.addTest(BoxAndWhiskerTest())
+testSuite.addTest(BarTest())
+testSuite.addTest(ClusteredBarsTest())
+testSuite.addTest(ErrorBarsTest())
+testSuite.addTest(HatchedBarsTest())
+testSuite.addTest(InsetTest())
+testSuite.addTest(LatexTest())
+testSuite.addTest(LayoutTest())
 
-if __name__ == '__main__':
-    unittest.main()
+runner = unittest.TextTestRunner()
+runner.run(testSuite)

@@ -1,55 +1,68 @@
 #!/usr/bin/env python
 
 from boomslang import Bar, Line, Scatter, Plot, PlotLayout
+from ImageComparisonTestCase import ImageComparisonTestCase
 
-line = Line()
-line.xValues = range(5)
-line.yValues = [2, 4, 6, 8, 10]
+class LayoutTest(ImageComparisonTestCase):
+    def __init__(self):
+        super(LayoutTest,self).__init__("layout.png")
 
-linePlot = Plot()
-linePlot.add(line)
-linePlot.setXLabel("X Data")
-linePlot.setYLabel("Y Data")
-linePlot.setTitle("Data as Line")
+    def constructImage(self):
+        line = Line()
+        line.xValues = range(5)
+        line.yValues = [2, 4, 6, 8, 10]
 
-bar = Bar()
-bar.xValues = range(5)
-bar.yValues = [2, 4, 6, 8, 10]
+        linePlot = Plot()
+        linePlot.add(line)
+        linePlot.setXLabel("X Data")
+        linePlot.setYLabel("Y Data")
+        linePlot.setTitle("Data as Line")
 
-barPlot = Plot()
+        bar = Bar()
+        bar.xValues = range(5)
+        bar.yValues = [2, 4, 6, 8, 10]
 
-barPlot.add(bar)
-barPlot.setXLabel("X Data")
-barPlot.setYLabel("Y Data")
-barPlot.setTitle("Data as Bars")
+        barPlot = Plot()
 
-scatter = Scatter()
-scatter.xValues = range(5)
-scatter.yValues = [2, 4, 6, 8, 10]
+        barPlot.add(bar)
+        barPlot.setXLabel("X Data")
+        barPlot.setYLabel("Y Data")
+        barPlot.setTitle("Data as Bars")
 
-scatterPlot = Plot()
-scatterPlot.add(scatter)
-scatterPlot.setXLabel("X Data")
-scatterPlot.setYLabel("Y Data")
-scatterPlot.setTitle("Data as Points")
+        scatter = Scatter()
+        scatter.xValues = range(5)
+        scatter.yValues = [2, 4, 6, 8, 10]
+
+        scatterPlot = Plot()
+        scatterPlot.add(scatter)
+        scatterPlot.setXLabel("X Data")
+        scatterPlot.setYLabel("Y Data")
+        scatterPlot.setTitle("Data as Points")
 
 
-layout = PlotLayout()
-# Plots in the same grouping are placed together on the same line
-layout.addPlot(linePlot, grouping="topRow")
-layout.addPlot(barPlot, grouping="topRow")
+        layout = PlotLayout()
+        # Plots in the same grouping are placed together on the same line
+        layout.addPlot(linePlot, grouping="topRow")
+        layout.addPlot(barPlot, grouping="topRow")
 
-# Plots without a grouping are arranged as follows: 
+        # Plots without a grouping are arranged as follows:
 
-# * While you can make a row of N plots, where N is the size of the plot
-# grouping with the largest size, do so.
+        # * While you can make a row of N plots, where N is the size of the plot
+        # grouping with the largest size, do so.
 
-# * If you can't make a row of N plots, make the plots stretch across a
-# single row.  
+        # * If you can't make a row of N plots, make the plots stretch across a
+        # single row.
 
-layout.addPlot(scatterPlot)
+        layout.addPlot(scatterPlot)
 
-# Set values similar to those given in the "Configure subplots" sliders in the 
-# interactive figure
-layout.setPlotParameters(hspace=0.48)
-layout.save("layout.png")
+        # Set values similar to those given in the "Configure subplots" sliders
+        # in the interactive figure
+        layout.setPlotParameters(hspace=0.48)
+        layout.save(self.imageName)
+
+ImageComparisonTestCase.register(LayoutTest)
+
+if __name__ == "__main__":
+    test = LayoutTest()
+
+    test.constructImage()
