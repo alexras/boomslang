@@ -23,7 +23,7 @@ class PlotLayout(object):
         self.figLegendCols = None
 
         self.rcParams = None
-        
+
     def __setRCParam(self, param, value):
         if self.rcParams is None:
             self.rcParams = {}
@@ -45,7 +45,7 @@ class PlotLayout(object):
     #     self.__setRCParam("font.variant", "normal")
     #     self.__setRCParam("font.weight", "normal")
     #     self.__setRCParam("font.stretch", "normal")
-        
+
     def setAxesLabelSize(self, size):
         self.__setRCParam("axes.labelsize", size)
 
@@ -110,15 +110,20 @@ class PlotLayout(object):
 
         if "hspace" not in self.plotParams:
             self.plotParams["hspace"] = 0.20
-            
+
 
     def _doPlot(self):
         if len(self.groupedPlots) + len(self.plots) == 0:
             print "PlotLayout.plot(): No data to plot!"
             return
 
+        oldRCParams = {}
+
         if self.rcParams is not None:
-            pylab.rcParams.update(self.rcParams)
+
+            for (param, value) in self.rcParams.items():
+                oldRCParams[param] = pylab.rcParams[param]
+                pylab.rcParams[param] = value
 
         groupedPlotLengths = [len(plots) for plots in self.groupedPlots.values()]
 
@@ -126,7 +131,7 @@ class PlotLayout(object):
             maxRowLength = self.width
         else:
             maxRowLength = max(groupedPlotLengths)
-        
+
         numPlots = len(self.plots)
 
         if numPlots == 0:
@@ -148,10 +153,10 @@ class PlotLayout(object):
         currentRow = 0
 
         if self.figdimensions is not None:
-            fig = pyplot.figure(figsize=(self.figdimensions[0], 
+            fig = pyplot.figure(figsize=(self.figdimensions[0],
                                          self.figdimensions[1]))
         elif self.dimensions is not None:
-            fig = pyplot.figure(figsize=(self.dimensions[0] * maxRowLength, 
+            fig = pyplot.figure(figsize=(self.dimensions[0] * maxRowLength,
                                          self.dimensions[1] * numRows))
         else:
             (figWidth, figHeight) = getGoldenRatioDimensions(8.0)
@@ -223,7 +228,7 @@ class PlotLayout(object):
                         plotHandles.append(currPlotHandles[i])
 
                     plotLabels.append(currPlotLabels[i])
-                
+
                 currentColumn += 1
 
                 if currentColumn > numColumns:
@@ -237,16 +242,16 @@ class PlotLayout(object):
 
             if self.figLegendCols is not None:
                 versionPieces = [int(x) for x in matplotlib.__version__.split('.')]
-                
+
                 (superMajor, major, minor) = versionPieces[0:3]
-                
+
                 if superMajor == 0 and major < 98:
                     print >>sys.stderr, "Number of columns support not available in versions of matplotlib prior to 0.98"
                 else:
                     figLegendKeywords["ncol"] = self.figLegendCols
-            
-            pylab.figlegend(plotHandles, plotLabels, 
-                            self.figLegendLoc, 
+
+            pylab.figlegend(plotHandles, plotLabels,
+                            self.figLegendLoc,
                             **figLegendKeywords)
 
         if self.plotParams is not None:
@@ -256,6 +261,9 @@ class PlotLayout(object):
                                   top=self.plotParams["top"],
                                   wspace=self.plotParams["wspace"],
                                   hspace=self.plotParams["hspace"])
+        # Restore old RC params
+        for (key,value) in oldRCParams.items():
+            pylab.rcParams[key] = value
 
     def plot(self):
         self._doPlot()
@@ -265,16 +273,14 @@ class PlotLayout(object):
             pylab.draw()
 
     def save(self, filename, **kwargs):
-        print >>sys.stderr, "Saving %s ..." % filename
-        
         tempDisplayHack = False
-        
+
         if "DISPLAY" not in os.environ:
             tempDisplayHack = True
             os.environ["DISPLAY"] = ":0.0"
         self._doPlot()
         pylab.savefig(filename,**kwargs)
         pylab.clf()
-        
+
         if tempDisplayHack == True:
             del os.environ["DISPLAY"]
