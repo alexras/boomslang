@@ -29,8 +29,12 @@ class WeightedPlotLayout(PlotLayout):
             print "WeightedPlotLayout.plot(): No data to plot!"
             return
 
+        oldRCParams = {}
+
         if self.rcParams is not None:
-            pylab.rcParams.update(self.rcParams)
+            for (key,val) in self.rcParams.items():
+                oldRCParams[key] = pylab.rcParams[key]
+                pylab.rcParams[key] = val
 
         numRows = len(self.groupedPlots.keys()) + len(self.plots)
         maxRowLength = max([len(self.groupedPlots[f])
@@ -155,3 +159,6 @@ class WeightedPlotLayout(PlotLayout):
 
         if self.figTitle is not None:
             fig.suptitle(self.figTitle)
+
+        for (key,val) in oldRCParams.items():
+            pylab.rcParams[key] = val
