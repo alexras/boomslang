@@ -19,9 +19,9 @@ class ImageComparisonTestCase(unittest.TestCase):
         if os.path.exists(self.imageName):
             os.unlink(self.imageName)
 
-    # def tearDown(self):
-    #     if os.path.exists(self.imageName):
-    #         os.unlink(self.imageName)
+    def tearDown(self):
+        if os.path.exists(self.imageName):
+            os.unlink(self.imageName)
 
     @abstractmethod
     def constructImage(self):
