@@ -1,4 +1,5 @@
 import unittest
+import warnings
 
 # FIXME: once Python 2.7 becomes more widely adopted, use unittest's test
 # discovery feature
@@ -56,5 +57,8 @@ testSuite.addTest(UnorderedTest())
 testSuite.addTest(VLineTest())
 testSuite.addTest(WeightedLayoutTest())
 
-runner = unittest.TextTestRunner()
-runner.run(testSuite)
+
+with warnings.catch_warnings():
+    warnings.simplefilter("ignore")
+    runner = unittest.TextTestRunner()
+    runner.run(testSuite)
