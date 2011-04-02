@@ -28,28 +28,30 @@ class Marker(object):
         }
 
     """
-    This dictionary (derived from _MARK_TRANSLATOR) maps valid marker types to 
+    This dictionary (derived from _MARK_TRANSLATOR) maps valid marker types to
     their matplotlib equivalents.
     """
     VALID_MARKS = {}
-    
+
     for (glyph, equivalents) in _MARK_TRANSLATOR.items():
         VALID_MARKS[glyph] = glyph
-        
+
         for equiv in equivalents:
             VALID_MARKS[equiv] = glyph
-    
+
     def __init__(self):
         self._marker = None
         self.size = 8.0
-        
+
     @property
     def marker(self):
         """ Defines the shape of the marker """
         return self._marker
-    
+
     @marker.setter
     def marker(self, value):
-        assert value in Marker.VALID_MARKS, "'%s' is not a valid mark" % (value)
+        if value not in Marker.VALID_MARKS:
+            raise ValueError("'%s' is not a valid mark" % (value))
+
         self._marker = Marker.VALID_MARKS[value]
-    
+
