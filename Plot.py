@@ -6,6 +6,7 @@ from PlotLayout import *
 import copy
 from LabelProperties import LabelProperties
 from Inset import Inset
+from Marker import Marker
 
 from Utils import getGoldenRatioDimensions
 
@@ -164,7 +165,10 @@ class Plot(object):
     def addMarker(self, marker):
         if self.markers is None:
             self.markers = []
-        self.markers.append(marker)
+
+        currMarker = Marker()
+        currMarker.marker = marker
+        self.markers.append(currMarker)
 
     def getNumPlots(self):
         """
@@ -423,7 +427,7 @@ class Plot(object):
                 myColor =  self.lineColors[colorIndex]
 
             if hasMarkers:
-                myMarker = self.markers[markerIndex]
+                myMarker = self.markers[markerIndex].marker
 
 
             plotIndex += 1
