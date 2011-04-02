@@ -1,6 +1,7 @@
 import pylab
 from matplotlib import pyplot
 from PlotInfo import PlotInfo
+from Marker import Marker
 
 class VLine(PlotInfo):
     def __init__(self,
@@ -13,12 +14,37 @@ class VLine(PlotInfo):
                  **kwargs):
         super(VLine,self).__init__("vline", **kwargs)
 
-        self.marker = marker
-        self.markerSize = markerSize
+        self._marker = Marker()
+        self._marker.marker = marker
+        self._marker.size = markerSize
         self.width = width
         self.color = color
         self.lineStyle = lineStyle
         self.dates = dates
+
+    @property
+    def marker(self):
+        return self._marker.marker
+
+    @marker.setter
+    def marker(self, value):
+        self._marker.marker = value
+
+    @marker.getter
+    def marker(self):
+        return self._marker.marker
+
+    @property
+    def markerSize(self):
+        return self._marker.size
+
+    @markerSize.setter
+    def markerSize(self, value):
+        self._marker.size = value
+
+    @markerSize.getter
+    def markerSize(self):
+        return self._marker.size
 
     def draw(self, axis):
         # Present to keep the PlotInfo sorting from failing

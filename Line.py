@@ -3,6 +3,7 @@ from matplotlib import pyplot
 from PlotInfo import PlotInfo
 from StepType import StepType
 import warnings
+from Marker import Marker
 
 class Line(PlotInfo):
     steps = StepType("steps")
@@ -22,8 +23,10 @@ class Line(PlotInfo):
                 ):
         super(Line,self).__init__("line", **kwargs)
 
-        self.marker = marker
-        self.markerSize = markerSize
+        self._marker = Marker()
+        self._marker.marker = marker
+        self._marker.size = markerSize
+
         # TODO Change to width
         self.lineWidth = width
         self.color = color
@@ -34,6 +37,30 @@ class Line(PlotInfo):
 
         self.alpha = alpha
         self.antialiased = antialiased
+
+    @property
+    def marker(self):
+        return self._marker.marker
+
+    @marker.setter
+    def marker(self, value):
+        self._marker.marker = value
+
+    @marker.getter
+    def marker(self):
+        return self._marker.marker
+
+    @property
+    def markerSize(self):
+        return self._marker.size
+
+    @markerSize.setter
+    def markerSize(self, value):
+        self._marker.size = value
+
+    @markerSize.getter
+    def markerSize(self):
+        return self._marker.size
 
     def stepFunction(self, stepType="pre"):
         self.steps = stepType

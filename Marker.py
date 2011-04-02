@@ -6,7 +6,7 @@ class Marker(object):
     descriptions. Either can be used when specifying marker type.
     """
     _MARK_TRANSLATOR = {
-        "" : ["none"],
+        "" : ["none", None],
         "." : ["point", "points"],
         "," : ["pixel", "pixels"],
         "o" : ["circle", "circles"],
@@ -55,3 +55,6 @@ class Marker(object):
 
         self._marker = Marker.VALID_MARKS[value]
 
+    @marker.getter
+    def marker(self):
+        return self._marker
