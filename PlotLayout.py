@@ -4,6 +4,7 @@ from matplotlib import pyplot
 import sys
 import os
 import warnings
+from exceptions import BoomslangPlotRenderingException
 
 from Utils import getGoldenRatioDimensions
 
@@ -31,7 +32,8 @@ class PlotLayout(object):
         self.rcParams[param] = value
 
     def useLatexLabels(self):
-        print >>sys.stderr, "WARNING: Using LaTeX labels requires dvipng and ghostscript"
+        warnings.warn("WARNING: Using LaTeX labels requires dvipng and "
+                      "ghostscript")
         self.__setRCParam("font.family", "serif")
         self.__setRCParam("font.serif", "Times, Palatino, New Century Schoolbook, Bookman, Computer Modern Roman")
         self.__setRCParam("font.sans-serif", "Helvetica, Avant Garde, Computer Modern Sans serif")
@@ -114,8 +116,7 @@ class PlotLayout(object):
 
     def _doPlot(self):
         if len(self.groupedPlots) + len(self.plots) == 0:
-            print "PlotLayout.plot(): No data to plot!"
-            return
+            raise BoomslangPlotRenderingException("No data to plot!")
 
         oldRCParams = {}
 
@@ -163,12 +164,6 @@ class PlotLayout(object):
             figWidth *= maxRowLength
             figHeight *= numRows
             fig = pyplot.figure(figsize=(figWidth, figHeight))
-            # figWidth = fig.get_figwidth()
-            # print figWidth
-            # print fig.get_figheight()
-            # (goldenWidth, goldenHeight) = getGoldenRatioDimensions(figWidth)
-            # fig.set_figheight(goldenHeight)
-            # print fig.get_figheight()
 
         plotHandles = []
         plotLabels = []
@@ -246,7 +241,8 @@ class PlotLayout(object):
                 (superMajor, major, minor) = versionPieces[0:3]
 
                 if superMajor == 0 and major < 98:
-                    print >>sys.stderr, "Number of columns support not available in versions of matplotlib prior to 0.98"
+                    warnings.warn("Number of columns support not available in "
+                                  "versions of matplotlib prior to 0.98")
                 else:
                     figLegendKeywords["ncol"] = self.figLegendCols
 
