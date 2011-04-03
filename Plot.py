@@ -7,6 +7,7 @@ import copy
 from LabelProperties import LabelProperties
 from Inset import Inset
 from Marker import Marker
+from LineStyle import LineStyle
 
 from Utils import getGoldenRatioDimensions
 
@@ -147,7 +148,10 @@ class Plot(object):
         """
         if self.lineStyles is None:
             self.lineStyles = []
-        self.lineStyles.append(style)
+
+        currStyle = LineStyle()
+        currStyle.style = style
+        self.lineStyles.append(currStyle)
 
     def addLineColor(self, color):
         """
@@ -421,7 +425,7 @@ class Plot(object):
             lineStyleIndex = plotIndex % numLineStyles
 
             if hasLineStyles:
-                myLineStyle = self.lineStyles[lineStyleIndex]
+                myLineStyle = self.lineStyles[lineStyleIndex].style
 
             if hasColors:
                 myColor =  self.lineColors[colorIndex]

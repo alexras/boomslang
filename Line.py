@@ -4,6 +4,7 @@ from PlotInfo import PlotInfo
 from StepType import StepType
 import warnings
 from Marker import Marker
+from LineStyle import LineStyle
 
 class Line(PlotInfo):
     steps = StepType("steps")
@@ -30,13 +31,22 @@ class Line(PlotInfo):
         # TODO Change to width
         self.lineWidth = width
         self.color = color
-        self.lineStyle = lineStyle
+        self._lineStyle = LineStyle()
+        self._lineStyle.style = lineStyle
         self.dates = dates
         self.loglog = loglog
         self.steps = steps
 
         self.alpha = alpha
         self.antialiased = antialiased
+
+    @property
+    def lineStyle(self):
+        return self._lineStyle.style
+
+    @lineStyle.setter
+    def lineStyle(self, value):
+        self._lineStyle.style = value
 
     @property
     def marker(self):
