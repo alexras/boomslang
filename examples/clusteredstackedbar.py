@@ -36,7 +36,7 @@ for i in xrange(3):
         bar.yValues = yVals[i][j]
         bar.color = colors[j]
         bar.label = "Subject %d" % (j+1,)
-        
+
         stack.add(bar)
     cluster.add(stack)
 

@@ -34,35 +34,35 @@ class Bar(PlotInfo):
 
     def draw(self, axis, transform=None):
         super(Bar,self).draw(axis)
-        
+
         return self._draw(axis, transform)
-    
+
     def _draw(self, axis, transform=None):
         kwdict = self.getAttributes()
-        
+
         plotObjects = []
         labels = [self.label]
-        
+
         if transform:
             xValues = [transform.transform((x,0))[0] for x in self.xValues]
         else:
             xValues = self.xValues
-        
+
         plotObjects.append(axis.bar(xValues, self.yValues, **kwdict)[0])
-        
+
         if self.labelBars:
             maxYValue = max(self.yValues)
             for i in xrange(len(self.yValues)):
                 xVal = xValues[i]
                 yVal = self.yValues[i]
-                
+
                 label = Label(xVal, yVal, "%d" % (yVal))
                 label.setTextOffset(0, 0.05 * maxYValue)
                 label.marker = 'x'
                 (labelObjects, labelLabels) = label.draw(axis)
                 plotObjects.extend(labelObjects)
                 labels.extend(labelLabels)
-        
+
         return [plotObjects, labels]
 
     def getAttributes(self):

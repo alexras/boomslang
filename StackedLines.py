@@ -15,28 +15,28 @@ class StackedLines(PlotInfo):
 
         self.lines = []
         self.colors = []
-    
+
     def addLine(self, line, color="white"):
         self.lines.append(line)
         self.colors.append(color)
 
     def draw(self, axis, transform=None):
         super(StackedLines, self).draw(axis)
-        
+
         plotHandles = []
         plotLabels = []
-        
+
         xValues = None
         yValues = []
-        
+
         for line in self.lines:
             if xValues == None:
                 xValues = line.xValues
             yValues.append(line.yValues)
-        
+
         yDataStacked = self._cumulativeSum(yValues)
-        
-        axis.fill_between(xValues, 0, yDataStacked[0], 
+
+        axis.fill_between(xValues, 0, yDataStacked[0],
                           facecolor=self.colors[0],
                           linestyle=self.lines[0].lineStyle)
         # Since fill_between doesn't have legend support, will have to create a
@@ -45,17 +45,17 @@ class StackedLines(PlotInfo):
         proxyArtist = Rectangle((0,0), 1, 1, color=self.colors[0])
         plotHandles.append(proxyArtist)
         plotLabels.append(self.lines[0].label)
-        
+
         for i in xrange(len(yDataStacked) - 1):
-            axis.fill_between(xValues, yDataStacked[i], 
-                              yDataStacked[i + 1], 
+            axis.fill_between(xValues, yDataStacked[i],
+                              yDataStacked[i + 1],
                               facecolor=self.colors[i + 1],
                               linestyle=self.lines[i+1].lineStyle)
             proxyArtist = Rectangle((0,0), 1, 1, color=self.colors[i+1])
             plotHandles.append(proxyArtist)
             plotLabels.append(self.lines[i+1].label)
         return [plotHandles, plotLabels]
-    
+
     def _cumulativeSum(self, yValuesLists):
         output = []
 
@@ -69,4 +69,4 @@ class StackedLines(PlotInfo):
                 prevList = output[i-1]
                 newList = [currentList[i] + prevList[i] for i in xrange(len(currentList))]
                 output.append(newList)
-        return output    
+        return output
