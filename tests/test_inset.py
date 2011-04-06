@@ -6,7 +6,8 @@ from ImageComparisonTestCase import ImageComparisonTestCase
 
 class InsetTest(ImageComparisonTestCase):
     def __init__(self, testCaseName):
-        super(InsetTest, self).__init__("inset.png")
+        super(InsetTest, self).__init__(testCaseName)
+        self.imageName = "inset.png"
 
     def constructImage(self):
         lines = []

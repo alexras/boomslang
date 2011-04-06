@@ -5,7 +5,8 @@ from ImageComparisonTestCase import ImageComparisonTestCase
 
 class ScatterTest(ImageComparisonTestCase):
     def __init__(self, testCaseName):
-        super(ScatterTest, self).__init__("scatter.png")
+        super(ScatterTest, self).__init__(testCaseName)
+        self.imageName = "scatter.png"
 
     def constructImage(self):
         scatter = Scatter()

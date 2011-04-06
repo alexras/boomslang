@@ -4,9 +4,10 @@ import unittest
 from boomslang import BoxAndWhisker, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 
-class BoxAndWhiskerTest(ImageComparisonTestCase):
+class BoxAndWhiskerTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
-        super(BoxAndWhiskerTest,self).__init__("boxandwhisker.png")
+        super(BoxAndWhiskerTest,self).__init__(testCaseName)
+        self.imageName = "boxandwhisker.png"
 
     def constructImage(self):
         bnw = BoxAndWhisker()

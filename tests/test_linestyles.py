@@ -5,7 +5,8 @@ from ImageComparisonTestCase import ImageComparisonTestCase
 
 class LineStylesTest(ImageComparisonTestCase):
     def __init__(self, testCaseName):
-        super(LineStylesTest, self).__init__("linestyles.png")
+        super(LineStylesTest, self).__init__(testCaseName)
+        self.imageName = "linestyles.png"
 
     def constructImage(self):
         plot = Plot()

@@ -6,7 +6,8 @@ from ImageComparisonTestCase import ImageComparisonTestCase
 
 class ErrorBarsTest(ImageComparisonTestCase):
     def __init__(self, testCaseName):
-        super(ErrorBarsTest,self).__init__("errorbars.png")
+        super(ErrorBarsTest,self).__init__(testCaseName)
+        self.imageName = "errorbars.png"
 
     def constructImage(self):
         plot = Plot()

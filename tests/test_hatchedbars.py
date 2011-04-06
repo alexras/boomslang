@@ -6,7 +6,8 @@ from ImageComparisonTestCase import ImageComparisonTestCase
 
 class HatchedBarsTest(ImageComparisonTestCase):
     def __init__(self, testCaseName):
-        super(HatchedBarsTest, self).__init__("hatchedbars.png")
+        super(HatchedBarsTest, self).__init__(testCaseName)
+        self.imageName = "hatchedbars.png"
 
     def constructImage(self):
         bar = Bar()

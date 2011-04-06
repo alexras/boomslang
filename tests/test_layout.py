@@ -5,7 +5,8 @@ from ImageComparisonTestCase import ImageComparisonTestCase
 
 class LayoutTest(ImageComparisonTestCase):
     def __init__(self, testCaseName):
-        super(LayoutTest,self).__init__("layout.png")
+        super(LayoutTest,self).__init__(testCaseName)
+        self.imageName = "layout.png"
 
     def constructImage(self):
         line = Line()

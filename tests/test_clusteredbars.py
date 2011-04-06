@@ -5,7 +5,8 @@ from ImageComparisonTestCase import ImageComparisonTestCase
 
 class ClusteredBarsTest(ImageComparisonTestCase):
     def __init__(self, testCaseName):
-        super(ClusteredBarsTest,self).__init__("clusteredbars.png")
+        super(ClusteredBarsTest,self).__init__(testCaseName)
+        self.imageName = "clusteredbars.png"
 
     def constructImage(self):
         bar1 = Bar()

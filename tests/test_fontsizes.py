@@ -5,7 +5,8 @@ from ImageComparisonTestCase import ImageComparisonTestCase
 
 class FontSizesTest(ImageComparisonTestCase):
     def __init__(self, testCaseName):
-        super(FontSizesTest, self).__init__("fontsizes.png")
+        super(FontSizesTest, self).__init__(testCaseName)
+        self.imageName = "fontsizes.png"
 
     def constructImage(self):
         plot = Plot()

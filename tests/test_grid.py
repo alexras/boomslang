@@ -5,7 +5,8 @@ from ImageComparisonTestCase import ImageComparisonTestCase
 
 class GridTest(ImageComparisonTestCase):
     def __init__(self, testCaseName):
-        super(GridTest,self).__init__("grid.png")
+        super(GridTest,self).__init__(testCaseName)
+        self.imageName = "grid.png"
 
     def constructImage(self):
         plot = Plot()

@@ -5,7 +5,8 @@ from ImageComparisonTestCase import ImageComparisonTestCase
 
 class LegendLabelSizesTest(ImageComparisonTestCase):
     def __init__(self, testCaseName):
-        super(LegendLabelSizesTest,self).__init__("legendLabelSizes.png")
+        super(LegendLabelSizesTest,self).__init__(testCaseName)
+        self.imageName = "legendLabelSizes.png"
 
     def constructImage(self):
 
