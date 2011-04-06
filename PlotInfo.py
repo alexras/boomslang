@@ -8,20 +8,41 @@ from LabelProperties import LabelProperties
 class PlotInfo(object):
     def __init__(self,
                  plotType,
-                 xValues = [],
-                 yValues = [],
+                 xValues = None,
+                 yValues = None,
                  xTickLabels = None,
                  yTickLabels = None,
                  xTickLabelPoints = None,
                  yTickLabelPoints = None,
-                 xTickLabelProperties = LabelProperties(),
-                 yTickLabelProperties = LabelProperties(),
+                 xTickLabelProperties = None,
+                 yTickLabelProperties = None,
                  label = None,
-                 yMins = [],
-                 yMaxes = [],
-                 yErrors = [],
+                 yMins = None,
+                 yMaxes = None,
+                 yErrors = None,
                  autosort = True,
                  xLimits = None):
+
+        if xValues is None:
+            xValues = []
+
+        if yValues is None:
+            yValues = []
+
+        if xTickLabelProperties is None:
+            xTickLabelProperties = LabelProperties()
+
+        if yTickLabelProperties is None:
+            yTickLabelProperties = LabelProperties()
+
+        if yMins is None:
+            yMins = []
+
+        if yMaxes is None:
+            yMaxes = []
+
+        if yErrors is None:
+            yErrors = []
 
         self.plotType = plotType
 

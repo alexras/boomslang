@@ -8,6 +8,7 @@ from LabelProperties import LabelProperties
 from Inset import Inset
 from Marker import Marker
 from LineStyle import LineStyle
+from Grid import Grid
 
 from Utils import getGoldenRatioDimensions
 
@@ -51,7 +52,8 @@ class Plot(object):
         self.logbasex = None
         self.logbasey = None
 
-        self.grid = False
+        self._grid = Grid()
+        self._grid.visible = False
 
         self.figLegend = False
 
@@ -69,6 +71,18 @@ class Plot(object):
         self.titleProperties = LabelProperties()
 
         self.tight = False
+
+    @property
+    def grid(self):
+        return self._grid
+
+    @grid.setter
+    def grid(self, value):
+        if isinstance(value, bool):
+            self._grid.visible = True
+        else:
+            raise AttributeError("Plot.grid cannot be re-assigned")
+
 
     def setTitleProperties(self, **propList):
         self.__setProperties(self.titleProperties, propList)
@@ -345,12 +359,8 @@ class Plot(object):
             for ytick in ax.get_yticklines():
                 ytick.set_visible(False)
 
-
-        if self.grid:
-            #TODO: color and linestyle for gridlines should be configurable
-            ax.grid(color="#dddddd", linestyle="-")
-            # Gridlines should be below plots
-            ax.set_axisbelow(True)
+        if self.grid.visible == True:
+            self.grid.draw(ax)
 
         if self.loglog or self.logx:
             myBase = None
