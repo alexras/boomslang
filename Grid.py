@@ -2,7 +2,7 @@ from boomslang.LineStyle import LineStyle
 from LineStyle import LineStyle
 
 class Grid(object):
-    def __init__(self, color=None, style=None, visible=False):
+    def __init__(self, color="#dddddd", style="-", visible=True):
         self.color = color
         self._lineStyle = LineStyle()
         self._lineStyle.style = style
@@ -22,6 +22,6 @@ class Grid(object):
 
     def draw(self, axes):
         if self.visible:
-            axes.grid(color=self.color, linestyle=self.lineStyle.style)
+            axes.grid(color=self.color, linestyle=self.style)
             # Gridlines should be below plots
             axes.set_axisbelow(True)
