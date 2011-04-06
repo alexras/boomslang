@@ -4,7 +4,7 @@ from boomslang import Plot, Line, PlotLayout
 from ImageComparisonTestCase import ImageComparisonTestCase
 import numpy
 
-class SplitTest(ImageComparisonTestCase):
+class SplitTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
         super(SplitTest, self).__init__(testCaseName)
         self.imageName = "split.png"

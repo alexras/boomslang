@@ -6,7 +6,7 @@ import unittest
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 
-class LatexTest(ImageComparisonTestCase):
+class LatexTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
         super(LatexTest,self).__init__(testCaseName)
         self.imageName = "latex.png"

@@ -3,7 +3,7 @@ import random
 from ImageComparisonTestCase import ImageComparisonTestCase
 from boomslang import Scatter, Plot, VLine
 
-class VLineTest(ImageComparisonTestCase):
+class VLineTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
         super(VLineTest,self).__init__("vline.png")
 

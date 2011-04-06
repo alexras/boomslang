@@ -3,7 +3,7 @@ import random
 from boomslang import Scatter, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 
-class ScatterTest(ImageComparisonTestCase):
+class ScatterTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
         super(ScatterTest, self).__init__(testCaseName)
         self.imageName = "scatter.png"

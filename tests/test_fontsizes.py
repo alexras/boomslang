@@ -3,7 +3,7 @@
 from boomslang import Line, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 
-class FontSizesTest(ImageComparisonTestCase):
+class FontSizesTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
         super(FontSizesTest, self).__init__(testCaseName)
         self.imageName = "fontsizes.png"

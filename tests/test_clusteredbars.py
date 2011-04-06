@@ -3,7 +3,7 @@ from boomslang import Bar, ClusteredBars, Plot
 import unittest
 from ImageComparisonTestCase import ImageComparisonTestCase
 
-class ClusteredBarsTest(ImageComparisonTestCase):
+class ClusteredBarsTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
         super(ClusteredBarsTest,self).__init__(testCaseName)
         self.imageName = "clusteredbars.png"

@@ -3,7 +3,7 @@
 from boomslang import Line, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 
-class SimpleLineTest(ImageComparisonTestCase):
+class SimpleLineTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
         super(SimpleLineTest,self).__init__(testCaseName)
         self.imageName = "simpleline.png"

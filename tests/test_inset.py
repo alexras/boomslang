@@ -4,7 +4,7 @@ from boomslang import Line, Plot, PlotLayout
 import unittest
 from ImageComparisonTestCase import ImageComparisonTestCase
 
-class InsetTest(ImageComparisonTestCase):
+class InsetTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
         super(InsetTest, self).__init__(testCaseName)
         self.imageName = "inset.png"

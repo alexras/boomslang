@@ -3,7 +3,7 @@
 from boomslang import Line, Plot, PlotLayout
 from ImageComparisonTestCase import ImageComparisonTestCase
 
-class LegendLabelSizesTest(ImageComparisonTestCase):
+class LegendLabelSizesTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
         super(LegendLabelSizesTest,self).__init__(testCaseName)
         self.imageName = "legendLabelSizes.png"

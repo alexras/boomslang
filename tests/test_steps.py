@@ -2,7 +2,7 @@
 from boomslang import Line, Plot, PlotLayout
 from ImageComparisonTestCase import ImageComparisonTestCase
 
-class StepsTest(ImageComparisonTestCase):
+class StepsTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
         super(StepsTest, self).__init__("steps.png")
 

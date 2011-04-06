@@ -4,7 +4,7 @@ from boomslang import Label, Line, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 import numpy
 
-class LabelTest(ImageComparisonTestCase):
+class LabelTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
         super(LabelTest, self).__init__(testCaseName)
         self.imageName = "label.png"

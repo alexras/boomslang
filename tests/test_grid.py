@@ -3,7 +3,7 @@
 from boomslang import Line, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 
-class GridTest(ImageComparisonTestCase):
+class GridTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
         super(GridTest,self).__init__(testCaseName)
         self.imageName = "grid.png"

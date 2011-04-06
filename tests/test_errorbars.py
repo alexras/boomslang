@@ -4,7 +4,7 @@ from boomslang import Line, Plot
 import unittest
 from ImageComparisonTestCase import ImageComparisonTestCase
 
-class ErrorBarsTest(ImageComparisonTestCase):
+class ErrorBarsTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
         super(ErrorBarsTest,self).__init__(testCaseName)
         self.imageName = "errorbars.png"

@@ -3,7 +3,7 @@
 from boomslang import Line, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 
-class TickStylesTest(ImageComparisonTestCase):
+class TickStylesTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
         super(TickStylesTest, self).__init__("tickstyles.png")
 
