@@ -4,7 +4,7 @@ from boomslang import Scatter, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 class ScatterTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(ScatterTest, self).__init__("scatter.png")
 
     def constructImage(self):

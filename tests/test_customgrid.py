@@ -4,7 +4,7 @@ from boomslang import Line, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 class CustomGridTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(CustomGridTest,self).__init__("customgrid.png")
 
     def constructImage(self):

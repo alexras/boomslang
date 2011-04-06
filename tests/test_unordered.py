@@ -4,7 +4,7 @@ from boomslang import Plot, Line
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 class UnorderedTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(UnorderedTest, self).__init__("unordered.png")
 
     def constructImage(self):

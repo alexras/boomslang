@@ -4,7 +4,7 @@ from boomslang import Line, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 class TwinXTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(TwinXTest,self).__init__("twinx.png")
 
     def constructImage(self):

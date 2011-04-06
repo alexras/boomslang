@@ -5,7 +5,7 @@ import unittest
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 class InsetTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(InsetTest, self).__init__("inset.png")
 
     def constructImage(self):

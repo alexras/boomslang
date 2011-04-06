@@ -5,7 +5,7 @@ from boomslang import Line, StackedLines, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 class StackedLinesTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(StackedLinesTest,self).__init__("stackedlines.png")
 
     def constructImage(self):

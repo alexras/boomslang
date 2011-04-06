@@ -3,7 +3,7 @@ from boomslang import Line, Plot, PlotLayout
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 class StepsTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(StepsTest, self).__init__("steps.png")
 
     def constructImage(self):

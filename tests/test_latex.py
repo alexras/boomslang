@@ -7,7 +7,7 @@ from ImageComparisonTestCase import ImageComparisonTestCase
 
 
 class LatexTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(LatexTest,self).__init__("latex.png")
 
     def constructImage(self):

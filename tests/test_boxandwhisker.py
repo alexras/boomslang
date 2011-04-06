@@ -5,7 +5,7 @@ from boomslang import BoxAndWhisker, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 class BoxAndWhiskerTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(BoxAndWhiskerTest,self).__init__("boxandwhisker.png")
 
     def constructImage(self):

@@ -5,7 +5,7 @@ from boomslang import Line, Plot, PlotLayout
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 class LogScaleTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(LogScaleTest,self).__init__("logscale.png")
 
     def constructImage(self):

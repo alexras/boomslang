@@ -5,7 +5,7 @@ from ImageComparisonTestCase import ImageComparisonTestCase
 import numpy
 
 class SplitTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(SplitTest, self).__init__("split.png")
 
     def constructImage(self):

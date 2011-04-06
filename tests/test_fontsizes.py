@@ -3,9 +3,9 @@
 from boomslang import Line, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 
-class GridTest(ImageComparisonTestCase):
-    def __init__(self):
-        super(GridTest,self).__init__("grid.png")
+class FontSizesTest(ImageComparisonTestCase):
+    def __init__(self, testCaseName):
+        super(FontSizesTest, self).__init__("fontsizes.png")
 
     def constructImage(self):
         plot = Plot()
@@ -19,12 +19,17 @@ class GridTest(ImageComparisonTestCase):
         plot.setYLabel("Y Label")
         plot.setYLimits(0, 60)
 
-        plot.grid = True
+        plot.setXTickLabelSize(24)
+        plot.setYTickLabelSize(36)
+        plot.setAxesLabelSize(18)
+
+        plot.setPlotParameters(bottom=0.14)
 
         plot.save(self.imageName)
 
-ImageComparisonTestCase.register(GridTest)
+ImageComparisonTestCase.register(FontSizesTest)
 
 if __name__ == "__main__":
-    test = GridTest()
+    test = FontSizesTest()
+
     test.constructImage()

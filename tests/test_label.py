@@ -5,7 +5,7 @@ from ImageComparisonTestCase import ImageComparisonTestCase
 import numpy
 
 class LabelTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(LabelTest, self).__init__("label.png")
 
     def constructImage(self):

@@ -4,7 +4,7 @@ from boomslang import Line, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 class TickStylesTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(TickStylesTest, self).__init__("tickstyles.png")
 
     def constructImage(self):

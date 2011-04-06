@@ -4,7 +4,7 @@ from boomslang import Bar, Line, Scatter, Plot, PlotLayout
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 class LayoutTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(LayoutTest,self).__init__("layout.png")
 
     def constructImage(self):

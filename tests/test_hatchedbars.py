@@ -5,7 +5,7 @@ import unittest
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 class HatchedBarsTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(HatchedBarsTest, self).__init__("hatchedbars.png")
 
     def constructImage(self):

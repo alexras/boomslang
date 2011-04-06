@@ -4,9 +4,10 @@ from boomslang import Bar, Plot
 import unittest
 from ImageComparisonTestCase import ImageComparisonTestCase
 
-class BarTest(ImageComparisonTestCase):
-    def __init__(self):
-        super(BarTest,self).__init__("bar.png")
+class BarTest(ImageComparisonTestCase, unittest.TestCase):
+    def __init__(self, testCaseName):
+        super(BarTest,self).__init__(testCaseName)
+        self.imageName = "bar.png"
 
     def constructImage(self):
         plot = Plot()

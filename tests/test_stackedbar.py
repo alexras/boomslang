@@ -4,7 +4,7 @@ from boomslang import StackedBars, Bar, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 class StackedBarTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(StackedBarTest,self).__init__("stackedbar.png")
 
     def constructImage(self):

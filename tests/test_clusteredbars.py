@@ -4,7 +4,7 @@ import unittest
 from ImageComparisonTestCase import ImageComparisonTestCase
 
 class ClusteredBarsTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(ClusteredBarsTest,self).__init__("clusteredbars.png")
 
     def constructImage(self):

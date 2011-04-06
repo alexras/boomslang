@@ -4,7 +4,7 @@ from ImageComparisonTestCase import ImageComparisonTestCase
 from boomslang import Scatter, Plot, VLine
 
 class VLineTest(ImageComparisonTestCase):
-    def __init__(self):
+    def __init__(self, testCaseName):
         super(VLineTest,self).__init__("vline.png")
 
     def constructImage(self):

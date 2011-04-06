@@ -6,14 +6,12 @@ import unittest
 
 from matplotlib import rc
 
-class ImageComparisonTestCase(unittest.TestCase):
+class ImageComparisonTestCase():
     __metaclass__ = ABCMeta
 
     scriptPath = os.path.abspath(os.path.dirname(__file__))
 
-    def __init__(self, imageName):
-        super(ImageComparisonTestCase,self).__init__('testImageComparison')
-        self.imageName = imageName
+    TEST_CASE_NAME = "testImageComparison"
 
     def setUp(self):
         if os.path.exists(self.imageName):
