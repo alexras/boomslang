@@ -2,6 +2,7 @@
 
 from boomslang import Line, Plot, PlotLayout
 from ImageComparisonTestCase import ImageComparisonTestCase
+import unittest
 
 class LegendLabelSizesTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):

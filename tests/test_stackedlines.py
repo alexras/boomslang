@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 
 from boomslang import Line, StackedLines, Plot
-
 from ImageComparisonTestCase import ImageComparisonTestCase
+import unittest
 
 class StackedLinesTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
-        super(StackedLinesTest,self).__init__("stackedlines.png")
+        super(StackedLinesTest,self).__init__(testCaseName)
+        self.imageName = "stackedlines.png"
 
     def constructImage(self):
         line1 = Line()

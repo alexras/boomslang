@@ -2,6 +2,7 @@
 
 from boomslang import Bar, Line, Scatter, Plot, PlotLayout
 from ImageComparisonTestCase import ImageComparisonTestCase
+import unittest
 
 class LayoutTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):

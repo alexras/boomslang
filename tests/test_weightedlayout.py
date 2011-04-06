@@ -2,10 +2,12 @@
 
 from boomslang import Bar, Line, Scatter, Plot, WeightedPlotLayout
 from ImageComparisonTestCase import ImageComparisonTestCase
+import unittest
 
 class WeightedLayoutTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
-        super(WeightedLayoutTest, self).__init__("weightedlayout.png")
+        super(WeightedLayoutTest, self).__init__(testCaseName)
+        self.imageName = "weightedlayout.png"
 
     def constructImage(self):
 

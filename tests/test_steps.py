@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 from boomslang import Line, Plot, PlotLayout
 from ImageComparisonTestCase import ImageComparisonTestCase
+import unittest
 
 class StepsTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
-        super(StepsTest, self).__init__("steps.png")
+        super(StepsTest, self).__init__(testCaseName)
+        self.imageName = "steps.png"
 
     def constructImage(self):
         def generatePlot(stepType):

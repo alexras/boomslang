@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 from boomslang import Line, Plot, PlotLayout
-
 from ImageComparisonTestCase import ImageComparisonTestCase
+import unittest
 
 class LogScaleTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):

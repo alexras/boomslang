@@ -3,6 +3,7 @@
 from boomslang import Plot, Line, PlotLayout
 from ImageComparisonTestCase import ImageComparisonTestCase
 import numpy
+import unittest
 
 class SplitTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):

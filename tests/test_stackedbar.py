@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 from boomslang import StackedBars, Bar, Plot
-
 from ImageComparisonTestCase import ImageComparisonTestCase
+import unittest
 
 class StackedBarTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
-        super(StackedBarTest,self).__init__("stackedbar.png")
+        super(StackedBarTest,self).__init__(testCaseName)
+        self.imageName = "stackedbar.png"
 
     def constructImage(self):
         bar1 = Bar()

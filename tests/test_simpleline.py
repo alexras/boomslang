@@ -2,6 +2,7 @@
 
 from boomslang import Line, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
+import unittest
 
 class SimpleLineTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):

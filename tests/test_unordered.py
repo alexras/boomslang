@@ -2,10 +2,12 @@
 
 from boomslang import Plot, Line
 from ImageComparisonTestCase import ImageComparisonTestCase
+import unittest
 
 class UnorderedTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
-        super(UnorderedTest, self).__init__("unordered.png")
+        super(UnorderedTest, self).__init__(testCaseName)
+        self.imageName = "unordered.png"
 
     def constructImage(self):
         line = Line()

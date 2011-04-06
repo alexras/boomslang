@@ -2,6 +2,7 @@
 
 from boomslang import Line, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
+import unittest
 
 class FontSizesTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):

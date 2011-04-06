@@ -2,10 +2,12 @@
 
 from boomslang import Line, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
+import unittest
 
 class TickStylesTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
-        super(TickStylesTest, self).__init__("tickstyles.png")
+        super(TickStylesTest, self).__init__(testCaseName)
+        self.imageName = "tickstyles.png"
 
     def constructImage(self):
         plot = Plot()

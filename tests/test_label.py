@@ -3,6 +3,7 @@
 from boomslang import Label, Line, Plot
 from ImageComparisonTestCase import ImageComparisonTestCase
 import numpy
+import unittest
 
 class LabelTest(ImageComparisonTestCase, unittest.TestCase):
     def __init__(self, testCaseName):
