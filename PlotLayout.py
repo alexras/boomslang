@@ -19,6 +19,7 @@ class PlotLayout(object):
 
         self.dimensions = None
         self.figdimensions = None
+        self.dpi = None
 
         self.figLegendLoc = None
         self.figLegendCols = None
@@ -86,11 +87,13 @@ class PlotLayout(object):
     def setGroupOrder(self, groupOrder):
         self.groupOrder = groupOrder
 
-    def setPlotDimensions(self, x, y):
+    def setPlotDimensions(self, x, y, dpi=100):
         self.dimensions = (x,y)
+        self.dpi = dpi
 
-    def setFigureDimensions(self, x, y):
+    def setFigureDimensions(self, x, y, dpi=100):
         self.figdimensions = (x,y)
+        self.dpi = dpi
 
     def setPlotParameters(self, **kwdict):
         self.plotParams = dict(kwdict)
@@ -180,7 +183,7 @@ class PlotLayout(object):
                 myPos = (currentRow * numPlots) + currentColumn
 
                 (currPlotHandles, currPlotLabels) = plot.subplot(
-                    myRows, myCols, myPos)
+                    fig, myRows, myCols, myPos)
 
                 for i in xrange(len(currPlotHandles)):
                     if currPlotLabels[i] in plotLabels:
@@ -212,7 +215,7 @@ class PlotLayout(object):
                 myPos = (currentRow * numColumns) + currentColumn
 
                 (currPlotHandles, currPlotLabels) = plot.subplot(
-                    myRows, myCols, myPos)
+                    fig, myRows, myCols, myPos)
                 for i in xrange(len(currPlotHandles)):
                     if currPlotLabels[i] in plotLabels:
                         continue
@@ -246,20 +249,22 @@ class PlotLayout(object):
                 else:
                     figLegendKeywords["ncol"] = self.figLegendCols
 
-            pylab.figlegend(plotHandles, plotLabels,
-                            self.figLegendLoc,
-                            **figLegendKeywords)
+            fig.legend(plotHandles, plotLabels,
+                       self.figLegendLoc,
+                       **figLegendKeywords)
 
         if self.plotParams is not None:
-            pylab.subplots_adjust(left=self.plotParams["left"],
-                                  bottom=self.plotParams["bottom"],
-                                  right=self.plotParams["right"],
-                                  top=self.plotParams["top"],
-                                  wspace=self.plotParams["wspace"],
-                                  hspace=self.plotParams["hspace"])
+            fig.subplots_adjust(left=self.plotParams["left"],
+                                bottom=self.plotParams["bottom"],
+                                right=self.plotParams["right"],
+                                top=self.plotParams["top"],
+                                wspace=self.plotParams["wspace"],
+                                hspace=self.plotParams["hspace"])
         # Restore old RC params
         for (key,value) in oldRCParams.items():
             pylab.rcParams[key] = value
+
+        return fig
 
     def plot(self):
         self._doPlot()
@@ -274,9 +279,8 @@ class PlotLayout(object):
         if "DISPLAY" not in os.environ:
             tempDisplayHack = True
             os.environ["DISPLAY"] = ":0.0"
-        self._doPlot()
-        pylab.savefig(filename,**kwargs)
-        pylab.clf()
+        fig = self._doPlot()
+        fig.savefig(filename, dpi = self.dpi, **kwargs)
 
         if tempDisplayHack == True:
             del os.environ["DISPLAY"]

@@ -1,5 +1,4 @@
 import pylab
-from matplotlib import pyplot
 import sys
 from PlotInfo import PlotInfo
 from PlotLayout import *
@@ -43,6 +42,7 @@ class Plot(object):
 
         self.width = None
         self.height = None
+        self.dpi = 100
 
         self.plotParams = None
         self.logx = False
@@ -130,9 +130,10 @@ class Plot(object):
     def hideTickLabels(self):
         self.hideTicks = True
 
-    def setDimensions(self, width=None, height=None):
+    def setDimensions(self, width=None, height=None, dpi=100):
         self.width = width
         self.height = height
+        self.dpi = dpi
 
     def add(self, plottableObject):
         """
@@ -275,7 +276,7 @@ class Plot(object):
         layout = PlotLayout()
         (width, height) = self.getDimensions()
 
-        layout.setPlotDimensions(width, height)
+        layout.setPlotDimensions(width, height, dpi=self.dpi)
 
         if self.plotParams is not None:
             layout.setPlotParameters(**self.plotParams)
@@ -334,14 +335,16 @@ class Plot(object):
         layout = self.__setupLayout()
         layout.save(filename,**kwargs)
 
-    def subplot(self, row, column, position):
-        ax = pylab.subplot(row, column, position)
+    def subplot(self, fig, row, column, position):
+        ax = fig.add_subplot(row, column, position)
         return self.drawPlot(ax)
 
     def drawPlot(self, ax):
         """
         Used by PlotLayout to plot the graph at a given location in the layout.
         """
+
+        ax2 = None
 
         if self.tight:
             ax.autoscale_view(tight=True)
@@ -476,10 +479,10 @@ class Plot(object):
             i += 1
 
         if self.xlim is not None:
-            pylab.xlim(xmin=self.xlim[0], xmax=self.xlim[1])
+            ax.set_xlim(xmin=self.xlim[0], xmax=self.xlim[1])
 
         if self.ylim is not None:
-            pylab.ylim(ymin=self.ylim[0], ymax=self.ylim[1])
+            ax.set_ylim(ymin=self.ylim[0], ymax=self.ylim[1])
 
 
         if self.xLabel is not None:
@@ -510,11 +513,17 @@ class Plot(object):
             if len(plotHandles) == 0:
                 print >>sys.stderr, "ERROR: Plot wanted to draw a legend, but none of its elements have labels"
                 sys.exit(1)
-            legend = pylab.legend(plotHandles, plotLabels,
-                                  loc=self.legendLoc, **legendKeywords)
+
+            if self.twinxIndex > 0:
+                legendAxis = ax2
+            else:
+                legendAxis = ax
+
+            legend = legendAxis.legend(plotHandles, plotLabels,
+                                       loc=self.legendLoc, **legendKeywords)
         if self.figLegend:
-            legend = pylab.figlegend(plotHandles, plotLabels,
-                                     loc=self.legendLoc, **legendKeywords)
+            legend = ax.figlegend(plotHandles, plotLabels,
+                                  loc=self.legendLoc, **legendKeywords)
 
         if legend:
             legend.draw_frame(self.legendDrawFrame)

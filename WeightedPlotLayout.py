@@ -1,4 +1,3 @@
-import pylab
 import matplotlib
 from matplotlib import pyplot
 import sys
@@ -153,12 +152,14 @@ class WeightedPlotLayout(PlotLayout):
                 else:
                     figLegendKeywords["ncol"] = self.figLegendCols
 
-            pylab.figlegend(plotHandles, plotLabels,
-                            self.figLegendLoc,
-                            **figLegendKeywords)
+            fig.legend(plotHandles, plotLabels,
+                       self.figLegendLoc,
+                       **figLegendKeywords)
 
         if self.figTitle is not None:
             fig.suptitle(self.figTitle)
 
         for (key,val) in oldRCParams.items():
             pylab.rcParams[key] = val
+
+        return fig
