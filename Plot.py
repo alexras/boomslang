@@ -32,6 +32,7 @@ class Plot(object):
         self.legendCols = 0
         self.scatterPoints=3
         self.legendLoc = None
+        self.legendBboxToAnchor = None
 
         self.twinxLabel = None
         self.twinxIndex = -1
@@ -243,15 +244,16 @@ class Plot(object):
         self.ylim = (minY, maxY)
 
     def hasFigLegend(self, columns=1, location="best", scatterPoints=3,
-                     draw_frame=True):
+                     draw_frame=True, bbox_to_anchor=None):
         self.figLegend = True
         self.legendCols = columns
         self.legendLoc = location
         self.scatterPoints = scatterPoints
         self.legendDrawFrame = draw_frame
+        self.legendBboxToAnchor = bbox_to_anchor
 
     def hasLegend(self, columns=1, location="best", scatterPoints=3,
-                  draw_frame=True):
+                  draw_frame=True, bbox_to_anchor=None):
         """
         Declare that the plot has a legend with a given number of columns and
         location.
@@ -261,6 +263,7 @@ class Plot(object):
         self.legendLoc = location
         self.scatterPoints = scatterPoints
         self.legendDrawFrame = draw_frame
+        self.legendBboxToAnchor = bbox_to_anchor
 
     def setTitle(self, title):
         self.title = title
@@ -494,6 +497,9 @@ class Plot(object):
             versionParts = [int(x) for x in matplotlib.__version__.split('.')]
 
             (superMajor, major, minor) = versionParts[0:3]
+
+            if self.legendBboxToAnchor is not None:
+                legendKeywords["bbox_to_anchor"] = self.legendBboxToAnchor
 
             if superMajor == 0 and major < 98:
                 print >>sys.stderr, "Number of columns support not available in versions of matplotlib prior to 0.98"
