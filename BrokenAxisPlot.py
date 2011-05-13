@@ -1,8 +1,6 @@
-import pylab
 import matplotlib.axes
 import matplotlib.transforms
 import matplotlib.ticker as mticker
-from matplotlib import pyplot
 from boomslang import Plot
 import numpy as np
 
@@ -49,17 +47,15 @@ class BrokenAxisPlot(Plot):
         self.break_hspace = break_hspace
         self.break_ratio = break_ratio
 
-    def subplot(self, row, column, position):
+    def subplot(self, fig, row, column, position):
         # Step 0, plot in normal space to build up base fig and stats
-        orig_ax = pylab.subplot(row, column, position)
+        orig_ax = fig.add_subplot(row, column, position)
 
         orig = (self.legend, self.legendCols)
         (self.legend, self.legendCols) = False, 0
-        handles = self.drawPlot(orig_ax)
+        handles = self.drawPlot(fig, orig_ax)
 
         nticks = len(orig_ax.get_yticks())
-
-        print orig_ax.yaxis.get_label(), orig_ax.yaxis.labelpad
 
         if True:
             for side in ['top','bottom','left','right']:
@@ -71,8 +67,6 @@ class BrokenAxisPlot(Plot):
             orig_ax.xaxis.set_visible(False)
             orig_ax.set_yticks([0])
             orig_ax.set_yticklabels(["    "])
-
-        f = pylab.gcf()
 
         hs = self.break_hspace * 1
 
@@ -86,20 +80,20 @@ class BrokenAxisPlot(Plot):
         r = orig_ax.transAxes._boxout._bbox
 
 
-        ax2 = BrokenAxesPiece(f, r, sharex=orig_ax, xform=bot_xform)
-        f.add_axes(ax2)
+        ax2 = BrokenAxesPiece(fig, r, sharex=orig_ax, xform=bot_xform)
+        fig.add_axes(ax2)
 
-        handles = self.drawPlot(ax2)
+        handles = self.drawPlot(fig, ax2)
 
         # Re-enable the legend
         (self.legend, self.legendCols) = orig
 
-        ax = BrokenAxesPiece(f, r, sharex=orig_ax, xform=top_xform)
-        f.add_axes(ax)
+        ax = BrokenAxesPiece(fig, r, sharex=orig_ax, xform=top_xform)
+        fig.add_axes(ax)
 
-        handles = self.drawPlot(ax)
+        handles = self.drawPlot(fig, ax)
 
-        print orig_ax.get_legend(), ax.get_legend(), ax2.get_legend()
+        #print orig_ax.get_legend(), ax.get_legend(), ax2.get_legend()
 
         # Set Limits
         (y_bot, y_top) = ax.get_ylim()
@@ -114,7 +108,7 @@ class BrokenAxisPlot(Plot):
         numticks2 = max(numticks2, 2)
         numticks = max(numticks, 2)
 
-        print orig_ax.get_yticks(), nticks, numticks, numticks2
+        #print orig_ax.get_yticks(), nticks, numticks, numticks2
 
         ax2.yaxis.set_major_locator(mticker.LinearLocator(numticks=numticks2))
         ax.yaxis.set_major_locator(mticker.LinearLocator(numticks=numticks))
@@ -135,6 +129,8 @@ class BrokenAxisPlot(Plot):
         ax.set_ylabel("")
         ax2.set_ylabel("")
 
+        ax.set_xlabel("")
+        #ax2.set_xlabel("") # Keep this one
 
         kwargs = dict(transform=ax.transAxes, color='k', clip_on=False)
 
