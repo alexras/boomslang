@@ -26,7 +26,7 @@ class Inset(object):
         self.location = location
         self.padding = padding
 
-    def draw(self, axes):
+    def draw(self, fig, axes):
         if not BOOMSLANG_INSET_LOCATOR_LOADED:
             print >>sys.stderr, "Plotting insets requires " \
                 "mpl_toolkits.axes_grid.inset_locator, which " \
@@ -40,6 +40,6 @@ class Inset(object):
             height="%.2f%%" % (self.height * 100.0),
             loc=self.location)
 
-        self.plot.drawPlot(insetAxes)
+        self.plot.drawPlot(fig, insetAxes)
 
         return insetAxes

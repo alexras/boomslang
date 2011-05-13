@@ -32,8 +32,8 @@ class Bar(PlotInfo):
         self.hatch = hatch
         self.align = align
 
-    def draw(self, axis, transform=None):
-        super(Bar,self).draw(axis)
+    def draw(self, fig, axis, transform=None):
+        super(Bar,self).draw(fig, axis)
 
         return self._draw(axis, transform)
 

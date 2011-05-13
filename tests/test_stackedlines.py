@@ -28,12 +28,13 @@ class StackedLinesTest(ImageComparisonTestCase, unittest.TestCase):
 
         plot = Plot()
         plot.setYLimits(0, 7)
+        plot.setXLimits(0, 9)
         plot.add(stack)
         plot.save(self.imageName)
 
 ImageComparisonTestCase.register(StackedLinesTest)
 
 if __name__ == "__main__":
-    test = StackedLinesTest()
+    test = StackedLinesTest("testImageComparison")
 
     test.constructImage()

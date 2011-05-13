@@ -38,7 +38,7 @@ class Scatter(PlotInfo):
     def markerSize(self):
         return self._marker.size
 
-    def draw(self, axis):
+    def draw(self, fig, axis):
         kwdict = {}
         kwdict["marker"] = self.marker
         kwdict["label"] = self.label

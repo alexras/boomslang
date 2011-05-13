@@ -31,6 +31,6 @@ class LineStyles2Test(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(LineStyles2Test)
 
 if __name__ == "__main__":
-    test = LineStyles2Test()
+    test = LineStyles2Test("testImageComparison")
 
     test.constructImage()

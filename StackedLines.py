@@ -20,8 +20,8 @@ class StackedLines(PlotInfo):
         self.lines.append(line)
         self.colors.append(color)
 
-    def draw(self, axis, transform=None):
-        super(StackedLines, self).draw(axis)
+    def draw(self, fig, axis, transform=None):
+        super(StackedLines, self).draw(fig, axis)
 
         plotHandles = []
         plotLabels = []

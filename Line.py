@@ -75,8 +75,8 @@ class Line(PlotInfo):
     def stepFunction(self, stepType="pre"):
         self.steps = stepType
 
-    def draw(self, axis):
-        super(Line, self).draw(axis)
+    def draw(self, fig, axis):
+        super(Line, self).draw(fig, axis)
 
         if self.dates:
             plotFunc = axis.plot_date

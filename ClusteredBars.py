@@ -71,8 +71,8 @@ class ClusteredBars(PlotInfo):
                 "match number of points. Labels: %s, Points: %s" %
                 (self.xTickLabels, self.xTickLabelPoints))
 
-    def draw(self, axis, transform=None):
-        super(ClusteredBars,self).draw(axis)
+    def draw(self, fig, axis, transform=None):
+        super(ClusteredBars,self).draw(fig, axis)
 
         rect = axis.patch
         rect.set_facecolor(self.background_color)

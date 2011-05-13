@@ -73,11 +73,11 @@ class StackedBars(PlotInfo):
         if len(self.xTickLabelProperties) == 0:
             self.xTickLabelProperties = self.bars[0].xTickLabelProperties
 
-    def draw(self, axis, transform=None):
+    def draw(self, fig, axis, transform=None):
         if len(self.bars) == 0:
             return [[], []]
 
-        super(StackedBars, self).draw(axis)
+        super(StackedBars, self).draw(fig, axis)
         return self._draw(axis, transform)
 
     def _draw(self, axis, transform=None):

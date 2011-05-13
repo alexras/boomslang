@@ -107,7 +107,7 @@ class PlotInfo(object):
             elements.append(element)
         return elements
 
-    def draw(self, axis):
+    def draw(self, fig, axis):
         if len(self.xValues) > 0 and self.autosort:
             # This is a total kludge --AR
 

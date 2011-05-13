@@ -1,5 +1,4 @@
 import pylab
-from matplotlib import pyplot
 import sys
 from PlotInfo import PlotInfo
 from PlotLayout import *
@@ -9,6 +8,8 @@ from Inset import Inset
 from Marker import Marker
 from LineStyle import LineStyle
 from Grid import Grid
+from exceptions import BoomslangPlotConfigurationException
+from exceptions import BoomslangPlotRenderingException
 
 from Utils import getGoldenRatioDimensions
 
@@ -44,6 +45,7 @@ class Plot(object):
 
         self.width = None
         self.height = None
+        self.dpi = 100
 
         self.plotParams = None
         self.logx = False
@@ -131,9 +133,10 @@ class Plot(object):
     def hideTickLabels(self):
         self.hideTicks = True
 
-    def setDimensions(self, width=None, height=None):
+    def setDimensions(self, width=None, height=None, dpi=100):
         self.width = width
         self.height = height
+        self.dpi = dpi
 
     def add(self, plottableObject):
         """
@@ -278,7 +281,7 @@ class Plot(object):
         layout = PlotLayout()
         (width, height) = self.getDimensions()
 
-        layout.setPlotDimensions(width, height)
+        layout.setPlotDimensions(width, height, dpi=self.dpi)
 
         if self.plotParams is not None:
             layout.setPlotParameters(**self.plotParams)
@@ -337,20 +340,22 @@ class Plot(object):
         layout = self.__setupLayout()
         layout.save(filename,**kwargs)
 
-    def subplot(self, row, column, position):
-        ax = pylab.subplot(row, column, position)
-        return self.drawPlot(ax)
+    def subplot(self, fig, row, column, position):
+        ax = fig.add_subplot(row, column, position)
+        return self.drawPlot(fig, ax)
 
-    def drawPlot(self, ax):
+    def drawPlot(self, fig, ax):
         """
         Used by PlotLayout to plot the graph at a given location in the layout.
         """
+
+        ax2 = None
 
         if self.tight:
             ax.autoscale_view(tight=True)
 
         for inset in self.insets:
-            inset.draw(ax)
+            inset.draw(fig, ax)
 
         if self.hideTicks == True:
             for xtl in ax.get_xticklabels():
@@ -363,7 +368,7 @@ class Plot(object):
                 ytick.set_visible(False)
 
         if self.grid.visible == True:
-            self.grid.draw(ax)
+            self.grid.draw(fig, ax)
 
         if self.loglog or self.logx:
             myBase = None
@@ -459,7 +464,7 @@ class Plot(object):
                 plotInfo.color = myColor
 
             plotInfo.preDraw()
-            (currPlotHandles, currPlotLabels) = plotInfo.draw(myAxis)
+            (currPlotHandles, currPlotLabels) = plotInfo.draw(fig, myAxis)
 
             labelIndices = [x for x in range(len(currPlotLabels)) \
                                 if currPlotLabels[x] is not None]
@@ -479,10 +484,10 @@ class Plot(object):
             i += 1
 
         if self.xlim is not None:
-            pylab.xlim(xmin=self.xlim[0], xmax=self.xlim[1])
+            ax.set_xlim(xmin=self.xlim[0], xmax=self.xlim[1])
 
         if self.ylim is not None:
-            pylab.ylim(ymin=self.ylim[0], ymax=self.ylim[1])
+            ax.set_ylim(ymin=self.ylim[0], ymax=self.ylim[1])
 
 
         if self.xLabel is not None:
@@ -516,11 +521,17 @@ class Plot(object):
             if len(plotHandles) == 0:
                 print >>sys.stderr, "ERROR: Plot wanted to draw a legend, but none of its elements have labels"
                 sys.exit(1)
-            legend = pylab.legend(plotHandles, plotLabels,
-                                  loc=self.legendLoc, **legendKeywords)
+
+            if self.twinxIndex > 0:
+                legendAxis = ax2
+            else:
+                legendAxis = ax
+
+            legend = legendAxis.legend(plotHandles, plotLabels,
+                                       loc=self.legendLoc, **legendKeywords)
         if self.figLegend:
-            legend = pylab.figlegend(plotHandles, plotLabels,
-                                     loc=self.legendLoc, **legendKeywords)
+            legend = fig.legend(plotHandles, plotLabels,
+                                loc=self.legendLoc, **legendKeywords)
 
         if legend:
             legend.draw_frame(self.legendDrawFrame)
