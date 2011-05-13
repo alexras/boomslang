@@ -1,3 +1,4 @@
+import pylab
 import matplotlib
 from matplotlib import pyplot
 import sys
