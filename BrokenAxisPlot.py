@@ -32,6 +32,13 @@ class BrokenAxisPlot(Plot):
     """
     Represents a single broken-axis plot.  Not embeddable into nested
     PlotLayouts at the moment.
+
+        break_points defines the gap on the y-axis.
+        break_line_size defines how big the broken axis lines are on the
+            sides
+        break_hspace defines how much space to put in between
+        break_raito defines how to divy up the space between the two
+            sub-axes
     """
 
     def __init__(self,
