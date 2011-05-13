@@ -56,11 +56,11 @@ class VLine(PlotInfo):
     def markerSize(self):
         return self._marker.size
 
-    def draw(self, axis):
+    def draw(self, fig, axis):
         # Present to keep the PlotInfo sorting from failing
         self.yValues = [0 for x in self.xValues]
 
-        PlotInfo.draw(self, axis)
+        PlotInfo.draw(self, fig, axis)
 
         kwdict = {}
         kwdict["linestyle"] = self.lineStyle

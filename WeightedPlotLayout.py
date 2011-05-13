@@ -125,7 +125,7 @@ class WeightedPlotLayout(PlotLayout):
         # Plot everything
         for (plot, rect) in plotInfo:
             ax = fig.add_axes(rect)
-            (currPlotHandles, currPlotLabels) = plot.drawPlot(ax)
+            (currPlotHandles, currPlotLabels) = plot.drawPlot(fig, ax)
 
             for i in xrange(len(currPlotHandles)):
                 if currPlotLabels[i] in plotLabels:

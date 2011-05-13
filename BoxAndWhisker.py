@@ -13,12 +13,12 @@ class BoxAndWhisker(PlotInfo):
         self.color="black"
         self.label = None
 
-    def draw(self, axis, transform=None):
+    def draw(self, fig, axis, transform=None):
         # To be compatible with PlotInfo assumptions
         self.xValues = range(1,len(self.xSequence)+1)
         self.yValues = [0 for x in self.xValues]
 
-        super(BoxAndWhisker,self).draw(axis)
+        super(BoxAndWhisker,self).draw(fig, axis)
 
         kwdict = {}
 

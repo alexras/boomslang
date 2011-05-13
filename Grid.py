@@ -20,7 +20,7 @@ class Grid(object):
     def style(self):
         return self._lineStyle.style
 
-    def draw(self, axes):
+    def draw(self, fig, axes):
         if self.visible:
             axes.grid(color=self.color, linestyle=self.style)
             # Gridlines should be below plots
