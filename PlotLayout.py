@@ -267,11 +267,12 @@ class PlotLayout(object):
         return fig
 
     def plot(self):
-        self._doPlot()
+        fig = self._doPlot()
         if not pylab.isinteractive():
             pylab.show()
         else:
             pylab.draw()
+        pylab.close(fig)
 
     def save(self, filename, **kwargs):
         tempDisplayHack = False
@@ -281,6 +282,8 @@ class PlotLayout(object):
             os.environ["DISPLAY"] = ":0.0"
         fig = self._doPlot()
         fig.savefig(filename, dpi = self.dpi, **kwargs)
+        # pylab holds on to all figures unless you explicitly close them
+        pylab.close(fig)
 
         if tempDisplayHack == True:
             del os.environ["DISPLAY"]
