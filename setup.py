@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(name='boomslang',
       version='0.6b',
-      download_url='http://boomslang.googlecode.com/files/boomslang-0.6.tar.gz',
+      download_url='http://boomslang.googlecode.com/files/boomslang-0.6b.tar.gz',
       description='A thin layer over matplotlib that simplifies creation of common plots',
       long_description='''I created Boomslang to decrease the amount of boilerplate
 code I had to write when producing graphs for research papers. Boomslang
