@@ -158,7 +158,7 @@ class PlotInfo(object):
 
     def drawErrorBars(self, axis, transform=None):
         errorBarKeywords = {}
-        if hasattr(self, "ecolor"):
+        if hasattr(self, "ecolor") and self.ecolor is not None:
             errorBarKeywords["ecolor"] = self.ecolor
         elif hasattr(self, "color"):
             errorBarKeywords["ecolor"] = self.color
