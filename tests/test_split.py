@@ -35,6 +35,6 @@ class SplitTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(SplitTest)
 
 if __name__ == "__main__":
-    test = SplitTest()
+    test = SplitTest("testImageComparison")
 
     test.constructImage()
