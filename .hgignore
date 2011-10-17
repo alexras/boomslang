@@ -7,3 +7,5 @@ MANIFEST
 .DS_Store
 .coverage
 htmlcov
+docs/_build
+.\#*
