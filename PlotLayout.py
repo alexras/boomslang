@@ -183,7 +183,7 @@ class PlotLayout(object):
                 myPos = (currentRow * numPlots) + currentColumn
 
                 (currPlotHandles, currPlotLabels) = plot.subplot(
-                    fig, myRows, myCols, myPos)
+                    fig, myRows, myCols, myPos, projection=plot.projection)
 
                 for i in xrange(len(currPlotHandles)):
                     if currPlotLabels[i] in plotLabels:
@@ -215,7 +215,7 @@ class PlotLayout(object):
                 myPos = (currentRow * numColumns) + currentColumn
 
                 (currPlotHandles, currPlotLabels) = plot.subplot(
-                    fig, myRows, myCols, myPos)
+                    fig, myRows, myCols, myPos, projection=plot.projection)
                 for i in xrange(len(currPlotHandles)):
                     if currPlotLabels[i] in plotLabels:
                         continue

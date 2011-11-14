@@ -75,6 +75,8 @@ class Plot(object):
 
         self.tight = False
 
+        self.projection = None
+
     @property
     def grid(self):
         return self._grid
@@ -340,8 +342,8 @@ class Plot(object):
         layout = self.__setupLayout()
         layout.save(filename,**kwargs)
 
-    def subplot(self, fig, row, column, position):
-        ax = fig.add_subplot(row, column, position)
+    def subplot(self, fig, row, column, position, projection):
+        ax = fig.add_subplot(row, column, position, projection=projection)
         return self.drawPlot(fig, ax)
 
     def drawPlot(self, fig, ax):
