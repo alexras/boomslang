@@ -81,7 +81,7 @@ class Plot(object):
 
     @grid.setter
     def grid(self, value):
-        if isinstance(value, bool):
+        if isinstance(value, bool) and value == True:
             self._grid.visible = True
         else:
             raise AttributeError("Plot.grid cannot be re-assigned")
