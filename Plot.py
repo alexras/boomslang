@@ -209,7 +209,7 @@ class Plot(object):
         self.twinxLabel = label
         self.twinxIndex = index
 
-        if yMin == None and yMax == None:
+        if yMin is not None and yMax is not None:
             self.twinxLimits = (yMin, yMax)
 
     def setYFormatter(self, formatter):
@@ -312,6 +312,10 @@ class Plot(object):
         """
         layout = self.__setupLayout()
         layout.plot()
+
+    def plot_fig(self):
+        layout = self.__setupLayout()
+        return layout._doPlot()
 
     def setPlotParameters(self, **kwdict):
         self.plotParams = dict(kwdict)

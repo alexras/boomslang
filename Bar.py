@@ -68,7 +68,8 @@ class Bar(PlotInfo):
         return [plotObjects, labels]
 
     def getAttributes(self):
-        kwdict = {}
+        kwdict = super(Bar,self).getAttributes()
+
         kwdict["color"] = self.color
         kwdict["label"] = self.label
         kwdict["width"] = self.width

@@ -21,7 +21,8 @@ class PlotInfo(object):
                  yMaxes = None,
                  yErrors = None,
                  autosort = True,
-                 xLimits = None):
+                 xLimits = None,
+                 picker=None):
 
         if xValues is None:
             xValues = []
@@ -66,6 +67,8 @@ class PlotInfo(object):
 
         self.xLimits = xLimits
 
+        self.picker = picker
+
     def __str__(self):
         return str(self.__dict__)
 
@@ -106,6 +109,15 @@ class PlotInfo(object):
                 element.yValues = self.yValues[i * valChunkSize:]
             elements.append(element)
         return elements
+
+    def getAttributes(self):
+        kwdict = {}
+
+        if self.picker is not None:
+            kwdict['picker'] = self.picker
+
+        return kwdict
+
 
     def draw(self, fig, axis):
         if len(self.xValues) > 0 and self.autosort:

@@ -13,6 +13,8 @@ class WeightedPlotLayout(PlotLayout):
         self.groupedWeights = {}
         self.weights = []
         self.figTitle = None
+        self.usePlotParams = False # Include plot's parameters in
+                                   # computing layout.
 
     def addPlot(self, plot, grouping=None, weight=1):
         super(WeightedPlotLayout,self).addPlot(plot, grouping=grouping)
@@ -86,6 +88,18 @@ class WeightedPlotLayout(PlotLayout):
         # information collection in one pass
         plotInfo = []
 
+        def applyParams(r, pp):
+            if pp is None: return r
+
+            left, bottom, width, height = r
+
+            return [
+                    left + width * pp.get('left',0),
+                    bottom + height * pp.get('bottom',0),
+                    width * (pp.get('right',1) - pp.get('left',0)),
+                    height * (pp.get('top',1) - pp.get('bottom',0))
+                   ]
+
         # Generate rects for grouped plots
         currentRow = 0
         for grouping in keyList:
@@ -109,7 +123,12 @@ class WeightedPlotLayout(PlotLayout):
                 weight = weights[i]
                 myWidth = availableWidth * weights[i] / totalWeight
 
-                plotInfo.append((plot, [left, bottom, myWidth, rowHeight]))
+                rect = [left, bottom, myWidth, rowHeight]
+
+                if self.usePlotParams and hasattr(plot,'plotParams'):
+                    rect = applyParams(rect, plot.plotParams)
+
+                plotInfo.append((plot, rect))
 
                 left += myWidth + wgap
 
@@ -119,7 +138,13 @@ class WeightedPlotLayout(PlotLayout):
         for plot in self.plots:
             bottom = figTop - rowHeight - (rowHeight + hgap) * currentRow
             left = figLeft
-            plotInfo.append((plot, [left, bottom, rowWidth, rowHeight]))
+
+            rect = [left, bottom, rowWidth, rowHeight]
+
+            if self.usePlotParams and hasattr(plot,'plotParams'):
+                rect = applyParams(rect, plot.plotParams)
+
+            plotInfo.append((plot, rect))
 
             currentRow += 1
 

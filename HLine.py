@@ -62,7 +62,7 @@ class HLine(PlotInfo):
 
         PlotInfo.draw(self, fig, axis)
 
-        kwdict = {}
+        kwdict = self.getAttributes()
         kwdict["linestyle"] = self.lineStyle
         kwdict["color"] = self.color
         kwdict["label"] = self.label

@@ -88,7 +88,7 @@ class Line(PlotInfo):
         else:
             plotFunc = axis.plot
 
-        kwdict = {}
+        kwdict = self.getAttributes()
         kwdict["linestyle"] = self.lineStyle
         kwdict["color"] = self.color
         kwdict["label"] = self.label

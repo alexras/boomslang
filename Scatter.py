@@ -39,11 +39,14 @@ class Scatter(PlotInfo):
         return self._marker.size
 
     def draw(self, fig, axis):
-        kwdict = {}
+        super(Scatter, self).draw(fig, axis)
+
+        kwdict = self.getAttributes()
         kwdict["marker"] = self.marker
         kwdict["label"] = self.label
         kwdict["color"] = self.color
         kwdict["s"] = self.markerSize
+
 
         return [[axis.scatter(self.xValues, self.yValues, **kwdict)],
                 [self.label]]
