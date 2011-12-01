@@ -38,7 +38,8 @@ class StackedLines(PlotInfo):
 
         axis.fill_between(xValues, 0, yDataStacked[0],
                           facecolor=self.colors[0],
-                          linestyle=self.lines[0].lineStyle)
+                          linestyle=self.lines[0].lineStyle,
+                          linewidth=self.lines[0].lineWidth)
         # Since fill_between doesn't have legend support, will have to create a
         # proxy artist for it. See
         # http://matplotlib.sourceforge.net/users/legend_guide.html#using-proxy-artist
@@ -50,7 +51,8 @@ class StackedLines(PlotInfo):
             axis.fill_between(xValues, yDataStacked[i],
                               yDataStacked[i + 1],
                               facecolor=self.colors[i + 1],
-                              linestyle=self.lines[i+1].lineStyle)
+                              linestyle=self.lines[i+1].lineStyle,
+                              linewidth=self.lines[i+1].lineWidth)
             proxyArtist = Rectangle((0,0), 1, 1, color=self.colors[i+1])
             plotHandles.append(proxyArtist)
             plotLabels.append(self.lines[i+1].label)
