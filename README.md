@@ -27,9 +27,9 @@ To get started, check out the Getting Started and Examples wiki pages.
 
 # Staying Up-To-Date
 
-Users of Boomslang are encouraged to subscribe to the [boomslang-users mailing
-list](http://groups.google.com/group/boomslang-users). Feature suggestions and
-bug reports can be filed using the Issues tab above.
+Users of Boomslang are encouraged to subscribe to the (low-traffic)
+[boomslang-users mailing list](http://groups.google.com/group/boomslang-users). Feature
+suggestions and bug reports can be filed using the Issues tab above. If you want to stay informed about commits to Boomslang, you can subscribe to the commits RSS feed or the [boomslang-commits mailing list](http://groups.google.com/group/boomslang-commits).
 
 # Troubleshooting
 
