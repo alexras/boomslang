@@ -9,7 +9,7 @@ ability to author modular, re-usable graphing code.
 # Downloading Boomslang
 
 The current stable version of Boomslang is [0.6
-bet](https://github.com/downloads/alexras/boomslang/boomslang-0.6b.tar.gz). For
+beta](https://github.com/downloads/alexras/boomslang/boomslang-0.6b.tar.gz). For
 a list of new features and bug fixes in this version, check the changelog in
 the wiki.
 
