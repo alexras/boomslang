@@ -28,5 +28,5 @@ class GridTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(GridTest)
 
 if __name__ == "__main__":
-    test = GridTest()
+    test = GridTest("testImageComparison")
     test.constructImage()

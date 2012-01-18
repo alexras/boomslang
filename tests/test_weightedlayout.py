@@ -65,6 +65,6 @@ class WeightedLayoutTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(WeightedLayoutTest)
 
 if __name__ == "__main__":
-    test = WeightedLayoutTest()
+    test = WeightedLayoutTest("testImageComparison")
 
     test.constructImage()

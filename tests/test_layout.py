@@ -65,6 +65,6 @@ class LayoutTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(LayoutTest)
 
 if __name__ == "__main__":
-    test = LayoutTest()
+    test = LayoutTest("testImageComparison")
 
     test.constructImage()

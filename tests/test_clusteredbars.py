@@ -45,6 +45,6 @@ class ClusteredBarsTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(ClusteredBarsTest)
 
 if __name__ == "__main__":
-    test = ClusteredBarsTest()
+    test = ClusteredBarsTest("testImageComparison")
 
     test.constructImage()

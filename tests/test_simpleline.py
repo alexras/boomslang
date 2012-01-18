@@ -26,5 +26,5 @@ class SimpleLineTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(SimpleLineTest)
 
 if __name__ == "__main__":
-    test = SimpleLineTest()
+    test = SimpleLineTest("testImageComparison")
     test.constructImage()

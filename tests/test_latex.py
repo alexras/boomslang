@@ -34,6 +34,6 @@ class LatexTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(LatexTest)
 
 if __name__ == "__main__":
-    test = LatexTest()
+    test = LatexTest("testImageComparison")
 
     test.constructImage()

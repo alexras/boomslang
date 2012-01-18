@@ -40,6 +40,6 @@ class ErrorBarsTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(ErrorBarsTest)
 
 if __name__ == "__main__":
-    test = ErrorBarsTest()
+    test = ErrorBarsTest("testImageComparison")
 
     test.constructImage()

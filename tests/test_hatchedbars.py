@@ -26,6 +26,6 @@ class HatchedBarsTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(HatchedBarsTest)
 
 if __name__ == "__main__":
-    test = HatchedBarsTest()
+    test = HatchedBarsTest("testImageComparison")
 
     test.constructImage()

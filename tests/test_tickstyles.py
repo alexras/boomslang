@@ -36,6 +36,6 @@ class TickStylesTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(TickStylesTest)
 
 if __name__ == "__main__":
-    test = TickStylesTest()
+    test = TickStylesTest("testImageComparison")
 
     test.constructImage()

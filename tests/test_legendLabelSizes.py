@@ -46,6 +46,6 @@ class LegendLabelSizesTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(LegendLabelSizesTest)
 
 if __name__ == "__main__":
-    test = LegendLabelSizesTest()
+    test = LegendLabelSizesTest("testImageComparison")
 
     test.constructImage()

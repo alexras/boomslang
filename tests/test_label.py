@@ -49,6 +49,6 @@ class LabelTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(LabelTest)
 
 if __name__ == "__main__":
-    test = LabelTest()
+    test = LabelTest("testImageComparison")
 
     test.constructImage()

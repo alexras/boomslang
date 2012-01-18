@@ -30,5 +30,5 @@ class CustomGridTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(CustomGridTest)
 
 if __name__ == "__main__":
-    test = CustomGridTest()
+    test = CustomGridTest("testImageComparison")
     test.constructImage()

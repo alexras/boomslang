@@ -46,6 +46,6 @@ class VLineTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(VLineTest)
 
 if __name__ == "__main__":
-    test = VLineTest()
+    test = VLineTest("testImageComparison")
 
     test.constructImage()

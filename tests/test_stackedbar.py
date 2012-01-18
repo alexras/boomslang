@@ -43,5 +43,5 @@ class StackedBarTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(StackedBarTest)
 
 if __name__ == "__main__":
-    test = StackedBarTest()
+    test = StackedBarTest("testImageComparison")
     test.constructImage()

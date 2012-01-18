@@ -37,6 +37,6 @@ class TwinXTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(TwinXTest)
 
 if __name__ == "__main__":
-    test = TwinXTest()
+    test = TwinXTest("testImageComparison")
 
     test.constructImage()

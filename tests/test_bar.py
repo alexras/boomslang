@@ -25,6 +25,6 @@ class BarTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(BarTest)
 
 if __name__ == "__main__":
-    test = BarTest()
+    test = BarTest("testImageComparison")
 
     test.constructImage()

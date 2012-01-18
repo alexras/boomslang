@@ -41,6 +41,6 @@ class InsetTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(InsetTest)
 
 if __name__ == "__main__":
-    test = InsetTest()
+    test = InsetTest("testImageComparison")
 
     test.constructImage()

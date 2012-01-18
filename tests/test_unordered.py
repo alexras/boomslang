@@ -22,6 +22,6 @@ class UnorderedTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(UnorderedTest)
 
 if __name__ == "__main__":
-    test = UnorderedTest()
+    test = UnorderedTest("testImageComparison")
 
     test.constructImage()

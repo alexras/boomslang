@@ -34,6 +34,6 @@ class LineStylesTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(LineStylesTest)
 
 if __name__ == "__main__":
-    test = LineStylesTest()
+    test = LineStylesTest("testImageComparison")
 
     test.constructImage()

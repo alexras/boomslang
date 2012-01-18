@@ -43,6 +43,6 @@ class StepsTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(StepsTest)
 
 if __name__ == "__main__":
-    test = StepsTest()
+    test = StepsTest("testImageComparison")
 
     test.constructImage()

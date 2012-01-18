@@ -26,4 +26,5 @@ class ProjectionTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(ProjectionTest)
 
 if __name__ == "__main__":
-    unittest.main()
+    test = ProjectionTest("testImageComparison")
+    test.constructImage()

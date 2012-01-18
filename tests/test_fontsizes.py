@@ -32,6 +32,6 @@ class FontSizesTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(FontSizesTest)
 
 if __name__ == "__main__":
-    test = FontSizesTest()
+    test = FontSizesTest("testImageComparison")
 
     test.constructImage()

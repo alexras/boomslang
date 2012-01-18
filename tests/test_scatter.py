@@ -37,5 +37,5 @@ class ScatterTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(ScatterTest)
 
 if __name__ == "__main__":
-    test = ScatterTest()
+    test = ScatterTest("testImageComparison")
     test.constructImage()

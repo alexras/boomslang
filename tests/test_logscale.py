@@ -43,6 +43,6 @@ class LogScaleTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(LogScaleTest)
 
 if __name__ == "__main__":
-    test = LogScaleTest()
+    test = LogScaleTest("testImageComparison")
 
     test.constructImage()

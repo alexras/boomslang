@@ -99,6 +99,6 @@ class BoxAndWhiskerTest(ImageComparisonTestCase, unittest.TestCase):
 ImageComparisonTestCase.register(BoxAndWhiskerTest)
 
 if __name__ == "__main__":
-    test = BoxAndWhiskerTest()
+    test = BoxAndWhiskerTest("testImageComparison")
 
     test.constructImage()
