@@ -182,8 +182,9 @@ class PlotLayout(object):
                 myCols = numPlots
                 myPos = (currentRow * numPlots) + currentColumn
 
-                (currPlotHandles, currPlotLabels) = plot.subplot(
-                    fig, myRows, myCols, myPos, projection=plot.projection)
+                (currPlotHandles, currPlotLabels) = self._plot_subplot(
+                    plot = plot, fig = fig, rows = myRows, cols = myCols,
+                    pos = myPos, projection=plot.projection)
 
                 for i in xrange(len(currPlotHandles)):
                     if currPlotLabels[i] in plotLabels:
@@ -195,9 +196,6 @@ class PlotLayout(object):
                         plotHandles.append(currPlotHandles[i])
 
                     plotLabels.append(currPlotLabels[i])
-
-#                plotHandles.extend(currPlotHandles)
-#                plotLabels.extend(currPlotLabels)
 
                 currentColumn += 1
             currentRow += 1
@@ -214,8 +212,10 @@ class PlotLayout(object):
                 myCols = numColumns
                 myPos = (currentRow * numColumns) + currentColumn
 
-                (currPlotHandles, currPlotLabels) = plot.subplot(
-                    fig, myRows, myCols, myPos, projection=plot.projection)
+                (currPlotHandles, currPlotLabels) = self._plot_subplot(
+                    plot = plot, fig = fig, rows = myRows, cols = myCols,
+                    pos = myPos, projection=plot.projection)
+
                 for i in xrange(len(currPlotHandles)):
                     if currPlotLabels[i] in plotLabels:
                         continue
@@ -239,11 +239,7 @@ class PlotLayout(object):
             figLegendKeywords = {}
 
             if self.figLegendCols is not None:
-                versionPieces = [int(x) for x in matplotlib.__version__.split('.')]
-
-                (superMajor, major, minor) = versionPieces[0:3]
-
-                if superMajor == 0 and major < 98:
+                if not self._check_min_matplotlib_version((0, 98, 0)):
                     warnings.warn("Number of columns support not available in "
                                   "versions of matplotlib prior to 0.98")
                 else:
@@ -265,6 +261,18 @@ class PlotLayout(object):
             pylab.rcParams[key] = value
 
         return fig
+
+    def _plot_subplot(self, plot, fig, rows, cols, pos, projection):
+        return plot.subplot(fig, rows, cols, pos, projection)
+
+    def _check_min_matplotlib_version(self, version):
+        versionPieces = [int(x) for x in matplotlib.__version__.split('.')]
+
+        (superMajor, major, minor) = versionPieces[0:3]
+
+        minVersionSatisfied = (superMajor >= version[0] and major >= version[1]
+                               and minor >= version[2])
+        return minVersionSatisfied
 
     def plot(self):
         fig = self._doPlot()

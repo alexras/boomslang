@@ -347,7 +347,12 @@ class Plot(object):
         layout.save(filename,**kwargs)
 
     def subplot(self, fig, row, column, position, projection):
-        ax = fig.add_subplot(row, column, position, projection=projection)
+        kwdict = {}
+
+        if projection is not None:
+            kwdict["projection"] = projection
+
+        ax = fig.add_subplot(row, column, position, **kwdict)
         return self.drawPlot(fig, ax)
 
     def drawPlot(self, fig, ax):
