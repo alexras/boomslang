@@ -54,7 +54,7 @@ class BrokenAxisPlot(Plot):
         self.break_hspace = break_hspace
         self.break_ratio = break_ratio
 
-    def subplot(self, fig, row, column, position):
+    def subplot(self, fig, row, column, position, projection):
         # Step 0, plot in normal space to build up base fig and stats
         orig_ax = fig.add_subplot(row, column, position)
 
