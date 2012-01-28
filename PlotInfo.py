@@ -30,6 +30,18 @@ class PlotInfo(object):
         if yValues is None:
             yValues = []
 
+        if xTickLabels is None:
+            xTickLabels = []
+
+        if yTickLabels is None:
+            yTickLabels = []
+
+        if xTickLabelPoints is None:
+            xTickLabelPoints = []
+
+        if yTickLabelPoints is None:
+            yTickLabelPoints = []
+
         if xTickLabelProperties is None:
             xTickLabelProperties = LabelProperties()
 
@@ -150,16 +162,16 @@ class PlotInfo(object):
                 zipped.sort()
                 self.xValues, self.yValues = zip(*zipped)
 
-        if self.xTickLabels is not None:
-            if self.xTickLabelPoints is None:
+        if len(self.xTickLabels) > 0:
+            if len(self.xTickLabelPoints) == 0:
                 axis.set_xticks(self.xValues[0:len(self.xTickLabels)])
             else:
                 axis.set_xticks(self.xTickLabelPoints)
 
             axis.set_xticklabels(self.xTickLabels, **self.xTickLabelProperties)
 
-        if self.yTickLabels is not None:
-            if self.yTickLabelPoints is None:
+        if len(self.yTickLabels) > 0:
+            if len(self.yTickLabelPoints) == 0:
                 axis.set_yticks(self.yValues[0:len(self.yTickLabels)])
             else:
                 axis.set_yticks(self.yTickLabelPoints)
