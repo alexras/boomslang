@@ -17,10 +17,6 @@ class ImageComparisonTestCase():
         if os.path.exists(self.imageName):
             os.unlink(self.imageName)
 
-    def tearDown(self):
-        if os.path.exists(self.imageName):
-            os.unlink(self.imageName)
-
     @abstractmethod
     def constructImage(self):
         pass
@@ -41,3 +37,6 @@ class ImageComparisonTestCase():
 
         self.assertTrue(diff == None, "Image differs from reference; "
                         "bounding box of difference is %s" % (diff,))
+
+        if os.path.exists(self.imageName):
+            os.unlink(self.imageName)
