@@ -8,8 +8,8 @@ from Inset import Inset
 from Marker import Marker
 from LineStyle import LineStyle
 from Grid import Grid
-from exceptions import BoomslangPlotConfigurationException
-from exceptions import BoomslangPlotRenderingException
+from boomslang_exceptions import BoomslangPlotConfigurationException
+from boomslang_exceptions import BoomslangPlotRenderingException
 
 from Utils import getGoldenRatioDimensions
 

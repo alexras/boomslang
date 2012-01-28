@@ -1,7 +1,7 @@
 from Location import Location
 
 import matplotlib
-from exceptions import BoomslangPlotRenderingException,\
+from boomslang_exceptions import BoomslangPlotRenderingException,\
     BoomslangPlotConfigurationException
 from BoundedFloat import BoundedFloat
 

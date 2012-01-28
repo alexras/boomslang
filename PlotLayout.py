@@ -4,7 +4,7 @@ from matplotlib import pyplot
 import sys
 import os
 import warnings
-from exceptions import BoomslangPlotRenderingException
+from boomslang_exceptions import BoomslangPlotRenderingException
 
 from Utils import getGoldenRatioDimensions
 

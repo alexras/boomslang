@@ -5,7 +5,7 @@ from PlotInfo import *
 from Bar import *
 from StackedBars import *
 import sys
-from exceptions import BoomslangPlotConfigurationException
+from boomslang_exceptions import BoomslangPlotConfigurationException
 
 class ClusteredBars(PlotInfo):
     """
