@@ -95,12 +95,28 @@ def getCDF(values):
 
     return line
 
-def _check_min_matplotlib_version(min_super_major, min_major, min_minor):
-    version_pieces = [int(x) for x in matplotlib.__version__.split('.')]
+def _check_min_matplotlib_version(*min_version_pieces):
+    def version_piece_to_int(piece):
+        if piece == 'x':
+            return 0
+        else:
+            return int(piece)
 
-    (super_major, major, minor) = version_pieces[0:3]
+    version_pieces = [version_piece_to_int(x)
+                      for x in matplotlib.__version__.split('.')]
 
-    min_version_satisfied = (super_major >= min_super_major
-                             and major >= min_major
-                             and minor >= min_minor)
-    return min_version_satisfied
+    return _check_min_version(version_pieces, min_version_pieces)
+
+def _check_min_version(version_pieces, min_version_pieces):
+    for i, min_version_piece in enumerate(min_version_pieces):
+        version_piece = version_pieces[i]
+
+        if (version_piece > min_version_piece or
+            (i == len(min_version_pieces) - 1 and
+             version_piece >= min_version_piece)):
+            return True
+        elif version_piece < min_version_piece:
+            return False
+
+    return False
+
