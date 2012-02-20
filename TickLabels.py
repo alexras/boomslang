@@ -1,5 +1,6 @@
 import pylab
 import sys
+from LabelProperties import LabelProperties
 
 class TickLabels(object):
     def __init__(self):
