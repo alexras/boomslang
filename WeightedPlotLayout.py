@@ -169,7 +169,7 @@ class WeightedPlotLayout(PlotLayout):
             figLegendKeywords = {}
 
             if self.figLegendCols is not None:
-                if _check_min_matplotlib_version(0, 98, 0):
+                if not _check_min_matplotlib_version(0, 98, 0):
                     print >>sys.stderr, "Number of columns support not " \
                         "available in versions of matplotlib prior to 0.98"
                 else:

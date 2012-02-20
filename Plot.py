@@ -513,7 +513,7 @@ class Plot(object):
             if self.legendBboxToAnchor is not None:
                 legendKeywords["bbox_to_anchor"] = self.legendBboxToAnchor
 
-            if _check_min_matplotlib_version(0, 98, 0):
+            if not _check_min_matplotlib_version(0, 98, 0):
                 print >>sys.stderr, "Number of columns support not available " \
                     "in versions of matplotlib prior to 0.98"
             else:
