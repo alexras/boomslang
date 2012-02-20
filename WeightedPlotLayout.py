@@ -164,21 +164,6 @@ class WeightedPlotLayout(PlotLayout):
 
                 plotLabels.append(currPlotLabels[i])
 
-
-        if self.figLegendLoc is not None:
-            figLegendKeywords = {}
-
-            if self.figLegendCols is not None:
-                if not _check_min_matplotlib_version(0, 98, 0):
-                    print >>sys.stderr, "Number of columns support not " \
-                        "available in versions of matplotlib prior to 0.98"
-                else:
-                    figLegendKeywords["ncol"] = self.figLegendCols
-
-            fig.legend(plotHandles, plotLabels,
-                       self.figLegendLoc,
-                       **figLegendKeywords)
-
         if self.figTitle is not None:
             fig.suptitle(self.figTitle)
 

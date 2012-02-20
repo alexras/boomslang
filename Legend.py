@@ -3,16 +3,18 @@ import warnings
 from Utils import _check_min_matplotlib_version
 
 class Legend(object):
-    # Location, location, location!
     location = Location("location")
 
     def __init__(self, columns = 1, scatterPoints = 3, drawFrame = True,
-                 location = "best", figLegend = False, labelSize = None):
+                 location = "best", figLegend = False, labelSize = None,
+                 bboxToAnchor = None):
+        self.location = location
         self.labelSize = labelSize
         self.columns = columns
         self.scatterPoints = scatterPoints
         self.drawFrame = drawFrame
         self.figLegend = figLegend
+        self.bboxToAnchor = bboxToAnchor
 
     def _genLegendKeywords(self, axes, handles, labels):
         legendKeywords = {}
@@ -22,36 +24,28 @@ class Legend(object):
                 warnings.warn("Number of columns support not available "
                               "in versions of matplotlib prior to 0.98")
             else:
-                legendKeywords["ncol"] = self.legendCols
+                legendKeywords["ncol"] = self.columns
                 legendKeywords["scatterpoints"] = self.scatterPoints
 
         if self.labelSize is not None:
             legendKeywords["prop"] = {"size" : self.labelSize}
 
+        if self.bboxToAnchor is not None:
+            legendKeywords["bbox_to_anchor"] = bbox_to_anchor
+
         return legendKeywords
 
-    def _formatLegend(self, axes, legend):
-        if legend:
-            legend.draw_frame(self.drawFrame)
-
-    def draw(self, figure, handles, labels):
-        if not self.figLegend:
-            raise Exception("This draw() method should only be called on "
-                            "figure legends")
-
-
-    def draw(self, axes, handles, labels):
-        if self.figLegend:
-            raise Exception("This draw() method shouldn't be called on "
-                            "figure legends")
-
+    def draw(self, figure, axes, handles, labels):
         legendKeywords = self._genLegendKeywords(axes, handles, labels)
 
         legend = None
 
-        if len(handles) > 0:
+        if self.figLegend:
+            legend = fig.legend(handles, labels, loc=self.location,
+                                **legendKeywords)
+        else:
             legend = axes.legend(handles, labels, loc=self.location,
                                  **legendKeywords)
 
-        if legend:
+        if legend is not None:
             legend.draw_frame(self.drawFrame)

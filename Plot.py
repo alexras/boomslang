@@ -10,6 +10,7 @@ from LineStyle import LineStyle
 from Grid import Grid
 from boomslang_exceptions import BoomslangPlotConfigurationException
 from boomslang_exceptions import BoomslangPlotRenderingException
+from Legend import Legend
 
 from Utils import getGoldenRatioDimensions, _check_min_matplotlib_version
 
@@ -25,15 +26,12 @@ class Plot(object):
         self.yFormatter = None
         self.yLabel = None
         self.xLabel = None
-        self.legend = False
+
+
+        self.legend = None
 
         self.xlim = None
         self.ylim = None
-
-        self.legendCols = 0
-        self.scatterPoints=3
-        self.legendLoc = None
-        self.legendBboxToAnchor = None
 
         self.twinxLabel = None
         self.twinxIndex = -1
@@ -58,8 +56,6 @@ class Plot(object):
         self._grid = Grid()
         self._grid.visible = False
 
-        self.figLegend = False
-
         self.insets = []
 
         self.hideTicks = False
@@ -69,7 +65,6 @@ class Plot(object):
         self.axesLabelSize = None
         self.xTickLabelSize = None
         self.yTickLabelSize = None
-        self.legendLabelSize = None
 
         self.titleProperties = LabelProperties()
 
@@ -109,7 +104,10 @@ class Plot(object):
         self.yTickLabelSize = size
 
     def setLegendLabelSize(self, size):
-        self.legendLabelSize = size
+        if self.legend is None:
+            self.legend = Legend()
+
+        self.legend.labelSize = size
 
     def split(self, pieces):
        splitPlots = [copy.deepcopy(self) for i in xrange(pieces)]
@@ -249,26 +247,32 @@ class Plot(object):
         self.ylim = (minY, maxY)
 
     def hasFigLegend(self, columns=1, location="best", scatterPoints=3,
-                     draw_frame=True, bbox_to_anchor=None):
-        self.figLegend = True
-        self.legendCols = columns
-        self.legendLoc = location
-        self.scatterPoints = scatterPoints
-        self.legendDrawFrame = draw_frame
-        self.legendBboxToAnchor = bbox_to_anchor
+                     draw_frame=True, bbox_to_anchor=None, labelSize=None):
+        """
+        Declare that the figure has a legend with a given number of columns and
+        location.
+        """
+        self.legend = Legend(columns = columns,
+                              scatterPoints = scatterPoints,
+                              drawFrame = draw_frame,
+                              location = location,
+                              figLegend = True,
+                              labelSize = labelSize,
+                              bboxToAnchor = bbox_to_anchor)
 
     def hasLegend(self, columns=1, location="best", scatterPoints=3,
-                  draw_frame=True, bbox_to_anchor=None):
+                  draw_frame=True, bbox_to_anchor=None, labelSize = None):
         """
         Declare that the plot has a legend with a given number of columns and
         location.
         """
-        self.legend = True
-        self.legendCols = columns
-        self.legendLoc = location
-        self.scatterPoints = scatterPoints
-        self.legendDrawFrame = draw_frame
-        self.legendBboxToAnchor = bbox_to_anchor
+        self.legend = Legend(columns = columns,
+                              scatterPoints = scatterPoints,
+                              drawFrame = draw_frame,
+                              location = location,
+                              figLegend = False,
+                              labelSize = labelSize,
+                              bboxToAnchor = bbox_to_anchor)
 
     def setTitle(self, title):
         self.title = title
@@ -507,25 +511,7 @@ class Plot(object):
         if self.yLabel is not None:
             ax.set_ylabel(self.yLabel)
 
-        legendKeywords = {}
-
-        if self.legendCols > 0:
-            if self.legendBboxToAnchor is not None:
-                legendKeywords["bbox_to_anchor"] = self.legendBboxToAnchor
-
-            if not _check_min_matplotlib_version(0, 98, 0):
-                print >>sys.stderr, "Number of columns support not available " \
-                    "in versions of matplotlib prior to 0.98"
-            else:
-                legendKeywords["ncol"] = self.legendCols
-                legendKeywords["scatterpoints"] = self.scatterPoints
-
-                if self.legendLabelSize is not None:
-                    legendKeywords["prop"] = {"size" : self.legendLabelSize}
-
-        legend = None # So we can disable the box if we want
-
-        if self.legend:
+        if self.legend is not None:
             if len(plotHandles) == 0:
                 print >>sys.stderr, "ERROR: Plot wanted to draw a legend, " \
                     "but none of its elements have labels"
@@ -536,13 +522,6 @@ class Plot(object):
             else:
                 legendAxis = ax
 
-            legend = legendAxis.legend(plotHandles, plotLabels,
-                                       loc=self.legendLoc, **legendKeywords)
-        if self.figLegend:
-            legend = fig.legend(plotHandles, plotLabels,
-                                loc=self.legendLoc, **legendKeywords)
-
-        if legend:
-            legend.draw_frame(self.legendDrawFrame)
+            self.legend.draw(fig, legendAxis, plotHandles, plotLabels)
 
         return (plotHandles, plotLabels)

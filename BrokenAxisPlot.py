@@ -58,8 +58,10 @@ class BrokenAxisPlot(Plot):
         # Step 0, plot in normal space to build up base fig and stats
         orig_ax = fig.add_subplot(row, column, position)
 
-        orig = (self.legend, self.legendCols)
-        (self.legend, self.legendCols) = False, 0
+        # Save legend and set it to None
+        orig_legend = self.legend
+        self.legend = None
+
         handles = self.drawPlot(fig, orig_ax)
 
         nticks = len(orig_ax.get_yticks())
@@ -93,7 +95,7 @@ class BrokenAxisPlot(Plot):
         handles = self.drawPlot(fig, ax2)
 
         # Re-enable the legend
-        (self.legend, self.legendCols) = orig
+        self.legend = orig_legend
 
         ax = BrokenAxesPiece(fig, r, sharex=orig_ax, xform=top_xform)
         fig.add_axes(ax)
