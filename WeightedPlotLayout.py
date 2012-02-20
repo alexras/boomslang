@@ -5,7 +5,7 @@ import sys
 import os
 from boomslang import PlotLayout
 
-from Utils import getGoldenRatioDimensions
+from Utils import getGoldenRatioDimensions, _check_min_matplotlib_version
 
 class WeightedPlotLayout(PlotLayout):
     def __init__(self):
@@ -169,12 +169,9 @@ class WeightedPlotLayout(PlotLayout):
             figLegendKeywords = {}
 
             if self.figLegendCols is not None:
-                versionPieces = [int(x) for x in matplotlib.__version__.split('.')]
-
-                (superMajor, major, minor) = versionPieces[0:3]
-
-                if superMajor == 0 and major < 98:
-                    print >>sys.stderr, "Number of columns support not available in versions of matplotlib prior to 0.98"
+                if _check_min_matplotlib_version(0, 98, 0):
+                    print >>sys.stderr, "Number of columns support not " \
+                        "available in versions of matplotlib prior to 0.98"
                 else:
                     figLegendKeywords["ncol"] = self.figLegendCols
 

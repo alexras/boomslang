@@ -11,7 +11,7 @@ from Grid import Grid
 from boomslang_exceptions import BoomslangPlotConfigurationException
 from boomslang_exceptions import BoomslangPlotRenderingException
 
-from Utils import getGoldenRatioDimensions
+from Utils import getGoldenRatioDimensions, _check_min_matplotlib_version
 
 class Plot(object):
     """
@@ -510,15 +510,12 @@ class Plot(object):
         legendKeywords = {}
 
         if self.legendCols > 0:
-            versionParts = [int(x) for x in matplotlib.__version__.split('.')]
-
-            (superMajor, major, minor) = versionParts[0:3]
-
             if self.legendBboxToAnchor is not None:
                 legendKeywords["bbox_to_anchor"] = self.legendBboxToAnchor
 
-            if superMajor == 0 and major < 98:
-                print >>sys.stderr, "Number of columns support not available in versions of matplotlib prior to 0.98"
+            if _check_min_matplotlib_version(0, 98, 0):
+                print >>sys.stderr, "Number of columns support not available " \
+                    "in versions of matplotlib prior to 0.98"
             else:
                 legendKeywords["ncol"] = self.legendCols
                 legendKeywords["scatterpoints"] = self.scatterPoints
@@ -530,7 +527,8 @@ class Plot(object):
 
         if self.legend:
             if len(plotHandles) == 0:
-                print >>sys.stderr, "ERROR: Plot wanted to draw a legend, but none of its elements have labels"
+                print >>sys.stderr, "ERROR: Plot wanted to draw a legend, " \
+                    "but none of its elements have labels"
                 sys.exit(1)
 
             if self.twinxIndex > 0:

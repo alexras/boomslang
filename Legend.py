@@ -1,5 +1,6 @@
 from Location import Location
 import warnings
+from Utils import _check_min_matplotlib_version
 
 class Legend(object):
     # Location, location, location!
@@ -17,11 +18,7 @@ class Legend(object):
         legendKeywords = {}
 
         if self.columns > 1:
-            versionParts = [int(x) for x in matplotlib.__version__.split('.')]
-
-            (superMajor, major, minor) = versionParts[0:3]
-
-            if superMajor == 0 and major < 98:
+            if not _check_min_matplotlib_version(0, 98, 0):
                 warnings.warn("Number of columns support not available "
                               "in versions of matplotlib prior to 0.98")
             else:
