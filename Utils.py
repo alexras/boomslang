@@ -1,3 +1,4 @@
+import matplotlib
 import math
 import re
 from Line import Line
@@ -93,3 +94,12 @@ def getCDF(values):
     assert(count == len(line.yValues))
 
     return line
+
+def _check_min_matplotlib_version(self, version):
+    versionPieces = [int(x) for x in matplotlib.__version__.split('.')]
+
+    (superMajor, major, minor) = versionPieces[0:3]
+
+    minVersionSatisfied = (superMajor >= version[0] and major >= version[1]
+                           and minor >= version[2])
+    return minVersionSatisfied
