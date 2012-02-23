@@ -108,4 +108,9 @@ class Line(PlotInfo):
         if self.alpha is not None:
             kwdict["alpha"] = self.alpha
 
-        return [[plotFunc(self.xValues, self.yValues, **kwdict)], [self.label]]
+        handle = plotFunc(self.xValues, self.yValues, **kwdict)
+
+        if type(handle) == list:
+            handle = handle[0]
+
+        return [[handle], [self.label]]
