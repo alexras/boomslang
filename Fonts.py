@@ -39,7 +39,6 @@ class BoomslangFontManager(FontManager):
                            _boomslang_fonts)
 
     def findfont(self, prop, **kw):
-        print "BOOMSLANG FONTS MOTHERBITCHES! prop family is ", prop.get_family()
         return FontManager.findfont(self, prop, **kw)
 
 def useBoomslangFonts():
