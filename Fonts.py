@@ -1,63 +1,46 @@
-from matplotlib.font_manager import FontProperties
+import matplotlib.font_manager
+from matplotlib.font_manager import FontProperties, FontManager, FontEntry, \
+    ttfFontProperty
+from matplotlib import ft2font, rcParams
 import os
 
 _fonts_directory = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                                 "fonts"))
 
-class FontFace:
-    def __init__(self, regular_font = None, italic_font = None,
-                 bold_font = None, bold_italic_font = None):
+_boomslang_fonts = [os.path.join(_fonts_directory, x) for x in
+                    os.listdir(_fonts_directory) if x[-3:] == "ttf"]
 
-        if regular_font != None:
-            self.regular = FontProperties(
-                fname = os.path.join(_fonts_directory, regular_font),
-                style = "normal",
-                variant = "normal",
-                weight = "normal",
-                stretch = "normal")
-        else:
-            self.regular = None
+# If you drop fonts into the fonts/ directory, you can change the default fonts
+# used here:
+default_fonts = {
+    "serif" : ["Tinos"],
+    "sans-serif" : ["Arimo"],
+    "monospace" : ["Lekton"]
+}
 
-        if italic_font != None:
-            self.italic = FontProperties(
-                fname = os.path.join(_fonts_directory, italic_font),
-                style = "italic",
-                variant = "normal",
-                weight = "normal",
-                stretch = "normal")
-        else:
-            self.italic = None
+for family, font_names in default_fonts.items():
+    rcParams["font.%s" % (family)] = font_names
 
-        if bold_font != None:
-            self.bold = FontProperties(
-                fname = os.path.join(_fonts_directory, bold_font),
-                style = "normal",
-                variant = "normal",
-                weight = "bold",
-                stretch = "normal")
-        else:
-            self.bold = None
+class BoomslangFontManager(FontManager):
+    """
+    This class is designed to mimic matplotlib's default FontManager, but to
+    provide Boomslang-specific fonts in response to all requests
+    """
+    def __init__(self, size=None, weight='normal'):
+        # Since FontManager is an old-style class, we have to initialize it the
+        # old-fashioned way
+        FontManager.__init__(self, size, weight)
 
-        if bold_italic_font != None:
-            self.bold_italic = FontProperties(
-                fname = os.path.join(_fonts_directory, bold_italic_font),
-                style = "italic",
-                variant = "normal",
-                weight = "bold",
-                stretch = "normal")
-        else:
-            self.bold_italic = None
+        # Begone, AFM fonts!
+        self.afmlist = []
 
-sans_serif = FontFace(regular_font = "Arimo-Regular-Latin.ttf",
-                      italic_font = "Arimo-Italic-Latin.ttf",
-                      bold_font = "Arimo-Bold-Latin.ttf",
-                      bold_italic_font = "Arimo-BoldItalic-Latin.ttf")
+        # This font manager should only consider using Boomslang-blessed fonts
+        self.ttflist = map(lambda x: ttfFontProperty(ft2font.FT2Font(x)),
+                           _boomslang_fonts)
 
-serif = FontFace(regular_font = "Tinos-Regular.ttf",
-                 italic_font = "Tinos-Italic.ttf",
-                 bold_font = "Tinos-Bold.ttf",
-                 bold_italic_font = "Tinos-BoldItalic.ttf")
+    def findfont(self, prop, **kw):
+        print "BOOMSLANG FONTS MOTHERBITCHES! prop family is ", prop.get_family()
+        return FontManager.findfont(self, prop, **kw)
 
-monospace = FontFace(regular_font = "Lekton-Regular.ttf",
-                     italic_font = "Lekton-Italic.ttf",
-                     bold_font = "Lekton-Bold.ttf")
+def useBoomslangFonts():
+    matplotlib.font_manager.fontManager = BoomslangFontManager()
