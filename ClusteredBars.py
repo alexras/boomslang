@@ -46,12 +46,12 @@ class ClusteredBars(PlotInfo):
                 x * (self.width / 2.0 + self.spacing) - \
                 (self.barWidth / 2.0)
 
-    def preDraw(self):
+    def _preDraw(self):
         if len(self.bars) == 0:
             return
 
         for bar in self.bars:
-            bar.preDraw()
+            bar._preDraw()
 
         if self.barWidth is None:
             self.barWidth = self.bars[0].width

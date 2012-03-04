@@ -39,13 +39,13 @@ class StackedBars(PlotInfo):
 
         self.bars.append(bar)
 
-    def preDraw(self):
+    def _preDraw(self):
         if len(self.bars) == 0:
             return
 
         # Pre-draw all bars in the stack before pre-drawing me
         for bar in self.bars:
-            bar.preDraw()
+            bar._preDraw()
 
         if self.barWidth is None:
             self.barWidth = self.bars[0].width

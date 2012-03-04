@@ -84,9 +84,9 @@ class PlotInfo(object):
     def __str__(self):
         return str(self.__dict__)
 
-    def preDraw(self):
+    def _preDraw(self):
         """
-        The preDraw function is called on all plot elements before drawing
+        The _preDraw function is called on all plot elements before drawing
         occurs. This allows various fields to be set in a structured way
         prior to actual drawing.
         """

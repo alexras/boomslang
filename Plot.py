@@ -478,7 +478,7 @@ class Plot(object):
             if myColor is not None:
                 plotInfo.color = myColor
 
-            plotInfo.preDraw()
+            plotInfo._preDraw()
             (currPlotHandles, currPlotLabels) = plotInfo.draw(fig, myAxis)
 
             labelIndices = [x for x in range(len(currPlotLabels)) \
