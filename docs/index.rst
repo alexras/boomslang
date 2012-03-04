@@ -10,11 +10,4 @@ re-usable, modular plotting code.
    intro
    examples
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
 .. LocalWords: Boomslang maxdepth genindex modindex
