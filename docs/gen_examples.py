@@ -1,71 +1,70 @@
 #!/usr/bin/env python
 
 import os, sys, glob
+from PIL import Image
 
 IMAGE_PREFIX = ".. image:: "
 
-examples = {}
+examples = []
 
-# Read the script corresponding to each example into memory
+# Find all example images and their corresponding scripts
 for image in glob.glob("examples/*.png"):
     script_file = os.path.splitext(image)[0] + ".py"
 
     if not os.path.exists(script_file):
         sys.exit("Can't find script for %s" % (image))
 
-    with open(script_file, 'r') as fp:
-        examples[image] = fp.readlines()
+    example_name = os.path.basename(script_file)[:-3]
 
-# Determine the maximum number of columns used by a script's source and image
-# path
+    image_file = Image.open(image)
+    (width, height) = image_file.size
 
-max_image_path_cols = None
-max_script_cols = None
+    examples.append((example_name,
+        {"image" : image,
+         "script" : script_file,
+         "width" : width,
+         "height" : height
+         }))
 
-for image, script in examples.items():
-    max_script_cols = max(max(map(lambda x: len(x) + 5, script)),
-                          max_script_cols)
-    max_image_path_cols = max(len(image) + len(IMAGE_PREFIX),
-                              max_image_path_cols)
+examples.sort(key = lambda x: x[1]["width"])
 
-# Construct table where the first column is an example image and the second
-# column is the source code that generates that image
+# Make a page of image links that link images to individual code examples
+with open("examples.rst", 'w+') as fp:
+    print >>fp,"""
 
-fp = open("examples.rst", 'w+')
-#fp = sys.stdout
-
-print >>fp,"""
 Examples
 ========
 
-.. htmlonly::
-"""
+    """
 
-print >>fp, '+%s+%s+' % ('-' * (max_image_path_cols + 2),
-                         '-' * (max_script_cols + 2))
+    for (example_name, example_info) in examples:
+        print >>fp, """
+.. image:: %s
+   :target: examples-%s.html
+    """ % (example_info["image"], example_name)
 
-print >>fp, '|%s|%s|' % ("Image".ljust(max_image_path_cols + 2),
-                         "Source Code".ljust(max_script_cols + 2))
+# Create a page for each image that shows the image and its source code
 
-print >>fp, '+%s+%s+' % ('=' * (max_image_path_cols + 2),
-                         '=' * (max_script_cols + 2))
+for (example_name, example_info) in examples:
+    with open("examples-%s.rst" % (example_name), "w+") as fp:
+        header = "Examples: %s" % (example_info["script"])
+        print >>fp, header
+        print >>fp, "=" * len(header)
 
-for image, script in examples.items():
-    print >>fp, "|%s|%s|" % (
-        (IMAGE_PREFIX + image).ljust(max_image_path_cols + 2),
-        ("::").ljust(max_script_cols + 2))
+        print >>fp, """
 
-    print >>fp, "|%s|%s|" % (
-        "    :width: 100 %".ljust(max_image_path_cols + 2),
-        "".ljust(max_script_cols + 2))
+.. image:: %s
 
-    for line in script:
-        print >>fp, "|%s|%s|" % ("".ljust(max_image_path_cols + 2),
-                                 ("    " + line.strip()).ljust(
-                max_script_cols + 2))
-
-    print >>fp, '+%s+%s+' % ('-' * (max_image_path_cols + 2),
-                             '-' * (max_script_cols + 2))
+.. code-block:: python
+    :linenos:
 
 
-fp.close()
+""" % (example_info["image"])
+
+        with open(example_info["script"]) as script_fp:
+            leading_space_skip = True
+
+            for line in script_fp:
+                line = line.strip()
+
+                print >>fp, "    %s" % (line)
