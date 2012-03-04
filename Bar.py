@@ -1,4 +1,3 @@
-import pylab
 from matplotlib import pyplot
 from PlotInfo import *
 from boomslang.Label import Label
