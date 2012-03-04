@@ -8,6 +8,9 @@ re-usable, modular plotting code.
    :maxdepth: 2
 
    intro
+   getting_started
+   plot_elements
    examples
+
 
 .. LocalWords: Boomslang maxdepth genindex modindex

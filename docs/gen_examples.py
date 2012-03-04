@@ -35,6 +35,9 @@ with open("examples.rst", 'w+') as fp:
 Examples
 ========
 
+This page provides a gallery of example Boomslang scripts. Clicking on one of
+the images below will direct you to that image and a listing of its source code.
+
     """
 
     for (example_name, example_info) in examples:
