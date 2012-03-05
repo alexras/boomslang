@@ -37,3 +37,16 @@ class LabelProperties(collections.MutableMapping):
 
     def __len__(self):
         return len(self._props)
+
+    def update(self, props):
+        if type(props) == dict:
+            for key, value in props.items():
+                self.__setitem__(key, value)
+        elif type(props) == LabelProperties:
+            self.update(props._props)
+        else:
+            raise TypeError("Incorrect argument type %s passed to "
+                            "LabelProperties.update" % (type(props)))
+
+    def clear(self):
+        self._props.clear()

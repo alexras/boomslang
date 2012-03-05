@@ -42,11 +42,11 @@ class PlotInfo(object):
         if yTickLabelPoints is None:
             yTickLabelPoints = []
 
-        if xTickLabelProperties is None:
-            xTickLabelProperties = LabelProperties()
+        # if xTickLabelProperties is None:
+        #     xTickLabelProperties = LabelProperties()
 
-        if yTickLabelProperties is None:
-            yTickLabelProperties = LabelProperties()
+        # if yTickLabelProperties is None:
+        #     yTickLabelProperties = LabelProperties()
 
         if yMins is None:
             yMins = []
@@ -66,8 +66,14 @@ class PlotInfo(object):
         self.yTickLabels = yTickLabels
         self.xTickLabelPoints = xTickLabelPoints
         self.yTickLabelPoints = yTickLabelPoints
-        self.xTickLabelProperties = xTickLabelProperties
-        self.yTickLabelProperties = yTickLabelProperties
+        self._xTickLabelProperties = LabelProperties()
+        self._yTickLabelProperties = LabelProperties()
+
+        if xTickLabelProperties is not None:
+            self.xTickLabelProperties = xTickLabelProperties
+
+        if yTickLabelProperties is not None:
+            self.yTickLabelProperties = yTickLabelProperties
 
         self.label = label
 
@@ -81,6 +87,37 @@ class PlotInfo(object):
 
         self.picker = picker
 
+    @property
+    def xTickLabelProperties(self):
+        """
+        A dictionary of properties that control the appearance of the X axis'
+        tick labels
+        """
+
+        return self._xTickLabelProperties
+
+    @xTickLabelProperties.setter
+    def xTickLabelProperties(self, **props):
+        self._xTickLabelProperties.update(props)
+
+    @xTickLabelProperties.setter
+    def xTickLabelProperties(self, propsobj):
+        self._xTickLabelProperties.update(propsobj)
+
+
+    @property
+    def yTickLabelProperties(self):
+        """
+        A dictionary of properties that control the appearance of the X axis'
+        tick labels
+        """
+
+        return self._yTickLabelProperties
+
+    @yTickLabelProperties.setter
+    def yTickLabelProperties(self, props):
+        self._yTickLabelProperties.update(props)
+
     def __str__(self):
         return str(self.__dict__)
 
@@ -93,14 +130,10 @@ class PlotInfo(object):
         pass
 
     def setXTickLabelProperties(self, **propList):
-        self._setTickLabelProperties(self.xTickLabelProperties, propList)
+        self._xTickLabelProperties.update(propList)
 
     def setYTickLabelProperties(self, **propList):
-        self._setTickLabelProperties(self.yTickLabelProperties, propList)
-
-    def _setTickLabelProperties(self, tickPropsDict, propList):
-        for (key, val) in propList.items():
-            tickPropsDict[key] = val
+        self._yTickLabelProperties.update(propList)
 
     def split(self, pieces):
         elements = []
