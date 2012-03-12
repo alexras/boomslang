@@ -6,6 +6,10 @@ import unittest
 
 from matplotlib import rc
 
+from boomslang import Fonts
+
+Fonts.useBoomslangFonts()
+
 class ImageComparisonTestCase():
     __metaclass__ = ABCMeta
 
@@ -22,9 +26,6 @@ class ImageComparisonTestCase():
         pass
 
     def testImageComparison(self):
-        rc('font', family="serif", serif="Arial",
-           monospace="Courier, Computer Modern Typewriter")
-
         self.constructImage()
 
         referenceImage = os.path.abspath(os.path.join(
