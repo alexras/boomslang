@@ -42,7 +42,7 @@ class BoomslangFontManager(FontManager):
         self.ttflist = map(lambda x: ttfFontProperty(ft2font.FT2Font(x)),
                            _boomslang_fonts)
 
-        self.defaultFamily['ttf'] = default_fonts["serif"]
+        self.defaultFamily['ttf'] = default_fonts["sans-serif"]
 
     def findfont(self, prop, fontext='ttf', directory=None,
                  fallback_to_default=True, rebuild_if_missing=True):
