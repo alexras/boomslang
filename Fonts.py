@@ -7,8 +7,15 @@ import os
 _fonts_directory = os.path.abspath(os.path.join(os.path.dirname(__file__),
                                                 "fonts"))
 
-_boomslang_fonts = [os.path.join(_fonts_directory, x) for x in
-                    os.listdir(_fonts_directory) if x[-3:] == "ttf"]
+_valid_font_extensions = ["ttf", "otf"]
+
+_boomslang_fonts = []
+
+for (dir_path, dir_names, file_names) in os.walk(_fonts_directory):
+    for name in file_names:
+        if name[-3:] in _valid_font_extensions:
+            _boomslang_fonts.append(os.path.abspath(os.path.join(
+                        _fonts_directory, dir_path, name)))
 
 # If you drop fonts into the fonts/ directory, you can change the default fonts
 # used here:
@@ -35,7 +42,7 @@ class BoomslangFontManager(FontManager):
         self.ttflist = map(lambda x: ttfFontProperty(ft2font.FT2Font(x)),
                            _boomslang_fonts)
 
-        self.defaultFamily['ttf'] = "Arimo"
+        self.defaultFamily['ttf'] = default_fonts["serif"]
 
     def findfont(self, prop, fontext='ttf', directory=None,
                  fallback_to_default=True, rebuild_if_missing=True):
