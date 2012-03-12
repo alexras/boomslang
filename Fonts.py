@@ -31,15 +31,19 @@ class BoomslangFontManager(FontManager):
         # old-fashioned way
         FontManager.__init__(self, size, weight)
 
-        # Begone, AFM fonts!
-        self.afmlist = []
-
         # This font manager should only consider using Boomslang-blessed fonts
         self.ttflist = map(lambda x: ttfFontProperty(ft2font.FT2Font(x)),
                            _boomslang_fonts)
 
-    def findfont(self, prop, **kw):
-        return FontManager.findfont(self, prop, **kw)
+        self.defaultFamily['ttf'] = "Arimo"
+
+    def findfont(self, prop, fontext='ttf', directory=None,
+                 fallback_to_default=True, rebuild_if_missing=True):
+        return FontManager.findfont(
+            self, prop, fontext=fontext, directory=directory,
+            fallback_to_default=fallback_to_default,
+            rebuild_if_missing=rebuild_if_missing)
 
 def useBoomslangFonts():
     matplotlib.font_manager.fontManager = BoomslangFontManager()
+
