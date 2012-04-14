@@ -22,6 +22,9 @@ class PlotInfo(object):
                  yErrors = None,
                  autosort = True,
                  xLimits = None,
+                 ecolor = None,
+                 eLineWidth = None,
+                 capsize = None,
                  picker=None):
 
         if xValues is None:
@@ -84,6 +87,10 @@ class PlotInfo(object):
         self.autosort = autosort
 
         self.xLimits = xLimits
+
+        self.ecolor = ecolor
+        self.eLineWidth = eLineWidth
+        self.capsize = capsize
 
         self.picker = picker
 
@@ -220,8 +227,11 @@ class PlotInfo(object):
         elif hasattr(self, "color"):
             errorBarKeywords["ecolor"] = self.color
 
-        if hasattr(self, "lineWidth"):
-            errorBarKeywords["linewidth"] = self.lineWidth
+        if hasattr(self, "capsize") and self.capsize is not None:
+            errorBarKeywords["capsize"] = self.capsize
+
+        if hasattr(self, "eLineWidth"):
+            errorBarKeywords["linewidth"] = self.eLineWidth
 
         if hasattr(self, "lineStyle"):
             errorBarKeywords["linestyle"] = self.lineStyle
