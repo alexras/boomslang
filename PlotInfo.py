@@ -22,6 +22,9 @@ class PlotInfo(object):
                  yErrors = None,
                  autosort = True,
                  xLimits = None,
+                 errorBarColor = None,
+                 errorBarLineWidth = None,
+                 errorBarCapsize = None,
                  picker=None):
 
         if xValues is None:
@@ -84,6 +87,10 @@ class PlotInfo(object):
         self.autosort = autosort
 
         self.xLimits = xLimits
+
+        self.errorBarColor = errorBarColor
+        self.errorBarLineWidth = errorBarLineWidth
+        self.errorBarCapsize = errorBarCapsize
 
         self.picker = picker
 
@@ -215,13 +222,16 @@ class PlotInfo(object):
 
     def drawErrorBars(self, axis, transform=None):
         errorBarKeywords = {}
-        if hasattr(self, "ecolor") and self.ecolor is not None:
-            errorBarKeywords["ecolor"] = self.ecolor
+        if  self.errorBarColor is not None:
+            errorBarKeywords["ecolor"] = self.errorBarColor
         elif hasattr(self, "color"):
             errorBarKeywords["ecolor"] = self.color
 
-        if hasattr(self, "lineWidth"):
-            errorBarKeywords["linewidth"] = self.lineWidth
+        if self.errorBarCapsize is not None:
+            errorBarKeywords["capsize"] = self.errorBarCapsize
+
+        if self.errorBarLineWidth is not None:
+            errorBarKeywords["linewidth"] = self.errorBarLineWidth
 
         if hasattr(self, "lineStyle"):
             errorBarKeywords["linestyle"] = self.lineStyle
