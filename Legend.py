@@ -31,7 +31,7 @@ class Legend(object):
             legendKeywords["prop"] = {"size" : self.labelSize}
 
         if self.bboxToAnchor is not None:
-            legendKeywords["bbox_to_anchor"] = bbox_to_anchor
+            legendKeywords["bbox_to_anchor"] = self.bboxToAnchor
 
         return legendKeywords
 
