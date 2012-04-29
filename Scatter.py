@@ -1,4 +1,3 @@
-import pylab
 from matplotlib import pyplot
 from PlotInfo import *
 from Marker import Marker
@@ -38,7 +37,7 @@ class Scatter(PlotInfo):
     def markerSize(self):
         return self._marker.size
 
-    def draw(self, fig, axis):
+    def draw(self, fig, axis, transform = None):
         super(Scatter, self).draw(fig, axis)
 
         kwdict = self.getAttributes()

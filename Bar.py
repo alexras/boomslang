@@ -34,9 +34,9 @@ class Bar(PlotInfo):
     def draw(self, fig, axis, transform=None):
         super(Bar,self).draw(fig, axis)
 
-        return self._draw(axis, transform)
+        return self._draw(fig, axis, transform)
 
-    def _draw(self, axis, transform=None):
+    def _draw(self, fig, axis, transform=None):
         kwdict = self.getAttributes()
 
         plotObjects = []
@@ -58,7 +58,7 @@ class Bar(PlotInfo):
                 label = Label(xVal, yVal, "%d" % (yVal))
                 label.setTextOffset(0, 0.05 * maxYValue)
                 label.marker = 'x'
-                (labelObjects, labelLabels) = label.draw(axis)
+                (labelObjects, labelLabels) = label.draw(fig, axis)
                 plotObjects.extend(labelObjects)
                 labels.extend(labelLabels)
 

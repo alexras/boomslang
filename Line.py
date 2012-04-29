@@ -1,4 +1,3 @@
-import pylab
 from matplotlib import pyplot
 from PlotInfo import PlotInfo
 from StepType import StepType
@@ -75,7 +74,7 @@ class Line(PlotInfo):
     def stepFunction(self, stepType="pre"):
         self.steps = stepType
 
-    def draw(self, fig, axis):
+    def draw(self, fig, axis, transform=None):
         super(Line, self).draw(fig, axis)
 
         if self.dates:
@@ -83,7 +82,7 @@ class Line(PlotInfo):
         elif self.loglog:
             warnings.warn("Setting loglog in Lines will be deprecated soon. "
                           "Set this in Plot instead.",
-                          warnings.PendingDeprecationWarning)
+                          PendingDeprecationWarning)
             plotFunc = axis.loglog
         else:
             plotFunc = axis.plot

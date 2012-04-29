@@ -1,4 +1,4 @@
-import pylab
+import itertools
 from matplotlib import pyplot
 from PlotInfo import PlotInfo
 from Marker import Marker
@@ -56,11 +56,11 @@ class HLine(PlotInfo):
     def markerSize(self):
         return self._marker.size
 
-    def draw(self, fig, axis):
+    def draw(self, fig, axis, transform=None):
         # Present to keep the PlotInfo sorting from failing
-        self.xValues = [0 for x in self.yValues]
+        self.xValues = list(itertools.repeat(0, len(self.yValues)))
 
-        PlotInfo.draw(self, fig, axis)
+        PlotInfo.draw(self, fig, axis, transform)
 
         kwdict = self.getAttributes()
         kwdict["linestyle"] = self.lineStyle

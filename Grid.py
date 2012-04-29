@@ -1,5 +1,4 @@
 from boomslang.LineStyle import LineStyle
-from LineStyle import LineStyle
 
 class Grid(object):
     def __init__(self, color="#dddddd", style="-", visible=True):

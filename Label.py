@@ -1,4 +1,3 @@
-import pylab
 from matplotlib import pyplot
 from PlotInfo import PlotInfo
 from Marker import Marker
@@ -42,7 +41,7 @@ class Label(PlotInfo):
     def hasArrow(self, style="->", color="black"):
         self.arrow = dict(facecolor=color, arrowstyle=style)
 
-    def draw(self, fig, axis):
+    def draw(self, fig, axis, transform=None):
         kwdict = {}
         kwdict["xytext"] = (self.textX, self.textY)
         kwdict["xycoords"] = "data"

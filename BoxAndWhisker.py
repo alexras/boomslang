@@ -1,4 +1,3 @@
-import pylab
 from matplotlib import pyplot
 from PlotInfo import *
 
@@ -12,6 +11,7 @@ class BoxAndWhisker(PlotInfo):
         self.width=None
         self.color="black"
         self.label = None
+        self.xSequence = []
 
     def draw(self, fig, axis, transform=None):
         # To be compatible with PlotInfo assumptions

@@ -1,7 +1,5 @@
 import pylab
-import matplotlib
 from matplotlib import pyplot
-import sys
 import os
 from boomslang import PlotLayout
 
@@ -120,7 +118,6 @@ class WeightedPlotLayout(PlotLayout):
 
             for i in range(0, len(plots)):
                 plot = plots[i]
-                weight = weights[i]
                 myWidth = availableWidth * weights[i] / totalWeight
 
                 rect = [left, bottom, myWidth, rowHeight]

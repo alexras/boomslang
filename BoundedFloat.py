@@ -1,4 +1,4 @@
-class BoundedFloat:
+class BoundedFloat(object):
     """
     BoundedFloats behave like floats, but are required to be within
     'minimum' (inclusive) and 'maximum' (exclusive)
@@ -11,7 +11,7 @@ class BoundedFloat:
         if default != None:
             if default < self.min or default >= self.max:
                 raise ValueError("Default value %.2f out-of-bounds [%.2f,%.2f)",
-                                 value, self.min, self.max)
+                                 default, self.min, self.max)
 
         self.default = default
 

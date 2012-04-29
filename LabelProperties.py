@@ -1,5 +1,4 @@
 import collections
-import sys
 
 class LabelProperties(collections.MutableMapping):
     VALID_PROPERTIES = ["alpha",

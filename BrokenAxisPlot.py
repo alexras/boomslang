@@ -144,21 +144,21 @@ class BrokenAxisPlot(Plot):
         kwargs = dict(transform=ax.transAxes, color='k', clip_on=False)
 
         ax.plot((-self.break_line_size,
-                 +self.break_line_size),
+                 self.break_line_size),
                 (-self.break_line_size/(1-self.break_ratio),
-                 +self.break_line_size/(1-self.break_ratio)),
+                 self.break_line_size/(1-self.break_ratio)),
                 **kwargs) # top-left
 
         ax.plot((1-self.break_line_size,
                  1+self.break_line_size),
                 (-self.break_line_size/(1-self.break_ratio),
-                 +self.break_line_size/(1-self.break_ratio)),
+                 self.break_line_size/(1-self.break_ratio)),
                 **kwargs) # top-right
 
         kwargs = dict(transform=ax2.transAxes, color='k', clip_on=False)
 
         ax2.plot((-self.break_line_size,
-                  +self.break_line_size),
+                  self.break_line_size),
                 (1-self.break_line_size/(self.break_ratio),
                  1+self.break_line_size/(self.break_ratio)),
                 **kwargs) # bottom-left

@@ -1,7 +1,5 @@
 import pylab
-import matplotlib
 from matplotlib import pyplot
-import sys
 import os
 import warnings
 from boomslang_exceptions import BoomslangPlotRenderingException
@@ -227,7 +225,7 @@ class PlotLayout(object):
             figLegendKeywords = {}
 
             if self.figLegendCols is not None:
-                if not self._check_min_matplotlib_version(0, 98, 0):
+                if not _check_min_matplotlib_version(0, 98, 0):
                     warnings.warn("Number of columns support not available in "
                                   "versions of matplotlib prior to 0.98")
                 else:

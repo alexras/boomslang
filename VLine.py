@@ -1,4 +1,4 @@
-import pylab
+import itertools
 from matplotlib import pyplot
 from PlotInfo import PlotInfo
 from Marker import Marker
@@ -56,9 +56,9 @@ class VLine(PlotInfo):
     def markerSize(self):
         return self._marker.size
 
-    def draw(self, fig, axis):
+    def draw(self, fig, axis, transform=None):
         # Present to keep the PlotInfo sorting from failing
-        self.yValues = [0 for x in self.xValues]
+        self.yValues = list(itertools.repeat(0, len(self.xValues)))
 
         PlotInfo.draw(self, fig, axis)
 

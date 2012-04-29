@@ -1,5 +1,3 @@
-import os
-import sys
 import copy
 import warnings
 
@@ -44,12 +42,6 @@ class PlotInfo(object):
 
         if yTickLabelPoints is None:
             yTickLabelPoints = []
-
-        # if xTickLabelProperties is None:
-        #     xTickLabelProperties = LabelProperties()
-
-        # if yTickLabelProperties is None:
-        #     yTickLabelProperties = LabelProperties()
 
         if yMins is None:
             yMins = []
@@ -171,7 +163,7 @@ class PlotInfo(object):
         return kwdict
 
 
-    def draw(self, fig, axis):
+    def draw(self, fig, axis, transform=None):
         if len(self.xValues) > 0 and self.autosort:
             # This is a total kludge --AR
 

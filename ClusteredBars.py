@@ -77,9 +77,9 @@ class ClusteredBars(PlotInfo):
         rect = axis.patch
         rect.set_facecolor(self.background_color)
 
-        return self._draw(axis, transform)
+        return self._draw(fig, axis, transform)
 
-    def _draw(self, axis, transform=None):
+    def _draw(self, fig, axis, transform=None):
         numBars = len(self.bars)
 
         plotHandles = []
@@ -100,7 +100,7 @@ class ClusteredBars(PlotInfo):
             else:
                 xform = bar_xform
 
-            [handles, labels] = bar._draw(axis, transform=xform)
+            [handles, labels] = bar._draw(fig, axis, transform=xform)
             bar.drawErrorBars(axis, transform=xform)
 
             if isinstance(bar, Bar):

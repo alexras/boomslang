@@ -16,7 +16,7 @@ class Legend(object):
         self.figLegend = figLegend
         self.bboxToAnchor = bboxToAnchor
 
-    def _genLegendKeywords(self, axes, handles, labels):
+    def _genLegendKeywords(self):
         legendKeywords = {}
 
         if self.columns > 1:
@@ -36,13 +36,13 @@ class Legend(object):
         return legendKeywords
 
     def draw(self, figure, axes, handles, labels):
-        legendKeywords = self._genLegendKeywords(axes, handles, labels)
+        legendKeywords = self._genLegendKeywords()
 
         legend = None
 
         if self.figLegend:
-            legend = fig.legend(handles, labels, loc=self.location,
-                                **legendKeywords)
+            legend = figure.legend(handles, labels, loc=self.location,
+                                   **legendKeywords)
         else:
             legend = axes.legend(handles, labels, loc=self.location,
                                  **legendKeywords)

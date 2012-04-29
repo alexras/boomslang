@@ -78,9 +78,9 @@ class StackedBars(PlotInfo):
             return [[], []]
 
         super(StackedBars, self).draw(fig, axis)
-        return self._draw(axis, transform)
+        return self._draw(fig, axis, transform)
 
-    def _draw(self, axis, transform=None):
+    def _draw(self, fig, axis, transform=None):
         if transform:
             self.xValues = [transform.transform((x,0))[0] for x in self.xValues]
 

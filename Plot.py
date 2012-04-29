@@ -454,7 +454,7 @@ class Plot(object):
 
             # cycle through styles first, then markers, then colors
             colorIndex = (plotIndex / (numMarkers * numLineStyles)) % numColors
-            markerIndex = (plotIndex / numLineStyles) % numMarkers
+            markerIndex = int(plotIndex / numLineStyles) % numMarkers
             lineStyleIndex = plotIndex % numLineStyles
 
             if hasLineStyles:
