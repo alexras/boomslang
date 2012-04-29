@@ -6,6 +6,7 @@ class Grid(object):
         self._lineStyle = LineStyle()
         self._lineStyle.style = style
         self.visible = visible
+        self.which = 'major'
 
     @property
     def style(self):
@@ -21,6 +22,7 @@ class Grid(object):
 
     def draw(self, fig, axes):
         if self.visible:
-            axes.grid(color=self.color, linestyle=self.style)
+            axes.grid(color=self.color, linestyle=self.style,
+                      which=self.which)
             # Gridlines should be below plots
             axes.set_axisbelow(True)
