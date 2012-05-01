@@ -7,7 +7,7 @@ class Legend(object):
 
     def __init__(self, columns = 1, scatterPoints = 3, drawFrame = True,
                  location = "best", figLegend = False, labelSize = None,
-                 bboxToAnchor = None):
+                 bboxToAnchor = None, title = None):
         self.location = location
         self.labelSize = labelSize
         self.columns = columns
@@ -15,6 +15,7 @@ class Legend(object):
         self.drawFrame = drawFrame
         self.figLegend = figLegend
         self.bboxToAnchor = bboxToAnchor
+        self.title = title
 
     def _genLegendKeywords(self):
         legendKeywords = {}
@@ -32,6 +33,9 @@ class Legend(object):
 
         if self.bboxToAnchor is not None:
             legendKeywords["bbox_to_anchor"] = self.bboxToAnchor
+
+        if self.title is not None:
+            legendKeywords["title"] = self.title
 
         return legendKeywords
 

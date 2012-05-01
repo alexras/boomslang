@@ -247,7 +247,8 @@ class Plot(object):
         self.ylim = (minY, maxY)
 
     def hasFigLegend(self, columns=1, location="best", scatterPoints=3,
-                     draw_frame=True, bbox_to_anchor=None, labelSize=None):
+                     draw_frame=True, bbox_to_anchor=None, labelSize=None,
+                     title=None):
         """
         Declare that the figure has a legend with a given number of columns and
         location.
@@ -258,10 +259,12 @@ class Plot(object):
                               location = location,
                               figLegend = True,
                               labelSize = labelSize,
-                              bboxToAnchor = bbox_to_anchor)
+                              bboxToAnchor = bbox_to_anchor,
+                              title = title)
 
     def hasLegend(self, columns=1, location="best", scatterPoints=3,
-                  draw_frame=True, bbox_to_anchor=None, labelSize = None):
+                  draw_frame=True, bbox_to_anchor=None, labelSize = None,
+                  title=None):
         """
         Declare that the plot has a legend with a given number of columns and
         location.
@@ -272,7 +275,8 @@ class Plot(object):
                               location = location,
                               figLegend = False,
                               labelSize = labelSize,
-                              bboxToAnchor = bbox_to_anchor)
+                              bboxToAnchor = bbox_to_anchor,
+                              title = title)
 
     def setTitle(self, title):
         self.title = title
