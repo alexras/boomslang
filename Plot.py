@@ -109,12 +109,6 @@ class Plot(object):
 
         self.legend.labelSize = size
 
-    def setLegendTitle(self, title):
-        if self.legend is None:
-            self.legend = Legend()
-
-        self.legend.title = title
-
     def split(self, pieces):
        splitPlots = [copy.deepcopy(self) for i in xrange(pieces)]
 
