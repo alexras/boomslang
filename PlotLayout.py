@@ -246,7 +246,8 @@ class PlotLayout(object):
         for (key,value) in oldRCParams.items():
             pylab.rcParams[key] = value
 
-        fig.tight_layout()
+        if _check_min_matplotlib_version(1, 1, 0):
+            fig.tight_layout()
         return fig
 
     def _plot_subplot(self, plot, fig, rows, cols, pos, projection):
