@@ -1,6 +1,8 @@
 import matplotlib
 import math
+import collections
 import re
+import sys
 from Line import Line
 from Bar import Bar
 
@@ -82,7 +84,7 @@ def getBarsFromFile(filename, regex, postFunction=None, autofillXValues=False):
         bars.append(bar)
     return bars
 
-def getCDF(values):
+def cdf(values):
     line = Line()
     cdfValues = values[:]
     cdfValues.sort()
@@ -92,6 +94,34 @@ def getCDF(values):
     line.xValues = cdfValues
     line.yValues = [float(x) / count for x in xrange(1, int(count) + 1)]
     assert(count == len(line.yValues))
+
+    return line
+
+def getCDF(values):
+    return cdf(values)
+
+def histogram(values, binSize):
+    line = Line()
+    line.stepFunction('post')
+
+    bins = collections.defaultdict(int)
+
+    maxBin = 0
+
+    for value in values:
+        currentBin = value / binSize
+        bins[currentBin] += 1
+        maxBin = max(maxBin, currentBin)
+
+    for currentBin, binCount in bins.items():
+        nextBin = currentBin + binSize
+
+        if nextBin not in bins:
+            bins[nextBin] = 0
+
+    for currentBin in sorted(bins.keys()):
+        line.xValues.append(currentBin * binSize)
+        line.yValues.append(bins[currentBin])
 
     return line
 
