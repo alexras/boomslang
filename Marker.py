@@ -42,15 +42,11 @@ class Marker(object):
     def __init__(self):
         self._marker = None
         self.size = 8.0
-        self.color = 'k'
 
     @property
     def marker(self):
         """ Defines the shape of the marker """
-        if self._marker is None or self._marker == "":
-            return None
-        else:
-            return "%s%s" % (self.color, self._marker)
+        return self._marker
 
     @marker.setter
     def marker(self, value):
