@@ -1,5 +1,6 @@
 from matplotlib import pyplot
 from PlotInfo import *
+from Marker import Marker
 
 class BoxAndWhisker(PlotInfo):
     """
@@ -12,6 +13,9 @@ class BoxAndWhisker(PlotInfo):
         self.color="black"
         self.label = None
         self.xSequence = []
+        self.flierMarker = Marker()
+        self.flierMarker.marker = '+'
+        self.flierMarker.color = 'b'
 
     def draw(self, fig, axis, transform=None):
         # To be compatible with PlotInfo assumptions
@@ -21,6 +25,11 @@ class BoxAndWhisker(PlotInfo):
         super(BoxAndWhisker,self).draw(fig, axis)
 
         kwdict = {}
+
+        if self.flierMarker.marker is not None:
+            kwdict["sym"] = self.flierMarker.marker
+        else:
+            kwdict["sym"] = ''
 
         plotHandles = axis.boxplot(self.xSequence, **kwdict)
 
