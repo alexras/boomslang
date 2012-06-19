@@ -48,31 +48,7 @@ class Marker(object):
     @property
     def marker(self):
         """
-        Defines the shape of the marker. Valid marker shapes are:
-
-        =========================================     ====================================================================
-        Description                                   Valid Values of boomslang.Marker.Marker.marker
-        =========================================     ====================================================================
-        No marker                                      ``""``, "none", None
-        Points                                         ``.``, "point", "points"
-        Pixels                                         ``,``, "pixel", "pixels"
-        Circles                                        ``o``, "circle", "circles"
-        Triangles Pointing Down                        ``v``, "down triangle", "down triangles"
-        Triangles Pointing Up                          ``^``, "up triangle", "up triangles"
-        Triangles Pointing Left                        ``<``, "left triangle", "left triangles"
-        Triangles Pointing Right                       ``>``, "right triangle", "right triangles"
-        Squares                                        ``s``, "square", "squares"
-        Pentagons                                      ``p``, "pentagon", "pentagons"
-        Stars                                          ``*``, "star", "stars"
-        Hexagons with Parallel Sides Vertical          ``h``, "hexagon", "hexagons", "vertical hexagon", "vertical hexagons"
-        Hexagons with Parallel Sides Horizontal        ``H``, "horizontal hexagon", "horizontal hexagons"
-        Pluses                                         ``+``, "plus", "pluses", "plusses"
-        Crosses (Xs)                                   ``x``, "cross", "crosses"
-        Thick Diamonds                                 ``D``, "diamond", "diamonds"
-        Thin Diamonds                                  ``d``, "thin diamond", "thin diamonds"
-        Vertical Lines                                 ``|``, "vline", "vlines", "vertical line", "vertical lines"
-        Horizontal Lines                               ``_``, "hline", "hlines", "horizontal line", "horizontal lines"
-        =========================================     ====================================================================
+        Defines the shape of the marker.
         """
 
         return self._marker
