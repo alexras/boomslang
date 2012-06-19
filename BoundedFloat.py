@@ -1,8 +1,9 @@
 class BoundedFloat(object):
     """
     BoundedFloats behave like floats, but are required to be within
-    'minimum' (inclusive) and 'maximum' (exclusive)
+    `minimum` (inclusive) and `maximum` (exclusive)
     """
+
     def __init__(self, name, minimum, maximum, default=None):
         self.name = name
         self.min = float(minimum)
