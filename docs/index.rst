@@ -10,6 +10,7 @@ re-usable, modular plotting code.
    intro
    getting_started
    plot_elements
+   styling
    examples
 
 
