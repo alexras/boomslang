@@ -1,10 +1,8 @@
-
-
 class Marker(object):
     """
-    This dictionary maps matplotlib representations of marker types to English
-    descriptions. Either can be used when specifying marker type.
+    This property controls the way that a plot element's markers look.
     """
+
     _MARK_TRANSLATOR = {
         "" : ["none", None],
         "." : ["point", "points"],
@@ -17,8 +15,8 @@ class Marker(object):
         "s" : ["square", "squares"],
         "p" : ["pentagon", "pentagons"],
         "*" : ["star", "stars"],
-        "h" : ["hexagon", "hexagons", "type-1 hexagon", "type-1 hexagons"],
-        "H" : ["type-2 hexagon", "type-2 hexagons"],
+        "h" : ["hexagon", "hexagons", "vertical hexagon", "vertical hexagons"],
+        "H" : ["horizontal hexagon", "horizontal hexagons"],
         "+" : ["plus", "pluses", "plusses"],
         "x" : ["x", "cross", "crosses"],
         "D" : ["diamond", "diamonds"],
@@ -41,11 +39,42 @@ class Marker(object):
 
     def __init__(self):
         self._marker = None
+
         self.size = 8.0
+        """
+        The size of the marker
+        """
 
     @property
     def marker(self):
-        """ Defines the shape of the marker """
+        """
+        Defines the shape of the marker. Valid marker shapes are:
+
+        =========================================     ====================================================================
+        Description                                   Valid Values of boomslang.Marker.Marker.marker
+        =========================================     ====================================================================
+        No marker                                      ``""``, "none", None
+        Points                                         ``.``, "point", "points"
+        Pixels                                         ``,``, "pixel", "pixels"
+        Circles                                        ``o``, "circle", "circles"
+        Triangles Pointing Down                        ``v``, "down triangle", "down triangles"
+        Triangles Pointing Up                          ``^``, "up triangle", "up triangles"
+        Triangles Pointing Left                        ``<``, "left triangle", "left triangles"
+        Triangles Pointing Right                       ``>``, "right triangle", "right triangles"
+        Squares                                        ``s``, "square", "squares"
+        Pentagons                                      ``p``, "pentagon", "pentagons"
+        Stars                                          ``*``, "star", "stars"
+        Hexagons with Parallel Sides Vertical          ``h``, "hexagon", "hexagons", "vertical hexagon", "vertical hexagons"
+        Hexagons with Parallel Sides Horizontal        ``H``, "horizontal hexagon", "horizontal hexagons"
+        Pluses                                         ``+``, "plus", "pluses", "plusses"
+        Crosses (Xs)                                   ``x``, "cross", "crosses"
+        Thick Diamonds                                 ``D``, "diamond", "diamonds"
+        Thin Diamonds                                  ``d``, "thin diamond", "thin diamonds"
+        Vertical Lines                                 ``|``, "vline", "vlines", "vertical line", "vertical lines"
+        Horizontal Lines                               ``_``, "hline", "hlines", "horizontal line", "horizontal lines"
+        =========================================     ====================================================================
+        """
+
         return self._marker
 
     @marker.setter

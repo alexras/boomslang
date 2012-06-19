@@ -11,8 +11,10 @@ class BrokenAxesPiece(matplotlib.axes.Axes):
             xform=None,
             **kwargs):
 
-        if xform is None: self.xform = lambda x: x
-        else: self.xform = xform
+        if xform is None:
+            self.xform = lambda x: x
+        else:
+            self.xform = xform
 
         super(BrokenAxesPiece,self).__init__(fig, rect, axisbg, frameon,
                 sharex, sharey, label, xscale, yscale, **kwargs)
@@ -32,13 +34,6 @@ class BrokenAxisPlot(Plot):
     """
     Represents a single broken-axis plot.  Not embeddable into nested
     PlotLayouts at the moment.
-
-        break_points defines the gap on the y-axis.
-        break_line_size defines how big the broken axis lines are on the
-            sides
-        break_hspace defines how much space to put in between
-        break_raito defines how to divy up the space between the two
-            sub-axes
     """
 
     def __init__(self,
@@ -50,9 +45,24 @@ class BrokenAxisPlot(Plot):
         super(BrokenAxisPlot,self).__init__()
 
         self.break_points = break_points
+        """
+        A 2-tuple that defines the start and end points of the gap on the y-axis
+        """
+
         self.break_line_size = break_line_size
+        """
+        The size of the broken axis lines
+        """
+
         self.break_hspace = break_hspace
+        """
+        The amount of horizontal space to put between the break points
+        """
+
         self.break_ratio = break_ratio
+        """
+        Defines how to divvy up space between the two broken parts of the plot
+        """
 
     def subplot(self, fig, row, column, position, projection):
         # Step 0, plot in normal space to build up base fig and stats
@@ -102,8 +112,6 @@ class BrokenAxisPlot(Plot):
 
         handles = self.drawPlot(fig, ax)
 
-        #print orig_ax.get_legend(), ax.get_legend(), ax2.get_legend()
-
         # Set Limits
         (y_bot, y_top) = ax.get_ylim()
 
@@ -117,15 +125,11 @@ class BrokenAxisPlot(Plot):
         numticks2 = max(numticks2, 2)
         numticks = max(numticks, 2)
 
-        #print orig_ax.get_yticks(), nticks, numticks, numticks2
-
         ax2.yaxis.set_major_locator(mticker.LinearLocator(numticks=numticks2))
         ax.yaxis.set_major_locator(mticker.LinearLocator(numticks=numticks))
 
         ax2.set_xticks(orig_ax.get_xticks())
         ax2.set_xticklabels([t.get_text() for t in orig_ax.get_xticklabels()])
-        #print ax2.get_xticks()
-        #print ax2.get_xticklabels()[0]
 
         ax.spines['bottom'].set_visible(False)
         ax2.spines['top'].set_visible(False)
@@ -139,7 +143,6 @@ class BrokenAxisPlot(Plot):
         ax2.set_ylabel("")
 
         ax.set_xlabel("")
-        #ax2.set_xlabel("") # Keep this one
 
         kwargs = dict(transform=ax.transAxes, color='k', clip_on=False)
 

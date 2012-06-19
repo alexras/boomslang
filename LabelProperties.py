@@ -1,6 +1,29 @@
 import collections
 
 class LabelProperties(collections.MutableMapping):
+    """
+    A dictionary of properties that define how labels look. Valid properties
+    are:
+
+    ========================  =================================================================================================================================================================================================
+    Property                  Description
+    ========================  =================================================================================================================================================================================================
+    ``alpha``                 Transparency of the label in [0.0, 1.0]
+    ``backgroundColor``       The label's background color
+    ``color``                 The label's text color
+    ``fontsize``              The size of the label's font
+    ``horizontalalignment``   The horizontal alignment of the label's text ('left', 'center', or 'right')
+    ``linespacing``           The spacing between label lines (multiple of font size)
+    ``multialignment``        Alignment for multiple lines of text ('left', 'center', or 'right')
+    ``rotation``              Angle of the label's rotation in degrees
+    ``rotation_mode``         Text rotation mode ("anchor" to align before rotating, None (default) to rotate before aligning)
+    ``stretch``               Label's font stretch (horizontal condensation or expansion)
+    ``style``                 The font's style ('normal', 'italic', or 'oblique')
+    ``verticalalignment``     The vertical alignment of the label's text ('top', 'center', 'bottom', or 'baseline')
+    ``weight``                The font's weight (a number in [0, 1000] or one of 'ultralight', 'light', 'normal', 'regular', 'book', 'medium', 'roman', 'semibold', 'demibold', 'demi', 'bold', 'heavy', 'extra bold', 'black')
+    ========================  =================================================================================================================================================================================================
+
+    """
     VALID_PROPERTIES = ["alpha",
                         "backgroundColor",
                         "color",

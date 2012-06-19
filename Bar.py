@@ -25,11 +25,34 @@ class Bar(PlotInfo):
         self.labelBars = labelBars
 
         self.width = width
+        """
+        The width of each bar in the set of bars
+        """
         self.linewidth = linewidth
+        """
+        The width of the line that borders each bar
+        """
+
         self.color = color
+        """
+        The color of the bars
+        """
+
         self.edgeColor = edgeColor
+        """
+        The color of the line that borders each bar
+        """
+
         self.hatch = hatch
+        """
+        The style of hatching used within the bar, if any
+        """
+
         self.align = align
+        """
+        If `center` (default), `xValues` values denote the center of each
+        bar. If `edge`, `xValues` values denote the left edge of each bar.
+        """
 
     def draw(self, fig, axis, transform=None):
         super(Bar,self).draw(fig, axis)
@@ -75,7 +98,9 @@ class Bar(PlotInfo):
 
         if self.hatch is not None:
             kwdict["hatch"] = self.hatch
-            warnings.warn("Setting hatch for bar charts only seems to work when exporting to svg, png, or pdf", Warning)
+            warnings.warn(
+                "Setting hatch for bar charts only seems to work when "
+                "exporting to svg, png, or pdf", Warning)
 
         if self.edgeColor is not None:
             kwdict["edgecolor"] = self.edgeColor

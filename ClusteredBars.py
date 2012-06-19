@@ -12,13 +12,22 @@ class ClusteredBars(PlotInfo):
     A clustered bar chart consisting of multiple series of bars
     with the same X axis values.
     """
+
     def __init__(self):
         super(ClusteredBars,self).__init__("clustered bar")
 
         self.bars = []
         self.spacing = 0
+        """
+        The spacing between each bar in the cluster
+        """
+
         self.background_color = "white"
+
         self.barWidth = None
+        """
+        The width of each bar in the cluster
+        """
 
     def _getWidth(self):
         numBars = len(self.bars)
@@ -33,8 +42,15 @@ class ClusteredBars(PlotInfo):
             "to have width. Set barWidth instead")
 
     width = property(_getWidth, _setWidth)
+    """
+    The overall width of each cluster of bars
+    """
 
     def add(self, bar):
+        """
+        Add `bar` to the cluster of bars
+        """
+
         if not isinstance(bar, Bar) and not isinstance(bar, StackedBars):
             raise BoomslangPlotConfigurationException(
                 "Can only add Bars to a ClusteredBars")

@@ -53,15 +53,44 @@ class PlotInfo(object):
             yErrors = []
 
         self.plotType = plotType
+        """
+        Names the type of plot element
+        """
 
         self.xValues = xValues
+        """
+        An array of x-axis values for the plot element
+        """
+
         self.yValues = yValues
+        """
+        An array of y-axis values for the plot elements
+        """
 
         self.xTickLabels = xTickLabels
+        """
+        A list of labels that should be drawn on the x-axis
+        """
+
         self.yTickLabels = yTickLabels
+        """
+        A list of labels that should be drawn on the y-axis
+        """
+
         self.xTickLabelPoints = xTickLabelPoints
+        """
+        The locations on the x-axis where the labels in :attr:`xTickLabels`
+        should be drawn
+        """
+
         self.yTickLabelPoints = yTickLabelPoints
+        """
+        The locations on the x-axis where the labels in :attr:`xTickLabels`
+        should be drawn
+        """
+
         self._xTickLabelProperties = LabelProperties()
+
         self._yTickLabelProperties = LabelProperties()
 
         if xTickLabelProperties is not None:
@@ -71,12 +100,33 @@ class PlotInfo(object):
             self.yTickLabelProperties = yTickLabelProperties
 
         self.label = label
+        """
+        A string used to label this plot element in a legend
+        """
 
         self.yMins = yMins
+        """
+        For asymmetric error bars, a list of locations for the bottoms of this
+        plot element's error bars
+        """
+
         self.yMaxes = yMaxes
+        """
+        For asymmetric error bars, a list of locations for the tops of this
+        plot element's error bars
+        """
+
         self.yErrors = yErrors
+        """
+        For symmetric error bars, a list of error bar widths for this plot
+        element's error bars
+        """
 
         self.autosort = autosort
+        """
+        If true, x/y pairs in :attrs:`xValues` and :attrs:`yValues` are sorted
+        by x value before the plot is rendered
+        """
 
         self.xLimits = xLimits
 
@@ -90,7 +140,8 @@ class PlotInfo(object):
     def xTickLabelProperties(self):
         """
         A dictionary of properties that control the appearance of the X axis'
-        tick labels
+        tick labels. See :class:`boomslang.LabelProperties.LabelProperties` for
+        more information on which properties can be set.
         """
 
         return self._xTickLabelProperties
@@ -107,8 +158,9 @@ class PlotInfo(object):
     @property
     def yTickLabelProperties(self):
         """
-        A dictionary of properties that control the appearance of the X axis'
-        tick labels
+        A dictionary of properties that control the appearance of the Y axis'
+        tick labels. See :class:`boomslang.LabelProperties.LabelProperties` for
+        more information on which properties can be set.
         """
 
         return self._yTickLabelProperties
@@ -129,12 +181,20 @@ class PlotInfo(object):
         pass
 
     def setXTickLabelProperties(self, **propList):
+        # Deprecated: use xTickLabelProperties field instead
         self._xTickLabelProperties.update(propList)
 
     def setYTickLabelProperties(self, **propList):
+        # Deprecated: use yTickLabelProperties field instead
         self._yTickLabelProperties.update(propList)
 
     def split(self, pieces):
+        """
+        Split this plot element into `pieces` separate plot elements, each of
+        which is responsible for a disjoint range of the original plot
+        element's x-axis. This is useful for situations where a plot element
+        cannot fit comfortably in a single plot.
+        """
         elements = []
 
         numXVals = len(self.xValues)
@@ -155,6 +215,11 @@ class PlotInfo(object):
         return elements
 
     def getAttributes(self):
+        """
+        Get the attributes dictionary used to style the plot element. Extending
+        this method allows plot elements to inherit attributes.
+        """
+
         kwdict = {}
 
         if self.picker is not None:
@@ -164,6 +229,13 @@ class PlotInfo(object):
 
 
     def draw(self, fig, axis, transform=None):
+        """
+        The base method for drawing a plot element on the axis `axis` within
+        the figure `fig`. Other plot elements should override this method, but
+        should also be sure to call this method before doing any
+        element-specific processing.
+        """
+
         if len(self.xValues) > 0 and self.autosort:
             # This is a total kludge --AR
 
@@ -213,6 +285,16 @@ class PlotInfo(object):
         self.drawErrorBars(axis)
 
     def drawErrorBars(self, axis, transform=None):
+        """
+        Draw error bars for the plot element using the plot element's
+        `yMins`/`yMaxes` or `yErrors`. If `yMins` or `yMaxes` have non-zero
+        length, they are used to draw error bars that can be
+        asymmetric. Otherwise, `yErrors` are used to draw symmetric error bars.
+
+        If some transform should be applied to the error bars, it is provided
+        by the caller with the `transform` parameter.
+        """
+
         errorBarKeywords = {}
         if  self.errorBarColor is not None:
             errorBarKeywords["ecolor"] = self.errorBarColor
@@ -246,4 +328,3 @@ class PlotInfo(object):
             errorBarKeywords["yerr"] = self.yErrors
             axis.errorbar(self.xValues, self.yValues, **errorBarKeywords)
 
-# EOF

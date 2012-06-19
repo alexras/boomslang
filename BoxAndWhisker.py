@@ -4,17 +4,38 @@ from Marker import Marker
 
 class BoxAndWhisker(PlotInfo):
     """
-    Box and whisker plots
+    A modified box-and-whisker plot.
     """
 
     def __init__(self):
         super(BoxAndWhisker,self).__init__("boxplot")
+
         self.width=None
+        """
+        The width of each of the element's "boxes".
+        """
+
         self.color="black"
+
         self.label = None
+
         self.xSequence = []
+        """
+        A list of lists defining the values to be plotted. Each list gives a
+        set of y-axis values. The first list gives the values for x=0, the
+        second for x=1, and so on.
+        """
+
         self.flierMarker = Marker()
+        """
+        Outliers in a modified box-and-whisker plot are called 'fliers'; this
+        field allows the user to specify the marker color and type used for
+        fliers. See :class:`boomslang.Marker.Marker` for more information on the types and
+        styles of markers available.
+        """
+
         self.flierMarker.marker = '+'
+
         self.flierMarker.color = 'b'
 
     def draw(self, fig, axis, transform=None):
