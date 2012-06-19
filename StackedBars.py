@@ -15,8 +15,17 @@ class StackedBars(PlotInfo):
         super(StackedBars,self).__init__("stacked bar")
 
         self.bars = []
+
         self.spacing = None
+        """
+        The spacing between stacks of bars
+        """
+
         self.barWidth = None
+        """
+        The width of the bars in the stack
+        """
+
 
     def _getWidth(self):
         numBars = len(self.bars)
@@ -33,6 +42,10 @@ class StackedBars(PlotInfo):
     width = property(_getWidth, _setWidth)
 
     def add(self, bar):
+        """
+        Add `bar` (a :class:`boomslang.Bar.Bar`) to the stack
+        """
+
         if not isinstance(bar, Bar):
             print >>sys.stderr, "Can only add Bars to a StackedBars"
             sys.exit(1)

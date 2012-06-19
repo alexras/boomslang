@@ -6,6 +6,8 @@ styled. Classes described below are typically used as Python properties,
 allowing them to be treated like normal fields with the benefits of aliasing
 and argument checking.
 
+.. _styling-markers:
+
 Markers
 -------
 

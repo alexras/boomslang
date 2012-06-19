@@ -18,14 +18,30 @@ class VLine(PlotInfo):
         self._marker = Marker()
         self._marker.marker = marker
         self._marker.size = markerSize
+
         self.width = width
+        """
+        The line's width
+        """
+
         self.color = color
+        """
+        The line's color. See :ref:`styling-colors` for valid colors.
+        """
+
         self._lineStyle = LineStyle()
+
         self._lineStyle.style = lineStyle
+
         self.dates = dates
 
     @property
     def lineStyle(self):
+        """
+        The line style for this line; see :ref:`styling-lines` for more
+        information about available line styles.
+        """
+
         return self._lineStyle.style
 
     @lineStyle.setter
@@ -34,27 +50,28 @@ class VLine(PlotInfo):
 
     @property
     def marker(self):
+        """
+        The marker used to mark points on the line. See :ref:`styling-markers`
+        for more information about available markers.
+        """
+
         return self._marker.marker
 
     @marker.setter
     def marker(self, value):
         self._marker.marker = value
 
-    @marker.getter
-    def marker(self):
-        return self._marker.marker
-
     @property
     def markerSize(self):
+        """
+        The size of this line's markers.
+        """
+
         return self._marker.size
 
     @markerSize.setter
     def markerSize(self, value):
         self._marker.size = value
-
-    @markerSize.getter
-    def markerSize(self):
-        return self._marker.size
 
     def draw(self, fig, axis, transform=None):
         # Present to keep the PlotInfo sorting from failing

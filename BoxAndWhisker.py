@@ -26,13 +26,8 @@ class BoxAndWhisker(PlotInfo):
         second for x=1, and so on.
         """
 
+        #TODO Document
         self.flierMarker = Marker()
-        """
-        Outliers in a modified box-and-whisker plot are called 'fliers'; this
-        field allows the user to specify the marker color and type used for
-        fliers. See :class:`boomslang.Marker.Marker` for more information on the types and
-        styles of markers available.
-        """
 
         self.flierMarker.marker = '+'
 

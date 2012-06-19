@@ -3,32 +3,59 @@ from PlotInfo import PlotInfo
 from Marker import Marker
 
 class Label(PlotInfo):
+    """
+    Labels a point on the plot with text and/or arrows
+    """
+
     def __init__(self, x, y, text=None, bbox=None):
         PlotInfo.__init__(self, "label")
 
         self.x = x
+        """
+        The label's x coordinate
+        """
+
         self.y = y
+        """
+        The label's y coordinate
+        """
+
         self.text = text
+        """
+        The text that should be displayed with the label
+        """
+
         self.textX = x
+        """
+        The x coordinate at which the text for the label should be drawn
+        """
+
         self.textY = y
+        """
+        The y coordinate at which the text for the label should be drawn
+        """
+
         self.arrow = None
+
         self._marker = Marker()
+
         self.rotation = None
 
-        if bbox: self.bbox = dict(bbox)
-        else: self.bbox = None
+        if bbox:
+            self.bbox = dict(bbox)
+        else:
+            self.bbox = None
 
     @property
     def marker(self):
+        """
+        The marker type that should be used to mark the labeled point
+        """
         return self._marker.marker
 
     @marker.setter
     def marker(self, value):
         self._marker.marker = value
-
-    @marker.getter
-    def marker(self):
-        return self._marker.marker
 
     def setTextOffset(self, x, y):
         self.textX = self.x + x
@@ -39,6 +66,11 @@ class Label(PlotInfo):
         self.textY = y
 
     def hasArrow(self, style="->", color="black"):
+        """
+        Defines an arrow between the label's text and its point. Valid arrow
+        styles are given in `Matplotlib's documentation <http://matplotlib.github.com/users/annotations_guide.html?highlight=arrowprops#annotating-with-arrow>`_.
+        """
+
         self.arrow = dict(facecolor=color, arrowstyle=style)
 
     def draw(self, fig, axis, transform=None):

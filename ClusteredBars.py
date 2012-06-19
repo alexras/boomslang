@@ -48,7 +48,7 @@ class ClusteredBars(PlotInfo):
 
     def add(self, bar):
         """
-        Add `bar` to the cluster of bars
+        Add `bar` (a :class:`boomslang.Bar.Bar`) to the cluster of bars
         """
 
         if not isinstance(bar, Bar) and not isinstance(bar, StackedBars):

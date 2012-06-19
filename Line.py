@@ -6,6 +6,9 @@ from Marker import Marker
 from LineStyle import LineStyle
 
 class Line(PlotInfo):
+    """
+    A plot element that represents a line in two-dimensional space
+    """
     steps = StepType("steps")
 
     def __init__(self,
@@ -29,18 +32,46 @@ class Line(PlotInfo):
 
         # TODO Change to width
         self.lineWidth = width
+        """
+        The line's width
+        """
+
         self.color = color
+        """
+        The line's color. see :ref:`styling-colors` for valid colors.
+        """
+
         self._lineStyle = LineStyle()
         self._lineStyle.style = lineStyle
+
         self.dates = dates
+        """
+        If True, the x-axis values of this line will be interpreted as dates
+        """
+
         self.loglog = loglog
+
         self.steps = steps
+        """
+        If not None, the line will be plotted as a step function. If "pre",
+        each point comes before a step. If "mid", each point is in the middle
+        of a step. If "post", each point comes after a step.
+        """
 
         self.alpha = alpha
+
         self.antialiased = antialiased
+        """
+        If True, the line will be anti-aliased, removing jagged edges in some
+        output formats
+        """
 
     @property
     def lineStyle(self):
+        """
+        The line's style. See :ref:`styling-lines` for more information about
+        available line styles.
+        """
         return self._lineStyle.style
 
     @lineStyle.setter
@@ -49,27 +80,28 @@ class Line(PlotInfo):
 
     @property
     def marker(self):
+        """
+        The marker used to mark points on the line. See :ref:`styling-markers`
+        for more information on avialable marker types.
+        """
+
         return self._marker.marker
 
     @marker.setter
     def marker(self, value):
         self._marker.marker = value
 
-    @marker.getter
-    def marker(self):
-        return self._marker.marker
-
     @property
     def markerSize(self):
+        """
+        The size of the markers used to mark points on the line.
+        """
+
         return self._marker.size
 
     @markerSize.setter
     def markerSize(self, value):
         self._marker.size = value
-
-    @markerSize.getter
-    def markerSize(self):
-        return self._marker.size
 
     def stepFunction(self, stepType="pre"):
         self.steps = stepType

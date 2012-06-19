@@ -63,5 +63,3 @@ Miscellaneous Plot Elements
 .. autoclass:: boomslang.Label.Label
     :members:
 
-.. autoclass:: boomslang.Grid.Grid
-    :members:

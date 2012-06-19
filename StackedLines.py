@@ -17,6 +17,11 @@ class StackedLines(PlotInfo):
         self.colors = []
 
     def addLine(self, line, color="white"):
+        """
+        Add `line` (a :class:`boomslang.Line.Line`) to the stack of lines,
+        coloring the gap between it and the previous line with `color`
+        """
+
         self.lines.append(line)
         self.colors.append(color)
 
@@ -43,6 +48,7 @@ class StackedLines(PlotInfo):
         # Since fill_between doesn't have legend support, will have to create a
         # proxy artist for it. See
         # http://matplotlib.sourceforge.net/users/legend_guide.html#using-proxy-artist
+
         proxyArtist = Rectangle((0,0), 1, 1, color=self.colors[0])
         plotHandles.append(proxyArtist)
         plotLabels.append(self.lines[0].label)
@@ -69,6 +75,7 @@ class StackedLines(PlotInfo):
                 continue
             else:
                 prevList = output[i-1]
-                newList = [currentList[i] + prevList[i] for i in xrange(len(currentList))]
+                newList = [currentList[i] + prevList[i]
+                           for i in xrange(len(currentList))]
                 output.append(newList)
         return output
