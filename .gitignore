@@ -9,4 +9,3 @@ htmlcov
 docs/_build
 .\#*
 docs/examples*.rst
-docs/plot_elements.rst
