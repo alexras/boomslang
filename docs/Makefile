@@ -36,6 +36,11 @@ gen_files:
 	./gen_examples.py
 	./gen_plot_element_docs.py
 
+coverage: gen_files
+	$(SPHINXBUILD) -b coverage $(ALLSPHINXOPTS) $(BUILDDIR)/coverage
+	@echo
+	@echo "Build finished. Coverage information is in $(BUILDDIR)/coverage."
+
 html: gen_files
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
 	@echo
