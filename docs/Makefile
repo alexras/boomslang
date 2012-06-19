@@ -34,7 +34,6 @@ clean:
 gen_files:
 	@echo "Generating example .rst files ..."
 	./gen_examples.py
-	./gen_plot_element_docs.py
 
 coverage: gen_files
 	$(SPHINXBUILD) -b coverage $(ALLSPHINXOPTS) $(BUILDDIR)/coverage
