@@ -21,17 +21,29 @@ class Plot(object):
 
     def __init__(self):
         self.plots = []
+
         self.title = None
+        """
+        The plot's title (will be centered above the axes themselves)
+        """
+
         self.xFormatter = None
         self.yFormatter = None
-        self.yLabel = None
-        self.xLabel = None
 
+        self.yLabel = None
+        """
+        The label for the plot's y-axis
+        """
+
+        self.xLabel = None
+        """
+        The label for the plot's x-axis
+        """
 
         self.legend = None
 
-        self.xlim = None
-        self.ylim = None
+        self._xLimits = None
+        self._yLimits = None
 
         self.twinxLabel = None
         self.twinxIndex = -1
@@ -42,16 +54,44 @@ class Plot(object):
         self.markers = None
 
         self.width = None
+
         self.height = None
+
         self.dpi = 100
 
         self.plotParams = None
+
         self.logx = False
+        """
+        If true, this plot's x-axis will be drawn in log scale.
+        """
+
         self.logy = False
+        """
+        If true, this plot's y-axis will be drawn in log scale.
+        """
+
         self.loglog = False
+        """
+        If true, both this plot's axes will be drawn in log scale.
+        """
+
         self.logbase = 10
+        """
+        The base of the logarithm used to draw log scale axes.
+        """
+
         self.logbasex = None
+        """
+        The base of the logarithm used to draw the x-axis. Overrides `logbase`,
+        and only takes effect if logx or loglog are True.
+        """
+
         self.logbasey = None
+        """
+        The base of the logarithm used to draw the y-axis. Overrides `logbase`,
+        and only takes effect if logy or loglog are True.
+        """
 
         self._grid = Grid()
         self._grid.visible = False
@@ -59,21 +99,86 @@ class Plot(object):
         self.insets = []
 
         self.hideTicks = False
+        """
+        If True, this plot's tick labels are hidden.
+        """
 
         self.latex = False
 
         self.axesLabelSize = None
+        """
+        The size of the text used for labeling the x and y axes.
+        """
+
         self.xTickLabelSize = None
+        """
+        The size of the text used for x-axis tick labels
+        """
+
         self.yTickLabelSize = None
+        """
+        The size of the text used for y-axis tick labels
+        """
 
         self.titleProperties = LabelProperties()
 
         self.tight = False
+        """
+        If True, this plot is auto-scaled so that axis labels don't get cut off.
+        """
 
         self.projection = None
+        """
+        Defines the projection used when drawing this plot. The only currently
+        supported value other than the standard (no projection) is 'polar'.
+        """
+
+    @property
+    def xLimits(self):
+        """
+        A pair giving the minimum and maximum values visible on the x-axis.
+        """
+        return self._xLimits
+
+    @xLimits.setter
+    def xLimits(self, value):
+        if type(value) not in [tuple, list] or len(value) != 2:
+            raise AttributeError("xLimits must be set to a (min, max) tuple")
+
+        self._xLimits = tuple(value)
+
+    @property
+    def yLimits(self):
+        """
+        A pair giving the minimum and maximum values visible on the x-axis.
+        """
+        return self._yLimits
+
+    @yLimits.setter
+    def yLimits(self, value):
+        if type(value) not in [tuple, list] or len(value) != 2:
+            raise AttributeError("yLimits must be set to a (min, max) tuple")
+
+        self._yLimits = value
+
+    @property
+    def legendLabelSize(self):
+        """
+        The size of the text in this plot's legend.
+        """
+
+        return self.legend.labelSize
+
+    @legendLabelSize.setter
+    def legendLabelSize(self, size):
+        setLegendLabelSize(size)
 
     @property
     def grid(self):
+        """
+        A boomslang.Grid.Grid that defines the properties of this plot's grid
+        lines. See :ref:`plots-grid-lines` for configuration options.
+        """
         return self._grid
 
     @grid.setter
@@ -83,8 +188,11 @@ class Plot(object):
         else:
             raise AttributeError("Plot.grid cannot be re-assigned")
 
-
     def setTitleProperties(self, **propList):
+        """
+        Set the properties of the title. See :ref:`styling-labels` for more
+        information about valid properties.
+        """
         self.__setProperties(self.titleProperties, propList)
 
     def __setProperties(self, propsDict, propList):
@@ -110,19 +218,28 @@ class Plot(object):
         self.legend.labelSize = size
 
     def split(self, pieces):
-       splitPlots = [copy.deepcopy(self) for i in xrange(pieces)]
+        """
+        Split this plot into `pieces` separate plots, each showing a different
+        portion of the x-axis
+        """
 
-       for plot in splitPlots:
-           plot.plots = []
+        splitPlots = [copy.deepcopy(self) for i in xrange(pieces)]
 
-       for plot in self.plots:
-           elements = plot.split(pieces)
-           for i in xrange(pieces):
-               splitPlots[i].add(elements[i])
-               splitPlots[i].setXLimits(min(elements[i].xValues), max(elements[i].xValues))
-       return splitPlots
+        for plot in splitPlots:
+            plot.plots = []
+
+        for plot in self.plots:
+            elements = plot.split(pieces)
+            for i in xrange(pieces):
+                splitPlots[i].add(elements[i])
+                splitPlots[i].setXLimits(
+                    min(elements[i].xValues), max(elements[i].xValues))
+        return splitPlots
 
     def getDimensions(self):
+        """
+        Get the dimensions of this plot.
+        """
         if self.width is None:
             (self.width, self.height) = getGoldenRatioDimensions(8.0)
         elif self.height is None:
@@ -134,6 +251,9 @@ class Plot(object):
         self.hideTicks = True
 
     def setDimensions(self, width=None, height=None, dpi=100):
+        """
+        Set the dimensions for this plot to `width` x `height`
+        """
         self.width = width
         self.height = height
         self.dpi = dpi
@@ -151,6 +271,20 @@ class Plot(object):
         self.plots.append(plottableObject)
 
     def addInset(self, plot, **kwargs):
+        """
+        Add `plot` (a Plot object) as an inset to this plot object.
+
+        Valid arguments are as follows:
+
+        ============  ====================================================================================================================
+        Argument      Description
+        ============  ====================================================================================================================
+        ``width``     The width of the inset as a fraction of the size of the parent plot
+        ``height``    The height of the inset as a fraction of the size of the parent plot
+        ``location``  The location of the inset. See :ref:`plots-locations` for valid locations.
+        ``padding``   The amount of padding between the edge of the parent plot and the inset as a fraction of the size of the parent plot
+        ============  ====================================================================================================================
+        """
         inset = Inset(plot, **kwargs)
         self.insets.append(inset)
 
@@ -185,6 +319,14 @@ class Plot(object):
         self.lineColors.append(color)
 
     def addMarker(self, marker):
+        """
+        Add a marker style to the list of marker styles through which the plot
+        will cycle when drawing lines. If no markers are specified, the markers
+        specified by the Line objects themselves will be used.
+
+        Note that, when drawing lines, all line style/color combinations are
+        cycled through with a given marker before a new marker is chosen.
+        """
         if self.markers is None:
             self.markers = []
 
@@ -193,9 +335,8 @@ class Plot(object):
         self.markers.append(currMarker)
 
     def getNumPlots(self):
-        """
-        Get the number of plottable objects currently registered for this plot.
-        """
+        # Get the number of plottable objects currently registered for this
+        # plot.
         return len(self.plots)
 
     def setTwinX(self, label, index, yMin=None, yMax=None):
@@ -223,28 +364,16 @@ class Plot(object):
         self.xFormatter = pylab.FuncFormatter(formatter)
 
     def setXLabel(self, xLabel):
-        """
-        Set the x-axis label.
-        """
         self.xLabel = xLabel
 
     def setYLabel(self, yLabel):
-        """
-        Set the y-axis label.
-        """
         self.yLabel = yLabel
 
     def setXLimits(self, minX, maxX):
-        """
-        Set the minimum and maximum values for the x-axis.
-        """
-        self.xlim = (minX, maxX)
+        self.xLimits = (minX, maxX)
 
     def setYLimits(self, minY, maxY):
-        """
-        Set the minimum and maximum values for the y-axis.
-        """
-        self.ylim = (minY, maxY)
+        self.yLimits = (minY, maxY)
 
     def hasFigLegend(self, columns=1, location="best", scatterPoints=3,
                      draw_frame=True, bbox_to_anchor=None, labelSize=None,
@@ -326,6 +455,9 @@ class Plot(object):
         return layout._doPlot()
 
     def setPlotParameters(self, **kwdict):
+        """
+        Set the margins of this plot. See `matplotlib's SubplotParams documentation <http://matplotlib.sourceforge.net/api/figure_api.html#matplotlib.figure.SubplotParams>`_ for more details. It is recommended that you set :py:attr:`boomslang.Plot.Plot.tight` to True instead of setting these parameters.
+        """
         self.plotParams = dict(kwdict)
 
         if "left" not in self.plotParams:
@@ -493,20 +625,20 @@ class Plot(object):
                 plotLabels.extend([currPlotLabels[x] for x in labelIndices])
 
             if plotInfo.xLimits is not None:
-                if self.xlim is None:
-                    self.xlim = plotInfo.xLimits
+                if self.xLimits is None:
+                    self.xLimits = plotInfo.xLimits
                 else:
                     (myXMin, myXMax) = plotInfo.xLimits
-                    self.xlim = (min(self.xlim[0], myXMin),
-                                 max(self.xlim[1], myXMax))
+                    self.xLimits = (min(self.xLimits[0], myXMin),
+                                 max(self.xLimits[1], myXMax))
 
             i += 1
 
-        if self.xlim is not None:
-            ax.set_xlim(xmin=self.xlim[0], xmax=self.xlim[1])
+        if self.xLimits is not None:
+            ax.set_xlim(xmin=self.xLimits[0], xmax=self.xLimits[1])
 
-        if self.ylim is not None:
-            ax.set_ylim(ymin=self.ylim[0], ymax=self.ylim[1])
+        if self.yLimits is not None:
+            ax.set_ylim(ymin=self.yLimits[0], ymax=self.yLimits[1])
 
 
         if self.xLabel is not None:

@@ -6,15 +6,38 @@ from boomslang import PlotLayout
 from Utils import getGoldenRatioDimensions, _check_min_matplotlib_version
 
 class WeightedPlotLayout(PlotLayout):
+    """
+    A more sophisticated version of :class:`boomslang.PlotLayout.PlotLayout`
+    that allows some plots to be wider than others.
+
+    Like PlotLayout, WeightedPlotLayout allows plots to be grouped together
+    into named groupings, with one grouping per row.  However, it does not have
+    a fixed width in number of plots to guide layout. Instead, the _weights_ of
+    the plots in a grouping determine how wide each plot in the grouping
+    is. Any plot that has no grouping or is the only plot in its grouping will
+    take up an entire row regardless of its weight.
+
+    For example, if there are two plots in a grouping and both plots have
+    weight 1, they will each take up half the row. If one of the plots has
+    weight 2 and the other has weight 1, the first plot will take up 2/3 of the
+    row and the second will take up the remaining 1/3.
+    """
     def __init__(self):
         super(WeightedPlotLayout,self).__init__()
         self.groupedWeights = {}
         self.weights = []
+
         self.figTitle = None
+
         self.usePlotParams = False # Include plot's parameters in
                                    # computing layout.
 
     def addPlot(self, plot, grouping=None, weight=1):
+        """
+        Add `plot` to the layout, optionally grouping it with all other plots
+        added to the group `grouping`. `weight` denotes the plot's weight
+        within its grouping.
+        """
         super(WeightedPlotLayout,self).addPlot(plot, grouping=grouping)
 
         if grouping not in self.groupedWeights:
@@ -56,12 +79,6 @@ class WeightedPlotLayout(PlotLayout):
             figWidth *= maxRowLength
             figHeight *= numRows
             fig = pyplot.figure(figsize=(figWidth, figHeight))
-            # figWidth = fig.get_figwidth()
-            # print figWidth
-            # print fig.get_figheight()
-            # (goldenWidth, goldenHeight) = getGoldenRatioDimensions(figWidth)
-            # fig.set_figheight(goldenHeight)
-            # print fig.get_figheight()
 
         plotHandles = []
         plotLabels = []

@@ -9,9 +9,11 @@ re-usable, modular plotting code.
 
    intro
    getting_started
+   examples
    plot_elements
    styling
-   examples
-
+   plots
+   layouts
+   utils
 
 .. LocalWords: Boomslang maxdepth genindex modindex

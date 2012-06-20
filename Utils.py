@@ -59,6 +59,47 @@ def getXYValsFromFile(filename, regex, postFunction=None,
     return [xValues, yValues]
 
 def getLinesFromFile(filename, regex, postFunction=None, autofillXValues=False):
+    """
+    Turn a regularly-structured file into a collection of
+    :class:`boomslang.Line.Line` objects.
+
+    Parses each line in `filename` using the regular expression `regex`. By
+    default, the first matching group from the regular expression gives the
+    x-axis value for a set of points and all subsequent matching groups give
+    the y-axis values for each line. If `postFunction` is not None, it is a
+    function that is applied to the matching groups before they are inserted
+    into the lines. If `autofillXValues` is True, all matching groups are
+    treated as y-axis values for lines and the x-axis value is the line number,
+    indexed from 0.
+
+    Returns a list of :class:`boomslang.Line.Line` objects.
+
+    **Example:** Suppose I had a file `blah.txt` that looked like this::
+
+       1980 - 1, 2, 3
+       1981 - 4, 5, 6
+       1982 - 7, 8, 9
+
+    The snippet below shows the result of running :py:func:`boomslang.Utils.getLinesFromFile` on `blah.txt`:
+
+       >>> lines = boomslang.Utils.getLinesFromFile("blah.txt", "(\d+) - (\d+), (\d+), (\d+)")
+       >>> len(lines)
+       3
+       >>> lines[0].xValues
+       [1980, 1981, 1982]
+       >>> lines[1].xValues
+       [1980, 1981, 1982]
+       >>> lines[2].xValues
+       [1980, 1981, 1982]
+       >>> lines[0].yValues
+       [1, 4, 7]
+       >>> lines[1].yValues
+       [2, 5, 8]
+       >>> lines[1].yValues
+       [3, 6, 9]
+
+    """
+
     (xValues, yValues) = getXYValsFromFile(filename, regex, postFunction,
                                            autofillXValues)
 
@@ -72,6 +113,15 @@ def getLinesFromFile(filename, regex, postFunction=None, autofillXValues=False):
     return lines
 
 def getBarsFromFile(filename, regex, postFunction=None, autofillXValues=False):
+    """
+    Turns a regularly-structured file into a collection of
+    :class:`boomslang.Bar.Bar` objects.
+
+    For more details on arguments, see :py:func:`getLinesFromFile`.
+
+    Returns a list of :class:`boomslang.Bar.Bar` objects.
+    """
+
     (xValues, yValues) = getXYValsFromFile(filename, regex, postFunction,
                                            autofillXValues)
 
@@ -85,6 +135,11 @@ def getBarsFromFile(filename, regex, postFunction=None, autofillXValues=False):
     return bars
 
 def cdf(values):
+    """
+    Returns a :class:`boomslang.Line.Line` representing the CDF of the list of
+    values given in `values`.
+    """
+
     line = Line()
     cdfValues = values[:]
     cdfValues.sort()
@@ -101,6 +156,11 @@ def getCDF(values):
     return cdf(values)
 
 def histogram(values, binSize):
+    """
+    Returns a :class:`boomslang.Line.Line` representing a histogram of the list
+    of values given in `values` with bin size `binSize`.
+    """
+
     line = Line()
     line.stepFunction('post')
 

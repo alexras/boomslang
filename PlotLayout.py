@@ -7,12 +7,22 @@ from boomslang_exceptions import BoomslangPlotRenderingException
 from Utils import getGoldenRatioDimensions, _check_min_matplotlib_version
 
 class PlotLayout(object):
+    """
+    Displays multiple :class:`boomslang.Plot.Plot` objects in one canvas in a
+    grid, allowing the user to group related Plots in the same row.
+    """
+
     def __init__(self):
         self.groupedPlots = {}
         self.plots = []
-        self.groupOrder = None
 
-        self.width = 1
+        self.groupOrder = None
+        """
+        If not None, a list of groups in order by the order in which they
+        should be displayed
+        """
+
+        self._width = 1
         self.plotParams = None
 
         self.dimensions = None
@@ -50,6 +60,17 @@ class PlotLayout(object):
     def setWidth(self, width):
         self.width = int(width)
 
+    @property
+    def width(self):
+        """
+        The width, in number of plots, of the layout.
+        """
+        return self._width
+
+    @width.setter
+    def width(self, width):
+        self._width = int(width)
+
     def hasFigLegend(self, loc="best", columns=1, numcols=None):
         if numcols is not None:
             # hasLegend uses columns, rather than numcols.
@@ -62,6 +83,11 @@ class PlotLayout(object):
         self.figLegendCols = columns
 
     def addPlot(self, plot, grouping=None):
+        """
+        Add `plot` (a :class:`boomslang.Plot.Plot`) to the layout. Optionally,
+        specify a group name with `grouping`. Plots grouped in the same
+        grouping are drawn on the same row of the grid.
+        """
         if grouping == None:
             self.plots.append(plot)
         else:
@@ -74,10 +100,18 @@ class PlotLayout(object):
         self.groupOrder = groupOrder
 
     def setPlotDimensions(self, x, y, dpi=100):
+        """
+        Set the dimensions of each plot in the layout to be `x` by `y`.
+        """
         self.dimensions = (x,y)
         self.dpi = dpi
 
     def setFigureDimensions(self, x, y, dpi=100):
+        """
+        Set the dimensions of the layout to be `x` by `y`. This overrides any
+        values set with
+        :py:func:`boomslang.PlotLayout.PlotLayout.setPlotDimensions`.
+        """
         self.figdimensions = (x,y)
         self.dpi = dpi
 
@@ -254,6 +288,9 @@ class PlotLayout(object):
         return plot.subplot(fig, rows, cols, pos, projection)
 
     def plot(self):
+        """
+        Draw this layout to a matplotlib canvas.
+        """
         fig = self._doPlot()
         if not pylab.isinteractive():
             pylab.show()
@@ -262,6 +299,9 @@ class PlotLayout(object):
         pylab.close(fig)
 
     def save(self, filename, **kwargs):
+        """
+        Save this layout to a file.
+        """
         tempDisplayHack = False
 
         if "DISPLAY" not in os.environ:

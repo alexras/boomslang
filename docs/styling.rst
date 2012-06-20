@@ -42,12 +42,14 @@ Vertical Lines                                 ``|``, "vline", "vlines", "vertic
 Horizontal Lines                               ``_``, "hline", "hlines", "horizontal line", "horizontal lines"
 =========================================     ====================================================================
 
+.. _styling-labels:
+
 Labels
 ------
 
 Labels include things like tick labels (the numbers on the axes themselves),
 axis labels (labels that apply to an entire axis), and the
-:ref:`boomslang.Label.Label` plot element. They can also be styled in a number
+:class:`boomslang.Label.Label` plot element. They can also be styled in a number
 of different ways.
 
 Valid label style properties are as follows:
