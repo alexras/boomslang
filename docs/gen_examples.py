@@ -32,6 +32,8 @@ examples.sort(key = lambda x: x[1]["width"])
 with open("examples.rst", 'w+') as fp:
     print >>fp,"""
 
+.. _examples-gallery:
+
 Examples
 ========
 
@@ -58,9 +60,10 @@ for (example_name, example_info) in examples:
 
 .. image:: %s
 
+Back to :ref:`examples-gallery`
+
 .. code-block:: python
     :linenos:
-
 
 """ % (example_info["image"])
 
