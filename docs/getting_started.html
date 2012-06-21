@@ -1,0 +1,176 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Getting Started &mdash; Boomslang 0.6b documentation</title>
+    
+    <link rel="stylesheet" href="_static/style.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.6b',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Boomslang 0.6b documentation" href="index.html" />
+    <link rel="next" title="Examples" href="examples.html" />
+    <link rel="prev" title="Introduction" href="intro.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="Examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Boomslang 0.6b documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/boomslang_logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Getting Started</a><ul>
+<li><a class="reference internal" href="#design-principles">Design Principles</a></li>
+<li><a class="reference internal" href="#writing-your-first-boomslang-script">Writing your First Boomslang Script</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="intro.html"
+                        title="previous chapter">Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="examples.html"
+                        title="next chapter">Examples</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/getting_started.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
+<p>Boomslang is designed to make creating common kinds of plots easier. In this section of the documentation, we&#8217;ll look at how Boomslang tries to do that and how to start building plots with Boomslang.</p>
+<div class="section" id="design-principles">
+<h2>Design Principles<a class="headerlink" href="#design-principles" title="Permalink to this headline">¶</a></h2>
+<p><strong>Plotting code should be reusable and modular.</strong> Traditional wisdom holds that a plot&#8217;s axes and the things that are plotted on those axes (lines, points, bars) are inseparable. Boomslang chooses to separate the axes (which we call a <em>plot</em>) from the things that are drawn on those axes (which we call <em>plot elements</em>).</p>
+<p><strong>Matplotlib is complicated. Boomslang should be easy.</strong> Matplotlib is an extremely powerful library, but its power comes at a cost in terms of complexity. Boomslang aims to abstract most or all of that complexity away from the end user.</p>
+<p><strong>Boomslang is not Matplotlib.</strong> There are many kinds of graphs that Matplotlib can generate and Boomslang cannot. Boomslang&#8217;s goal is not to be a general-purpose figure plotting engine, but to provide an easier alternative to Matplotlib for plots that people find themselves wanting to generate the majority of the time.</p>
+</div>
+<div class="section" id="writing-your-first-boomslang-script">
+<h2>Writing your First Boomslang Script<a class="headerlink" href="#writing-your-first-boomslang-script" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s walk through a simple example of how to use Boomslang. Consider the code below:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">line</span> <span class="o">=</span> <span class="n">Line</span><span class="p">()</span>
+<span class="n">line</span><span class="o">.</span><span class="n">yValues</span> <span class="o">=</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
+<span class="n">line</span><span class="o">.</span><span class="n">xValues</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">yValues</span><span class="p">))</span>
+
+<span class="n">plot</span> <span class="o">=</span> <span class="n">Plot</span><span class="p">()</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">xLabel</span> <span class="o">=</span> <span class="s">&quot;X Label&quot;</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">yLabel</span> <span class="o">=</span> <span class="s">&quot;Y Label&quot;</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">yLimits</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">60</span><span class="p">)</span>
+<span class="n">plot</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&quot;simpleline.png&quot;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></div>
+<p>On line 1, we create a plot element, in this case a <tt class="docutils literal"><span class="pre">Line</span></tt>. Plot elements are
+simply objects that know how to draw themselves. The values of their fields
+determines what gets drawn. In this case, we&#8217;re setting the line&#8217;s x and y
+values. We could also set things like the line&#8217;s color, width, and whether it
+is dashed or dotted. See the API documentation for more information on the
+different kind of plot elements and their properties.</p>
+<p>On line 4, we create a <tt class="docutils literal"><span class="pre">Plot</span></tt>. You can think of plots as containers for plot
+elements, but also as objects that know how to draw themselves. On line 5, we
+add the line to the plot using the <tt class="docutils literal"><span class="pre">Plot.add()</span></tt> method.</p>
+<p>The next few lines do things like setting the labels of the plot&#8217;s X and Y
+axes, and setting bounds on the Y axis.</p>
+<p>The last line saves the plot to a file. This feature uses Matplotlib&#8217;s
+underlying save functionality, and can support a wide range of formats. If you
+want an interactive view of the plot, you could call <tt class="docutils literal"><span class="pre">plot.plot()</span></tt>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="examples.html" title="Examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="intro.html" title="Introduction"
+             >previous</a> |</li>
+        <li><a href="index.html">Boomslang 0.6b documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Alex Rasmussen.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Boomslang - Simple, Re-Usable Plots</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/text.css" />
+    <link rel="stylesheet" href="css/960.css" />
+    <link rel="stylesheet" href="css/boomslang.css" />
+    <link rel="stylesheet" href="css/googlecode.css" />
+    <script src="highlight.pack.js"></script>
+
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+  </head>
+  <body>
+    <div class="container_12" id="outmost">
+      <div class="grid_4">
+        <img src="static/boomslang_logo.png" alt="Boomslang Logo" />
+      </div>
+      <div class="grid_8">
+        <h1>Boomslang</h1>
+        <span id="title_sub">Simple, Re-Usable Plots</span>
+      </div>
+      <div class="grid_4 prefix_2" id="example_code">
+        <pre>
+          <code class="python">
+from boomslang import Line, Plot
+
+plot = Plot()
+plot.projection = 'polar'
+
+r = arange(0,1,0.001)
+theta = 2*2*pi*r
+
+line = Line()
+line.xValues = theta
+line.yValues = r
+plot.add(line)
+plot.save("projection.png")</code>
+        </pre>
+      </div>
+      <div class="grid_4 suffix_2" id="example_figure">
+        <img src="static/projection.png" />
+      </div>
+      <div class="grid_12 key_idea">
+        <h2>Modular, Reusable, Painless Plotting</h2>
+        <p><strong>Boomslang</strong> is a thin layer
+        over <a href="http://matplotlib.github.com/">Matplotlib</a> designed to
+        create common kinds of plots quickly and easily. I wrote Boomslang when
+        I was making a lot of plots for research papers, where requirements
+        change all the time and page limits sometimes require merging plots
+        together. Boomslang's key feature is the separation of <em>plot
+        elements</em> from the plots themselves, allowing you to pass plot
+        elements around, move them between plots, and otherwise operate on them
+        like you would any other Python object.</p>
+      </div>
+      <div class="grid_6 big_link">
+        <a href="docs/">Read the Docs</a>
+      </div>
+      <div class="grid_6 big_link">
+        <a href="https://www.github.com/alexras/boomslang/">Get the Code</a>
+      </div>
+    </div>
+  </body>
+</html>

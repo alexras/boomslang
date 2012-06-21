@@ -1,0 +1,40 @@
+/* Boomslang stylesheet */
+
+h1 {
+    font-size: 64pt;
+    margin-bottom: -.4em;
+}
+
+code {
+    font-size: 12pt;
+}
+
+div#outmost {
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+
+div.big_link {
+    font-size: 36pt;
+    text-align: center;
+}
+
+div#example_figure img {
+    z-index: -1;
+    height: 400px;
+}
+
+div#example_code {
+    vertical-align: top;
+}
+
+div.key_idea {
+    font-size: 14pt;
+}
+
+span#title_sub {
+    font-size: 24pt;
+    color: #00dd00;
+    margin-top: 0;
+    padding-top: 0;
+    margin-left: 1em;
+}
