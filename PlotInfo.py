@@ -124,8 +124,8 @@ class PlotInfo(object):
 
         self.autosort = autosort
         """
-        If true, x/y pairs in :attrs:`xValues` and :attrs:`yValues` are sorted
-        by x value before the plot is rendered
+        If true, x/y pairs in :py:attr:`xValues` and :py:attr:`yValues` are
+        sorted by x value before the plot is rendered
         """
 
         self.xLimits = xLimits
