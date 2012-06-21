@@ -9,7 +9,8 @@ class Line(PlotInfo):
     """
     A plot element that represents a line in two-dimensional space
     """
-    steps = StepType("steps")
+
+    _steps = StepType("steps")
 
     def __init__(self,
                  color='black',
@@ -52,11 +53,6 @@ class Line(PlotInfo):
         self.loglog = loglog
 
         self.steps = steps
-        """
-        If not None, the line will be plotted as a step function. If "pre",
-        each point comes before a step. If "mid", each point is in the middle
-        of a step. If "post", each point comes after a step.
-        """
 
         self.alpha = alpha
 
@@ -65,6 +61,19 @@ class Line(PlotInfo):
         If True, the line will be anti-aliased, removing jagged edges in some
         output formats
         """
+
+    @property
+    def steps(self):
+        """
+        If not None, the line will be plotted as a step function. If "pre",
+        each point comes before a step. If "mid", each point is in the middle
+        of a step. If "post", each point comes after a step.
+        """
+        return self._steps
+
+    @steps.setter
+    def steps(self, val):
+        self._steps = val
 
     @property
     def lineStyle(self):
