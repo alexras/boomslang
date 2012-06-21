@@ -15,5 +15,6 @@ re-usable, modular plotting code.
    plots
    layouts
    utils
+   django
 
 .. LocalWords: Boomslang maxdepth genindex modindex
