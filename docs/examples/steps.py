@@ -10,9 +10,9 @@ def generatePlot(stepType):
 
     plot = Plot()
     plot.add(line)
-    plot.setTitle(r'"%s" Steps' % (stepType))
-    plot.setXLimits(0, 6)
-    plot.setYLimits(0, 6)
+    plot.title = r'"%s" Steps' % (stepType)
+    plot.xLimits = (0, 6)
+    plot.yLimits = (0, 6)
 
     return plot
 
@@ -25,5 +25,5 @@ layout.width = 1
 layout.addPlot(prePlot)
 layout.addPlot(midPlot)
 layout.addPlot(postPlot)
-layout.setPlotParameters(top=0.96, bottom=0.04)
+
 layout.save("steps.png")

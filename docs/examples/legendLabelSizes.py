@@ -4,28 +4,26 @@ line.yValues = [2,3,5,7,9]
 line.label = "A Line"
 
 linePlot1 = Plot()
-linePlot1.setTitle("Small Legend")
+linePlot1.title = "Small Legend"
 linePlot1.add(line)
 linePlot1.hasLegend()
-linePlot1.setLegendLabelSize(10)
+linePlot1.legendLabelSize = 10
 
 linePlot2 = Plot()
-linePlot2.setTitle("Large Legend")
+linePlot2.title = "Large Legend"
 linePlot2.add(line)
 linePlot2.hasLegend()
-linePlot2.setLegendLabelSize(30)
+linePlot2.legendLabelSize = 30
 
 linePlot3 = Plot()
-linePlot3.setTitle("Inherited from Layout")
+linePlot3.title = "Inherited from Layout"
 linePlot3.add(line)
 linePlot3.hasLegend()
 
 layout = PlotLayout()
-layout.setWidth(2)
+layout.width = 2
 layout.addPlot(linePlot1)
 layout.addPlot(linePlot2)
 layout.addPlot(linePlot3)
-layout.setLegendLabelSize(15)
-layout.setPlotParameters(left=0.03, bottom=0.03,
-                         right=0.98, top=0.94)
-layout.plot()
+layout.legendLabelSize = 15
+layout.save("legendLabelSizes.png")

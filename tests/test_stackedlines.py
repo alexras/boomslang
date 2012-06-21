@@ -27,8 +27,8 @@ class StackedLinesTest(ImageComparisonTestCase, unittest.TestCase):
         stack.addLine(line3, "blue")
 
         plot = Plot()
-        plot.setYLimits(0, 7)
-        plot.setXLimits(0, 9)
+        plot.xLimits = (0, 9)
+        plot.yLimits = (0, 7)
         plot.add(stack)
         plot.save(self.imageName)
 

@@ -45,6 +45,6 @@ cluster.xTickLabels = ["1", "2", "3", "4", "5"]
 plot = Plot()
 plot.add(cluster)
 plot.hasLegend()
-plot.setXLabel('Nested Cars')
-plot.setYLabel('Party (lampshades)')
+plot.xLabel = 'Nested Cars'
+plot.yLabel = 'Party (lampshades)'
 plot.save("clusteredstackedbars.png")

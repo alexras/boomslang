@@ -4,7 +4,7 @@ line.xValues = range(len(line.yValues))
 
 plot = Plot()
 plot.add(line)
-plot.setXLabel("X Label")
-plot.setYLabel("Y Label")
-plot.setYLimits(0, 60)
+plot.xLabel = "X Label"
+plot.yLabel = "Y Label"
+plot.yLimits = (0, 60)
 plot.save("simpleline.png")

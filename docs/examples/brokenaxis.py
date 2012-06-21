@@ -5,7 +5,7 @@ bar.xValues = range(5)
 bar.yValues = [2, 12, 3, 18.5, 13]
 
 plot.add(bar)
-plot.setXLabel("Widget ID")
-plot.setYLabel("# Widgets Sold")
+plot.xLabel = "Widget ID"
+plot.yLabel = "# Widgets Sold"
 
 plot.save("brokenaxis.png")

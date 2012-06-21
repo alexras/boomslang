@@ -31,10 +31,10 @@ class ErrorBarsTest(ImageComparisonTestCase, unittest.TestCase):
 
         plot.add(line)
         plot.add(line2)
-        plot.setXLabel("X Label")
-        plot.setYLabel("Y Label")
+        plot.xLabel = "X Label"
+        plot.yLabel = "Y Label"
         plot.hasLegend()
-        plot.setXLimits(-1, 13)
+        plot.xLimits = (-1, 13)
         plot.save(self.imageName)
 
 ImageComparisonTestCase.register(ErrorBarsTest)

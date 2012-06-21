@@ -49,14 +49,14 @@ class TickStylesTest(ImageComparisonTestCase, unittest.TestCase):
         line.yTickLabelProperties["color"] = "red"
 
         plot.add(line)
-        plot.setTitle("Craaazy Title")
-        plot.setTitleProperties(style="italic", weight="bold", rotation="5",
-                                color="orange")
-        plot.setXLabel("X Label")
-        plot.setYLabel("Y Label")
-        plot.setYLimits(0, 60)
-
-        plot.setPlotParameters(bottom=.15, left=0.15)
+        plot.title = "Craaazy Title"
+        plot.setTitleProperties(
+            style="italic", weight="bold", rotation="5",
+            color="orange")
+        plot.xLabel = "X Label"
+        plot.yLabel = "Y Label"
+        plot.yLimits = (0, 60)
+        plot.tight = True
 
         plot.save(self.imageName)
 

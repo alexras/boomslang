@@ -27,8 +27,8 @@ class TwinXTest(ImageComparisonTestCase, unittest.TestCase):
         plot = Plot()
         plot.add(line1)
         plot.add(line2)
-        plot.setXLabel("Shared X Axis")
-        plot.setYLabel("First Plot's Y Axis")
+        plot.xLabel = "Shared X Axis"
+        plot.yLabel = "First Plot's Y Axis"
         plot.setTwinX("Second Plot's Y Axis", 1)
         plot.hasLegend()
 

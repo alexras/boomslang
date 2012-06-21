@@ -6,10 +6,10 @@ line.yValues = numpy.cos(.02 * numpy.pi * line.xValues)
 
 plot = Plot()
 plot.add(line)
-plot.setXLimits(0, 150)
-plot.setYLimits(-1, 1)
-plot.setXLabel("X")
-plot.setYLabel("cos(X)")
+plot.xLimits = (0, 150)
+plot.yLimits = (-1, 1)
+plot.xLabel = "X"
+plot.yLabel = "cos(X)"
 splitPlots = plot.split(2)
 
 layout = PlotLayout()

@@ -36,7 +36,7 @@ class StackedBarTest(ImageComparisonTestCase, unittest.TestCase):
 
         plot = Plot()
         plot.add(stackedBars)
-        plot.setYLimits(0, 15)
+        plot.yLimits = (0, 15)
         plot.hasLegend()
         plot.save(self.imageName)
 

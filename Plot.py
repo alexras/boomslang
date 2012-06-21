@@ -171,7 +171,7 @@ class Plot(object):
 
     @legendLabelSize.setter
     def legendLabelSize(self, size):
-        setLegendLabelSize(size)
+        self.setLegendLabelSize(size)
 
     @property
     def grid(self):

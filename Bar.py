@@ -45,7 +45,8 @@ class Bar(PlotInfo):
 
         self.hatch = hatch
         """
-        The style of hatching used within the bar, if any
+        The style of hatching used within the bar, if any. Valid values are any
+        marker type, ``/``, ``//``, ``\`` and ``\\``
         """
 
         self.align = align

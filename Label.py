@@ -26,14 +26,8 @@ class Label(PlotInfo):
         """
 
         self.textX = x
-        """
-        The x coordinate at which the text for the label should be drawn
-        """
 
         self.textY = y
-        """
-        The y coordinate at which the text for the label should be drawn
-        """
 
         self.arrow = None
 
@@ -57,9 +51,34 @@ class Label(PlotInfo):
     def marker(self, value):
         self._marker.marker = value
 
+
+    @property
+    def textOffset(self):
+        return (self.textX - self.x, self.textY - self.y)
+
+    @textOffset.setter
+    def textOffset(self, offset):
+        if type(offset) not in [tuple, list] or len(offset) != 2:
+            raise AttributeError, "Expected a two-element tuple when " \
+                "setting textOffset"
+
+        self.setTextOffset(offset[0], offset[1])
+
     def setTextOffset(self, x, y):
         self.textX = self.x + x
         self.textY = self.y + y
+
+    @property
+    def textPosition(self):
+        return (self.textX, self.textY)
+
+    @textPosition.setter
+    def textPosition(self, pos):
+        if type(pos) not in [tuple, list] or len(pos) != 2:
+            raise AttributeError, "Expected a two-element tuple when " \
+                "setting textOffset"
+
+        self.setTextPosition(pos[0], pos[1])
 
     def setTextPosition(self, x, y):
         self.textX = x

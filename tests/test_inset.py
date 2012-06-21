@@ -25,7 +25,7 @@ class InsetTest(ImageComparisonTestCase, unittest.TestCase):
         inset = Plot()
         inset.add(lines[1])
         inset.hideTickLabels()
-        inset.setTitle("Inset in Yo Inset\nSo You Can Inset\nWhile You Inset")
+        inset.title = ("Inset in Yo Inset\nSo You Can Inset\nWhile You Inset")
 
         insideInset = Plot()
         insideInset.hideTickLabels()

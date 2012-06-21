@@ -17,10 +17,10 @@ class SplitTest(ImageComparisonTestCase, unittest.TestCase):
 
         plot = Plot()
         plot.add(line)
-        plot.setXLimits(0, 150)
-        plot.setYLimits(-1, 1)
-        plot.setXLabel("X")
-        plot.setYLabel("cos(X)")
+        plot.xLimits = (0, 150)
+        plot.yLimits = (-1, 1)
+        plot.xLabel = "X"
+        plot.yLabel = "cos(X)"
         splitPlots = plot.split(2)
 
         layout = PlotLayout()

@@ -14,7 +14,7 @@ plot.add(lines[0])
 inset = Plot()
 inset.add(lines[1])
 inset.hideTickLabels()
-inset.setTitle("Inset in Yo Inset\n"
+inset.title = ("Inset in Yo Inset\n"
                "So You Can Inset\n"
                "While You Inset")
 

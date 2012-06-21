@@ -21,7 +21,7 @@ line2.yErrors = [3, 6, 5, 3, 5, 4]
 
 plot.add(line)
 plot.add(line2)
-plot.setXLabel("X Label")
-plot.setYLabel("Y Label")
+plot.xLabel = "X Label"
+plot.yLabel = "Y Label"
 plot.hasLegend()
 plot.save("errorbars.png")

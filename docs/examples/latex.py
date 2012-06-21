@@ -6,16 +6,14 @@ line.yValues = [0, 1, 4, 9, 16, 25,
 
 plot = Plot()
 plot.useLatexLabels()
-plot.setXLabel(r"$x$")
-plot.setYLabel(r"$f(x) = x^2$")
-plot.setTitle(
+plot.xLabel = r"$x$"
+plot.yLabel = r"$f(x) = x^2$"
+plot.title = (
     r"LaTeX is Number $\sum_{n=1}^{\infty}"
     "\frac{-e^{i\pi}}{2^n}$")
 plot.add(line)
+plot.tight = True
+plot.axesLabelSize = 18
 
-layout = PlotLayout()
-layout.addPlot(plot)
+plot.save("latex.png")
 
-layout.setAxesLabelSize(18)
-layout.setPlotParameters(top=0.84)
-layout.save("latex.png")

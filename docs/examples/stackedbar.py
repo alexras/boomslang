@@ -25,6 +25,6 @@ stackedBars.xTickLabels = ["A", "B", "C", "D", "E"]
 
 plot = Plot()
 plot.add(stackedBars)
-plot.setYLimits(0, 15)
+plot.yLimits = (0, 15)
 plot.hasLegend()
 plot.save("stackedbar.png")
