@@ -32,7 +32,7 @@ class StepsTest(ImageComparisonTestCase, unittest.TestCase):
         postPlot = generatePlot("post")
 
         layout = PlotLayout()
-        layout.width = 1
+        layout.width = 3
         layout.addPlot(prePlot)
         layout.addPlot(midPlot)
         layout.addPlot(postPlot)
