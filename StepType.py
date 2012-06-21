@@ -8,7 +8,7 @@ class StepType(object):
         if value not in StepType.validStepTypes:
             raise ValueError(
                 "%s is not a valid step type. Valid step types are %s" \
-                    % (value, ", ".join(StepType.validStepTypes)))
+                    % (value, ", ".join(map(str, StepType.validStepTypes))))
 
         instance.__dict__[self.name] = value
 
