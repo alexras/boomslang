@@ -6,7 +6,7 @@ h1 {
 }
 
 code {
-    font-size: 12pt;
+    font-size: 11pt;
 }
 
 div#outmost {
@@ -20,7 +20,7 @@ div.big_link {
 
 div#example_figure img {
     z-index: -1;
-    height: 400px;
+    height: 350px;
 }
 
 div#example_code {
@@ -28,7 +28,7 @@ div#example_code {
 }
 
 div.key_idea {
-    font-size: 14pt;
+    font-size: 13pt;
 }
 
 span#title_sub {
