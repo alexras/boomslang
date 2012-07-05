@@ -40,6 +40,9 @@ class Plot(object):
         The label for the plot's x-axis
         """
 
+        self._xLabelProperties = LabelProperties()
+        self._yLabelProperties = LabelProperties()
+
         self.legend = None
 
         self._xLimits = None
@@ -132,6 +135,32 @@ class Plot(object):
         Defines the projection used when drawing this plot. The only currently
         supported value other than the standard (no projection) is 'polar'.
         """
+
+    @property
+    def xLabelProperties(self):
+        """
+        A dictionary of properties that control the appearance of the X axis'
+        axis label. See :class:`boomslang.LabelProperties.LabelProperties` for
+        more information on which properties can be set.
+        """
+        return self._xLabelProperties
+
+    @xLabelProperties.setter
+    def xLabelProperties(self, propsobj):
+        self._xLabelProperties.update(propsobj)
+
+    @property
+    def yLabelProperties(self):
+        """
+        A dictionary of properties that control the appearance of the Y axis'
+        axis label. See :class:`boomslang.LabelProperties.LabelProperties` for
+        more information on which properties can be set.
+        """
+        return self._yLabelProperties
+
+    @yLabelProperties.setter
+    def yLabelProperties(self, propsobj):
+        self._yLabelProperties.update(propsobj)
 
     @property
     def xLimits(self):
@@ -642,10 +671,10 @@ class Plot(object):
 
 
         if self.xLabel is not None:
-            ax.set_xlabel(self.xLabel)
+            ax.set_xlabel(self.xLabel, **self.xLabelProperties)
 
         if self.yLabel is not None:
-            ax.set_ylabel(self.yLabel)
+            ax.set_ylabel(self.yLabel, **self.yLabelProperties)
 
         if self.legend is not None:
             if len(plotHandles) == 0:
