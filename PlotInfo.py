@@ -140,8 +140,8 @@ class PlotInfo(object):
     def xTickLabelProperties(self):
         """
         A dictionary of properties that control the appearance of the X axis'
-        tick labels. See :class:`boomslang.LabelProperties.LabelProperties` for
-        more information on which properties can be set.
+        tick labels. See :ref:`styling-labels` for more information on which
+        properties can be set.
         """
 
         return self._xTickLabelProperties
@@ -159,8 +159,8 @@ class PlotInfo(object):
     def yTickLabelProperties(self):
         """
         A dictionary of properties that control the appearance of the Y axis'
-        tick labels. See :class:`boomslang.LabelProperties.LabelProperties` for
-        more information on which properties can be set.
+        tick labels. See :ref:`styling-labels` for more information on which
+        properties can be set.
         """
 
         return self._yTickLabelProperties

@@ -140,8 +140,8 @@ class Plot(object):
     def xLabelProperties(self):
         """
         A dictionary of properties that control the appearance of the X axis'
-        axis label. See :class:`boomslang.LabelProperties.LabelProperties` for
-        more information on which properties can be set.
+        axis label. See :ref:`styling-labels` for more information on which
+        properties can be set.
         """
         return self._xLabelProperties
 
@@ -153,8 +153,8 @@ class Plot(object):
     def yLabelProperties(self):
         """
         A dictionary of properties that control the appearance of the Y axis'
-        axis label. See :class:`boomslang.LabelProperties.LabelProperties` for
-        more information on which properties can be set.
+        axis label. See :ref:`styling-labels` for more information on which
+        properties can be set.
         """
         return self._yLabelProperties
 
