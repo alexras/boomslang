@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='boomslang',
-      version='0.6b',
+      version='1.0',
       download_url='http://boomslang.googlecode.com/files/boomslang-0.6b.tar.gz',
       description='A thin layer over matplotlib that simplifies creation of common plots',
       long_description='''I created Boomslang to decrease the amount of boilerplate
@@ -23,7 +23,7 @@ code.''',
                      Natural Language :: English
                      Operating System :: OS Independent
                      Programming Language :: Python
-                     Programming Language :: Python :: 2.5
+                     Programming Language :: Python :: 2.7
                      Topic :: Software Development :: Libraries :: Python Modules
                      """.splitlines() if f.strip()],
       license='BSD',
