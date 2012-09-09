@@ -192,8 +192,13 @@ def _check_min_matplotlib_version(*min_version_pieces):
         else:
             return int(piece)
 
+    def trimrc(ver):
+        if ver.endswith('rc'):
+            return ver[:-len('rc')]
+        return ver
+
     version_pieces = [version_piece_to_int(x)
-                      for x in matplotlib.__version__.split('.')]
+                      for x in trimrc(matplotlib.__version__).split('.')]
 
     return _check_min_version(version_pieces, min_version_pieces)
 
