@@ -8,4 +8,3 @@ MANIFEST
 htmlcov
 docs/_build
 .\#*
-docs/examples*.rst
