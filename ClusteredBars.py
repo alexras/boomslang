@@ -29,6 +29,11 @@ class ClusteredBars(PlotInfo):
         The width of each bar in the cluster
         """
 
+        self.deduplicateLegend = True
+        """
+        If multiple legend items have the same key, only show the first one
+        """
+
     def _getWidth(self):
         numBars = len(self.bars)
         if self.barWidth is None or numBars == 0:
@@ -125,9 +130,8 @@ class ClusteredBars(PlotInfo):
                 plotLabels.append(labels[0])
             else:
                 # Assuming StackedBar
-                if i == 0:
-                    plotHandles.extend(handles)
-                    plotLabels.extend(labels)
+                plotHandles.extend(handles)
+                plotLabels.extend(labels)
 
         if self.xTickLabels is not None:
             xMin = self.xTickLabelPoints[0]
@@ -137,5 +141,27 @@ class ClusteredBars(PlotInfo):
             xMax = self._labelTransform(self.bars[0].xValues[-1])
 
         self.xLimits = (xMin - clusterWidth / 2.0, xMax + clusterWidth / 2.0)
+
+        if self.deduplicateLegend:
+            handlesByLabel = {}
+
+            for i in xrange(len(plotHandles)):
+                if (plotLabels[i] is not None and
+                    plotLabels[i] not in handlesByLabel):
+
+                    handlesByLabel[plotLabels[i]] = plotHandles[i]
+
+            handlesToReturn = set(handlesByLabel.values())
+
+            newHandles = []
+            newLabels = []
+
+            for i, handle in enumerate(plotHandles):
+                if handle in handlesToReturn:
+                    newHandles.append(handle)
+                    newLabels.append(plotLabels[i])
+
+            plotHandles = newHandles
+            plotLabels = newLabels
 
         return [plotHandles, plotLabels]
