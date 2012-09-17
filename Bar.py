@@ -55,6 +55,17 @@ class Bar(PlotInfo):
         bar. If `edge`, `xValues` values denote the left edge of each bar.
         """
 
+        self.padding = 0
+        """
+        Amount of padding between the edge of the left- and rightmost bars and
+        the bounding box for the plot
+        """
+
+    def _preDraw(self):
+
+        self.xLimits = ((min(self.xValues) - self.width / 2.0) - self.padding,
+                        (max(self.xValues) + self.width / 2.0) + self.padding)
+
     def draw(self, fig, axis, transform=None):
         super(Bar,self).draw(fig, axis)
 

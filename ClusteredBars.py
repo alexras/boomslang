@@ -34,6 +34,12 @@ class ClusteredBars(PlotInfo):
         If multiple legend items have the same key, only show the first one
         """
 
+        self.padding = 0
+        """
+        Amount of padding between the edge of the left- and rightmost bars and
+        the bounding box for the plot
+        """
+
     def _getWidth(self):
         numBars = len(self.bars)
         if self.barWidth is None or numBars == 0:
@@ -140,7 +146,8 @@ class ClusteredBars(PlotInfo):
             xMin = self._labelTransform(self.bars[0].xValues[0])
             xMax = self._labelTransform(self.bars[0].xValues[-1])
 
-        self.xLimits = (xMin - clusterWidth / 2.0, xMax + clusterWidth / 2.0)
+        self.xLimits = ((xMin - clusterWidth / 2.0) - self.padding,
+                        (xMax + clusterWidth / 2.0) + self.padding)
 
         if self.deduplicateLegend:
             handlesByLabel = {}

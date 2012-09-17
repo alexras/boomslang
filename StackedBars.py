@@ -26,6 +26,11 @@ class StackedBars(PlotInfo):
         The width of the bars in the stack
         """
 
+        self.padding = 0
+        """
+        Amount of padding between the edge of the left- and rightmost bars and
+        the bounding box for the plot
+        """
 
     def _getWidth(self):
         numBars = len(self.bars)
@@ -76,8 +81,9 @@ class StackedBars(PlotInfo):
             self.xValues = self.bars[0].xValues
         self.yValues = xrange(len(self.xValues))
 
-        self.xLimits = (min(self.xValues) - self.barWidth / 2.0,
-                        max(self.xValues) + self.barWidth / 2.0)
+        self.xLimits = (
+            (min(self.xValues) - self.barWidth / 2.0) - self.padding,
+            (max(self.xValues) + self.barWidth / 2.0) + self.padding)
 
         if not self.xTickLabels:
             self.xTickLabels = self.bars[0].xTickLabels
