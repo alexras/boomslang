@@ -29,7 +29,6 @@ help:
 
 clean:
 	-rm -rf $(BUILDDIR)/*
-	rm -f examples*.rst
 
 gen_files:
 	@echo "Generating example .rst files ..."
