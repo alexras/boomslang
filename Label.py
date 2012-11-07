@@ -98,6 +98,14 @@ class Label(PlotInfo):
     def labelProperties(self, propsobj):
         self.labelProperties.update(propsobj)
 
+    @property
+    def rotation(self):
+        return self._labelProperties["rotation"]
+
+    @rotation.setter
+    def rotation(self, value):
+        self._labelProperties["rotation"] = value
+
     def hasArrow(self, style="->", color="black"):
         """
         Defines an arrow between the label's text and its point. Valid arrow
