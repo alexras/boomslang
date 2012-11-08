@@ -1,6 +1,7 @@
 from matplotlib import pyplot
 from PlotInfo import PlotInfo
 from Marker import Marker
+from LabelProperties import LabelProperties
 
 class Label(PlotInfo):
     """
@@ -33,7 +34,7 @@ class Label(PlotInfo):
 
         self._marker = Marker()
 
-        self.rotation = None
+        self._labelProperties = LabelProperties()
 
         if bbox:
             self.bbox = dict(bbox)
@@ -84,6 +85,27 @@ class Label(PlotInfo):
         self.textX = x
         self.textY = y
 
+    @property
+    def labelProperties(self):
+        """
+        A dictionary of properties that control the appearance of the label. See
+        :ref:`styling-labels` for more information on which properties can be
+        set.
+        """
+        return self._labelProperties
+
+    @labelProperties.setter
+    def labelProperties(self, propsobj):
+        self.labelProperties.update(propsobj)
+
+    @property
+    def rotation(self):
+        return self._labelProperties["rotation"]
+
+    @rotation.setter
+    def rotation(self, value):
+        self._labelProperties["rotation"] = value
+
     def hasArrow(self, style="->", color="black"):
         """
         Defines an arrow between the label's text and its point. Valid arrow
@@ -99,7 +121,7 @@ class Label(PlotInfo):
         kwdict["textcoords"] = "data"
         kwdict["arrowprops"] = self.arrow
         kwdict["horizontalalignment"] = "center"
-        kwdict["rotation"] = self.rotation
+        kwdict.update(self.labelProperties)
 
         # For props, see
         # http://matplotlib.sourceforge.net/api/artist_api.html#matplotlib.patches.Rectangle
