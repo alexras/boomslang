@@ -40,6 +40,9 @@ class PlotLayout(object):
 
         self.rcParams[param] = value
 
+    def setTitleSize(self, size):
+        self.__setRCParam("axes.titlesize", size)
+
     def useLatexLabels(self):
         warnings.warn("WARNING: Using LaTeX labels requires dvipng and "
                       "ghostscript")
