@@ -87,4 +87,5 @@ class VLine(PlotInfo):
 
         return [[axis.axvline(x=xValue, **kwdict)
                     for xValue in self.xValues],
-                [self.label for xValue in self.xValues]]
+                [self.label if (index == 0) else None
+                    for index in xrange(len(self.xValues))]]
