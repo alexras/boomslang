@@ -6,11 +6,16 @@ class Grid(object):
     all other plot elements
     """
 
-    def __init__(self, color="#dddddd", style="-", visible=True):
+    def __init__(self, color="#dddddd", style="-", width=0.5, visible=True):
         self.color = color
         """
         The color of the gridlines; see :ref:`styling-colors` for more
         information on available colors.
+        """
+
+        self.lineWidth = width
+        """
+        The width of gridlines.
         """
 
         self._lineStyle = LineStyle()
@@ -43,6 +48,6 @@ class Grid(object):
     def draw(self, fig, axes):
         if self.visible:
             axes.grid(color=self.color, linestyle=self.style,
-                      which=self.which)
+                      which=self.which, linewidth=self.lineWidth)
             # Gridlines should be below plots
             axes.set_axisbelow(True)
