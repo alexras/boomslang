@@ -106,6 +106,11 @@ class Plot(object):
         If True, this plot's tick labels are hidden.
         """
 
+        self.titleSize = None
+        """
+        The size of the text used for plot title.
+        """
+
         self.latex = False
 
         self.axesLabelSize = None
@@ -230,6 +235,9 @@ class Plot(object):
 
     def __str__(self):
         return str(self.__dict__)
+
+    def setTitleSize(self, size):
+        self.titleSize = size
 
     def setAxesLabelSize(self, size):
         self.axesLabelSize = size
@@ -453,6 +461,9 @@ class Plot(object):
 
         if self.plotParams is not None:
             layout.setPlotParameters(**self.plotParams)
+
+        if self.titleSize is not None:
+            layout.setTitleSize(self.titleSize)
 
         if self.latex == True:
             layout.useLatexLabels()
