@@ -1,4 +1,0 @@
-Colors
-======
-
-This is info about colors.

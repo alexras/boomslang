@@ -1,9 +1,0 @@
-@import url("sphinxdoc.css");
-
-div #examples img {
-    max-width: 400px;
-}
-
-img {
-    max-width: 100%;
-}
