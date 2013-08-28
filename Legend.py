@@ -1,13 +1,22 @@
 from Location import Location
-import warnings
+import warnings, itertools
 from Utils import _check_min_matplotlib_version
+
+# Adapted from http://stackoverflow.com/a/10101532
+def _flip(items, ncol):
+    """The items in `items` are listed in column order and displayed across
+    `ncol` columns. Re-order the list so that the items will be displayed
+    across rows rather than down columns."""
+
+    return list(itertools.chain(*[items[i::ncol] for i in range(ncol)]))
 
 class Legend(object):
     location = Location("location")
 
     def __init__(self, columns = 1, scatterPoints = 3, drawFrame = True,
                  location = "best", figLegend = False, labelSize = None,
-                 bboxToAnchor = None, title = None):
+                 bboxToAnchor = None, title = None, leftToRight = False,
+                 labelOrdering = None):
         self.location = location
         self.labelSize = labelSize
         self.columns = columns
@@ -16,6 +25,8 @@ class Legend(object):
         self.figLegend = figLegend
         self.bboxToAnchor = bboxToAnchor
         self.title = title
+        self.labelOrdering = labelOrdering
+        self.leftToRight = leftToRight
 
     def _genLegendKeywords(self):
         legendKeywords = {}
@@ -43,6 +54,23 @@ class Legend(object):
         legendKeywords = self._genLegendKeywords()
 
         legend = None
+
+        if self.labelOrdering is not None:
+            label_handle_pairs = zip(labels, handles)
+
+            def label_sorter(x):
+                try:
+                    return self.labelOrdering.index(x[0])
+                except ValueError, e:
+                    return None
+
+            label_handle_pairs.sort(key=label_sorter)
+
+            labels, handles = zip(*label_handle_pairs)
+
+        if self.leftToRight and self.columns > 1:
+            handles = _flip(handles, self.columns)
+            labels = _flip(labels, self.columns)
 
         if self.figLegend:
             legend = figure.legend(handles, labels, loc=self.location,
