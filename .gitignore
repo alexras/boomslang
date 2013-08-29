@@ -8,3 +8,4 @@ MANIFEST
 htmlcov
 docs/_build
 .\#*
+tests/cover
