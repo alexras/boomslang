@@ -135,6 +135,8 @@ class Plot(object):
         If True, this plot is auto-scaled so that axis labels don't get cut off.
         """
 
+        self.allows_tight = True
+
         self.projection = None
         """
         Defines the projection used when drawing this plot. The only currently
@@ -546,7 +548,7 @@ class Plot(object):
 
         ax2 = None
 
-        if self.tight:
+        if self.tight and self.allows_tight:
             ax.autoscale_view(tight=True)
 
         for inset in self.insets:

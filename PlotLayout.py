@@ -33,6 +33,7 @@ class PlotLayout(object):
         self.figLegendCols = None
 
         self.rcParams = None
+        self.tight = True
 
     def __setRCParam(self, param, value):
         if self.rcParams is None:
@@ -91,6 +92,10 @@ class PlotLayout(object):
         specify a group name with `grouping`. Plots grouped in the same
         grouping are drawn on the same row of the grid.
         """
+
+        if not plot.allows_tight:
+            self.tight = False
+
         if grouping == None:
             self.plots.append(plot)
         else:
@@ -283,7 +288,7 @@ class PlotLayout(object):
         for (key,value) in oldRCParams.items():
             pylab.rcParams[key] = value
 
-        if _check_min_matplotlib_version(1, 1, 0):
+        if _check_min_matplotlib_version(1, 1, 0) and self.tight:
             fig.tight_layout()
         return fig
 

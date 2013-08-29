@@ -64,6 +64,10 @@ class BrokenAxisPlot(Plot):
         Defines how to divvy up space between the two broken parts of the plot
         """
 
+        self.tight = False
+
+        self.allows_tight = False
+
     def subplot(self, fig, row, column, position, projection):
         # Step 0, plot in normal space to build up base fig and stats
         orig_ax = fig.add_subplot(row, column, position)
