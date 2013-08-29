@@ -176,4 +176,6 @@ class BrokenAxisPlot(Plot):
                  1+self.break_line_size/(self.break_ratio)),
                 **kwargs) # bottom-right
 
+        ax2.set_xlim(*ax.get_xlim())
+
         return handles
