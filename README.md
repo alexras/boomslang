@@ -26,7 +26,7 @@ A: The most likely explanation is that your configured backend doesn't support
 anything but saving. You can try changing your backend to Agg by editing your
 `~/.matplotlib/matplotlibrc` file and adding the following line:
 
-`Agg: Agg`
+    backend: Agg
 
 # Staying Up-To-Date
 
