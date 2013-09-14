@@ -23,10 +23,12 @@ Documentation is available at [http://alexras.github.com/boomslang/docs/](http:/
 Q: `Plot.plot()` seems to fail silently, but `Plot.save()` works. How do I fix this?
 
 A: The most likely explanation is that your configured backend doesn't support
-anything but saving. You can try changing your backend to Agg by editing your
+anything but saving. You can try changing your backend to TkAgg by editing your
 `~/.matplotlib/matplotlibrc` file and adding the following line:
 
-    backend: Agg
+    backend: TkAgg
+
+More help on that problem [here](http://stackoverflow.com/a/4930867/576932).
 
 # Staying Up-To-Date
 
