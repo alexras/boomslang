@@ -13,8 +13,8 @@ class ClusteredBars(PlotInfo):
     with the same X axis values.
     """
 
-    def __init__(self):
-        super(ClusteredBars,self).__init__("clustered bar")
+    def __init__(self, **kwargs):
+        super(ClusteredBars,self).__init__("clustered bar", **kwargs)
 
         self.bars = []
         self.spacing = 0
