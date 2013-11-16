@@ -27,6 +27,7 @@ class Legend(object):
         self.title = title
         self.labelOrdering = labelOrdering
         self.leftToRight = leftToRight
+        self.legend = None
 
     def _genLegendKeywords(self):
         legendKeywords = {}
@@ -73,11 +74,14 @@ class Legend(object):
             labels = _flip(labels, self.columns)
 
         if self.figLegend:
-            legend = figure.legend(handles, labels, loc=self.location,
+            self.legend = figure.legend(handles, labels, loc=self.location,
                                    **legendKeywords)
         else:
-            legend = axes.legend(handles, labels, loc=self.location,
+            self.legend = axes.legend(handles, labels, loc=self.location,
                                  **legendKeywords)
 
-        if legend is not None:
-            legend.draw_frame(self.drawFrame)
+        if self.legend is not None:
+            self.legend.draw_frame(self.drawFrame)
+
+    def get_window_extent(self, *args, **kwargs):
+        return self.legend.get_window_extent(*args, **kwargs)
