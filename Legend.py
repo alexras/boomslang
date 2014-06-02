@@ -83,5 +83,5 @@ class Legend(object):
         if self.legend is not None:
             self.legend.draw_frame(self.drawFrame)
 
-    def get_window_extent(self, *args, **kwargs):
-        return self.legend.get_window_extent(*args, **kwargs)
+    def __getattr__(self, name):
+        return getattr(self.legend, name)
