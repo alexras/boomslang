@@ -16,7 +16,7 @@ favorite package management utility like pip.
 
 # Documentation
 
-Documentation is available at [https://boomslang.readthedocs.org/en/latest/](https://boomslang.readthedocs.org/en/latest/)
+Documentation is available at [https://boomslang.readthedocs.io/en/latest/](https://boomslang.readthedocs.io/en/latest/)
 
 # FAQ
 
